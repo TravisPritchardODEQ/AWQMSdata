@@ -18,5 +18,5 @@ Dataframe of organizations with available data
 This function will return a list of organizations with data in AWQMS found in OregonDEQ AWQMS
 }
 \examples{
-AWQMS_Orgs(project = 'Total Maximum Daily Load Sampling', station = c('29820-ORDEQ', '10724-ORDEQ'))
+AWQMS_Orgs(project = 'Total Maximum Daily Load Sampling', c('10591-ORDEQ', '29542-ORDEQ'))
 }

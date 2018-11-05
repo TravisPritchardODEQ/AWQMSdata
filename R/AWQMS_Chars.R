@@ -4,7 +4,7 @@
 #' @param project Optional vector of projects to be filtered on
 #' @param station Optional vector of stations to be filtered on
 #' @return Dataframe of monitoring locations
-#' @examples AWQMS_Chars(project = 'Total Maximum Daily Load Sampling', station = c('29820-ORDEQ', '10724-ORDEQ'))
+#' @examples AWQMS_Chars(project = 'Total Maximum Daily Load Sampling', station = c('10591-ORDEQ', '29542-ORDEQ'))
 #' @export
 
 

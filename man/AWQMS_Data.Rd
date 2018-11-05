@@ -36,6 +36,6 @@ Dataframe of data from AWQMS
 This function will retrive data from OregonDEQ AWQMS
 }
 \examples{
-AWQMS_Data(startdate = '2000-1-1', enddate = '2000-12-31', station = c('29820-ORDEQ', '10724-ORDEQ'),
+AWQMS_Data(startdate = '2017-1-1', enddate = '2000-12-31', station = c('10591-ORDEQ', '29542-ORDEQ'),
 project = 'Total Maximum Daily Load Sampling', filterQC = FALSE)
 }

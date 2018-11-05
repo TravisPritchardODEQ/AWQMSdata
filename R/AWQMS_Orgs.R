@@ -4,7 +4,7 @@
 #' @param project Optional vector of projects to be filtered on
 #' @param station Optional vector of stations to be filtered on
 #' @return Dataframe of organizations with available data
-#' @examples AWQMS_Orgs(project = 'Total Maximum Daily Load Sampling', station = c('29820-ORDEQ', '10724-ORDEQ'))
+#' @examples AWQMS_Orgs(project = 'Total Maximum Daily Load Sampling', c('10591-ORDEQ', '29542-ORDEQ'))
 #' @export
 
 
@@ -13,7 +13,7 @@ AWQMS_Orgs <- function(project = NULL, station = NULL) {
   #Connect to database
   con <- DBI::dbConnect(odbc::odbc(), "AWQMS")
 
-  query = "SELECT distinct [org]
+  query = "SELECT distinct [OrganizationID]
   FROM [awqms].[dbo].[VW_AWQMS_Results]"
 
   if (length(project) > 0) {

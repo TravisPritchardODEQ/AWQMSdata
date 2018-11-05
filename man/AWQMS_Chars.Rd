@@ -18,5 +18,5 @@ Dataframe of monitoring locations
 This function will return a list of characterustucs found in OregonDEQ AWQMS
 }
 \examples{
-AWQMS_Chars(project = 'Total Maximum Daily Load Sampling', station = c('29820-ORDEQ', '10724-ORDEQ'))
+AWQMS_Chars(project = 'Total Maximum Daily Load Sampling', station = c('10591-ORDEQ', '29542-ORDEQ'))
 }
