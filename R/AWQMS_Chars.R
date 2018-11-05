@@ -27,13 +27,12 @@ AWQMS_Chars <- function(project = NULL, station = NULL) {
     if (length(project) > 0) {
       query = paste0(query, "\n AND MLocID IN ({station*})")
     } else {
-      query <- paste0(query, "\n WHERE (MLocID IN ({station*})")
+      query <- paste0(query, "\n WHERE MLocID IN ({station*})")
     }
 
     }
 
 
-  query <- paste0(query, "\n ORDER BY [Char_Name]")
 
   # Create query language
   qry <- glue::glue_sql(query, .con = con)
