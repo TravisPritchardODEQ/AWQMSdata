@@ -45,7 +45,7 @@ AWQMS_Station <- function(project = NULL, char = NULL, HUC8 = NULL) {
 
    if(length(HUC8) > 0){
 
-     if(length(project) > 0 | length(station > 0) ){
+     if(length(project) > 0 | length(char > 0) ){
        query = paste0(query, "\n AND HUC8 IN ({HUC8*})")
 
      }  else {
