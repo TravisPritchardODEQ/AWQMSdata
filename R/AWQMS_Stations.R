@@ -5,7 +5,7 @@
 #' @param station Optional vector of stations to be filtered on
 #' @param HUC8 Optional vector of HUC8s to be filtered on
 #' @return Dataframe of monitoring locations
-#' @examples AWQMS_Station(project = 'Total Maximum Daily Load Sampling', station = c('29820-ORDEQ', '10724-ORDEQ'), HUC8 = )
+#' @examples AWQMS_Station(project = 'Total Maximum Daily Load Sampling', char = "Temperature, water", HUC8 = "17090003")
 #' @export
 
 

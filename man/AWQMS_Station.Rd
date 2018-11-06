@@ -20,5 +20,5 @@ Dataframe of monitoring locations
 This function will return a list of monitoring locations with data found in OregonDEQ AWQMS
 }
 \examples{
-AWQMS_Station(project = 'Total Maximum Daily Load Sampling', station = c('29820-ORDEQ', '10724-ORDEQ'), HUC8 = )
+AWQMS_Station(project = 'Total Maximum Daily Load Sampling', char = "Temperature, water", HUC8 = "17090003")
 }
