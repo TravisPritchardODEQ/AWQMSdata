@@ -29,12 +29,12 @@ AWQMS_Station <- function(project = NULL, char = NULL, HUC8 = NULL) {
 # Station Filter ----------------------------------------------------------
 
 
-  if (length(station) > 0) {
+  if (length(char) > 0) {
 
     if (length(project) > 0) {
-      query = paste0(query, "\n AND MLocID IN ({station*})")
+      query = paste0(query, "\n AND Char_Name IN ({char*})")
     } else {
-      query <- paste0(query, "\n WHERE MLocID IN ({station*})")
+      query <- paste0(query, "\n WHERE Char_Name IN ({char*})")
     }
 
     }
