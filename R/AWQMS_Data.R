@@ -21,7 +21,7 @@
 
 AWQMS_Data <- function(startdate = '1900-1-1', enddate = NULL, station = NULL,
                        project = NULL, char = NULL, stat_base = NULL,
-                       media = NULL, org = NULL, HUC8 = NULL, filterQC = TRUE) {
+                       media = NULL, org = NULL, HUC8 = NULL, HUC8_Name = NULL, filterQC = TRUE) {
 
   if(missing(startdate)) {
     stop("Need to input startdate")
@@ -85,6 +85,14 @@ AWQMS_Data <- function(startdate = '1900-1-1', enddate = NULL, station = NULL,
 
   if(length(HUC8) > 0){
     query = paste0(query,"\n AND HUC8 in ({HUC8*}) " )
+
+  }
+
+
+  #HUC8_Name
+
+  if(length(HUC8) > 0){
+    query = paste0(query,"\n AND HUC8_Name in ({HUC8_Name*}) " )
 
   }
 
