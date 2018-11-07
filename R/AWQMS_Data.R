@@ -19,7 +19,7 @@
 #'
 #'
 
-AWQMS_Data <- function(startdate = '1900-1-1', enddate = NULL, station = NULL,
+AWQMS_Data <- function(startdate = '1949-09-15', enddate = NULL, station = NULL,
                        project = NULL, char = NULL, stat_base = NULL,
                        media = NULL, org = NULL, HUC8 = NULL, HUC8_Name = NULL, filterQC = TRUE) {
 
