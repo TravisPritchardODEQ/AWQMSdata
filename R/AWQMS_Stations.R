@@ -9,7 +9,7 @@
 #' @export
 
 
-AWQMS_Station <- function(project = NULL, char = NULL, HUC8 = NULL) {
+AWQMS_Stations <- function(project = NULL, char = NULL, HUC8 = NULL) {
 
 
 # Connect to database -----------------------------------------------------

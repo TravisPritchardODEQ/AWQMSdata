@@ -4,9 +4,9 @@
 \alias{AWQMS_Data}
 \title{AWQMS_Data}
 \usage{
-AWQMS_Data(startdate, enddate = NULL, station = NULL, project = NULL,
-  char = NULL, stat_base = NULL, media = NULL, org = NULL,
-  HUC8 = NULL, filterQC = TRUE)
+AWQMS_Data(startdate = "1949-09-15", enddate = NULL, station = NULL,
+  project = NULL, char = NULL, stat_base = NULL, media = NULL,
+  org = NULL, HUC8 = NULL, HUC8_Name = NULL, filterQC = TRUE)
 }
 \arguments{
 \item{startdate}{Required parameter setting the startdate of the data being fetched. Format 'yyyy-mm-dd'}
