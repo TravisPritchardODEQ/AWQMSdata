@@ -10,6 +10,7 @@
 #' @param media Optional vector of sample media to be fetched
 #' @param org optional vector of Organizations to be fetched
 #' @param HUC8 Optional vector of HUC8s to be fetched
+#' @param HUC8_Name Optional vector of HUC8 names to be fetched
 #' @param filterQC If true, do not return MLocID 10000-ORDEQ or sample replicates
 #' @return Dataframe of data from AWQMS
 #' @examples
@@ -91,7 +92,7 @@ AWQMS_Data <- function(startdate = '1949-09-15', enddate = NULL, station = NULL,
 
   #HUC8_Name
 
-  if(length(HUC8) > 0){
+  if(length(HUC8_Name) > 0){
     query = paste0(query,"\n AND HUC8_Name in ({HUC8_Name*}) " )
 
   }

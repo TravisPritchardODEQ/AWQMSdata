@@ -4,12 +4,13 @@
 #' @param project Optional vector of projects to be filtered on
 #' @param station Optional vector of stations to be filtered on
 #' @param HUC8 Optional vector of HUC8s to be filtered on
+#' @param HUC8_Name Optional vector of HUC8 names to be filtered on
 #' @return Dataframe of monitoring locations
 #' @examples AWQMS_Station(project = 'Total Maximum Daily Load Sampling', char = "Temperature, water", HUC8 = "17090003")
 #' @export
 
 
-AWQMS_Stations <- function(project = NULL, char = NULL, HUC8 = NULL) {
+AWQMS_Stations <- function(project = NULL, char = NULL, HUC8 = NULL, HUC8_Name = NULL) {
 
 
 # Connect to database -----------------------------------------------------
@@ -53,6 +54,22 @@ AWQMS_Stations <- function(project = NULL, char = NULL, HUC8 = NULL) {
        }
 
    }
+
+
+  #HUC8_Name
+
+  if(length(HUC8_Name) > 0){
+
+    if(length(project) > 0 |
+       length(char > 0) |
+       length(HUC8) > 0){
+
+    query = paste0(query,"\n AND HUC8_Name in ({HUC8_Name*}) " )
+
+    } else {
+      query <- paste0(query, "\n WHERE HUC8 IN ({HUC8_Name*})")
+    }
+  }
 
 
 # Put query language together ---------------------------------------------

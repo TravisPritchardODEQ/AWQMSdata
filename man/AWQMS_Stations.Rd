@@ -4,12 +4,15 @@
 \alias{AWQMS_Stations}
 \title{AWQMS_Station}
 \usage{
-AWQMS_Stations(project = NULL, char = NULL, HUC8 = NULL)
+AWQMS_Stations(project = NULL, char = NULL, HUC8 = NULL,
+  HUC8_Name = NULL)
 }
 \arguments{
 \item{project}{Optional vector of projects to be filtered on}
 
 \item{HUC8}{Optional vector of HUC8s to be filtered on}
+
+\item{HUC8_Name}{Optional vector of HUC8 names to be filtered on}
 
 \item{station}{Optional vector of stations to be filtered on}
 }
