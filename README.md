@@ -45,7 +45,7 @@ This package contails the following functions:
 | `AWQMS_Data`  | startdate <br/> enddate <br/> station <br/> project <br/> char <br/> stat_base <br/> media <br/> org <br/> HUC8 <br/> filterQC | Retrieve a dataframe of data exported from AWQMS       |
 | `AWQMS_Chars` | project <br/> station | Return a vector of available characteristics |
 | `AWQMS_Orgs` |  project <br/> station | Return a vector of available organizations |
-| `AWQMS_Projects` | NONE | Return a vactor of available projects |
+| `AWQMS_Projects` | - | Return a vactor of available projects |
 | `AWQMS_Stations` | project <br/> char <br/> HUC8 |  Return a vector of available stations |
 
 
