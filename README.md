@@ -2,6 +2,9 @@
 
 AWQMSdata was created to load Oregon DEQ AWQMS data into R. This is intended for internal Oregon DEQ users. Public users should use the AWQMS frontend locacted  [here.](https://www.oregon.gov/deq/wq/Pages/WQdata.aspx) 
 
+There is a Shiny App that can be used to help put together the data retrieval function. You can clone or download that app [here](https://github.com/TravisPritchardODEQ/AWQMSdata_ShinyHelp)
+
+
 Note that this package is currently a work in progress.
 
 ## Installation
@@ -19,7 +22,6 @@ library(devtools)
 install_github("TravisPritchardODEQ/AWQMSdata")
 ```
 
-There is also a Shiny App that can be used to help put together the data retrieval function. You can clone or download that app [here](https://github.com/TravisPritchardODEQ/AWQMSdata_ShinyHelp)
 
 
 ## Description
@@ -43,10 +45,10 @@ This package contails the following functions:
 | Function Name | Arguments | Description |
 | ------------- | --------- | ----------- |
 | `AWQMS_Data`  | startdate <br/> enddate <br/> station <br/> project <br/> char <br/> stat_base <br/> media <br/> org <br/> HUC8 <br/> filterQC | Retrieve a dataframe of data exported from AWQMS       |
-| `AWQMS_Chars` | project <br/> station | Return a vector of available characteristics |
-| `AWQMS_Orgs` |  project <br/> station | Return a vector of available organizations |
-| `AWQMS_Projects` | - | Return a vactor of available projects |
-| `AWQMS_Stations` | project <br/> char <br/> HUC8 |  Return a vector of available stations |
+| `AWQMS_Chars` | project <br/> station | Return a dataframe of available characteristics |
+| `AWQMS_Orgs` |  project <br/> station | Return a dataframe of available organizations |
+| `AWQMS_Projects` | - | Return a dataframe of available projects |
+| `AWQMS_Stations` | project <br/> char <br/> HUC8 |  Return a dataframe of available stations |
 
 
 
