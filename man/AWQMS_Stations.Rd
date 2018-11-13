@@ -5,7 +5,7 @@
 \title{AWQMS_Station}
 \usage{
 AWQMS_Stations(project = NULL, char = NULL, HUC8 = NULL,
-  HUC8_Name = NULL)
+  HUC8_Name = NULL, org = NULL)
 }
 \arguments{
 \item{project}{Optional vector of projects to be filtered on}

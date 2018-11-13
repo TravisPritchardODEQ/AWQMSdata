@@ -10,7 +10,7 @@
 #' @export
 
 
-AWQMS_Stations <- function(project = NULL, char = NULL, HUC8 = NULL, HUC8_Name = NULL) {
+AWQMS_Stations <- function(project = NULL, char = NULL, HUC8 = NULL, HUC8_Name = NULL, org = NULL) {
 
 
 # Connect to database -----------------------------------------------------
@@ -68,6 +68,22 @@ AWQMS_Stations <- function(project = NULL, char = NULL, HUC8 = NULL, HUC8_Name =
 
     } else {
       query <- paste0(query, "\n WHERE HUC8 IN ({HUC8_Name*})")
+    }
+  }
+
+  #HUC8_Name
+
+  if(length(org) > 0){
+
+    if(length(project) > 0 |
+       length(char > 0) |
+       length(HUC8) > 0 |
+       length(HUC8_Name) > 0){
+
+      query = paste0(query,"\n AND OrganizationID in ({org*}) " )
+
+    } else {
+      query <- paste0(query, "\n WHERE OrganizationID in ({org*}) " )
     }
   }
 
