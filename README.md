@@ -1,8 +1,9 @@
-# AWQMSdata
+# AWQMSdata  
+---
 
-AWQMSdata was created to load Oregon DEQ AWQMS data into R. This is intended for internal Oregon DEQ users. Public users should use the AWQMS frontend locacted  [here.](https://www.oregon.gov/deq/wq/Pages/WQdata.aspx) 
+AWQMSdata was created to load Oregon DEQ AWQMS data into R. This is intended for internal Oregon DEQ users. Public users should use the AWQMS frontend locacted  [here.](https://www.oregon.gov/deq/wq/Pages/WQdata.aspx)   
 
-There is a Shiny App that can be used to help put together the data retrieval function. You can clone or download that app [here](https://github.com/TravisPritchardODEQ/AWQMSdata_ShinyHelp)
+There is a Shiny App that can be used to help put together the data retrieval function. You can clone or download that app [here](https://github.com/TravisPritchardODEQ/AWQMSdata_ShinyHelp)  
 
 
 Note that this package is currently a work in progress.
@@ -50,6 +51,19 @@ This package contails the following functions:
 | `AWQMS_Projects` | - | Return a dataframe of available projects |
 | `AWQMS_Stations` | project <br/> char <br/> HUC8 |  Return a dataframe of available stations |
 
+## Usage
 
+#### AWQMS_Projects
+Use `AWQMS_Projects()` to return all available projects from AWQMS. This function will include projects found in the Project1, Project2, and Project3 fields. 
+
+```
+projects <- AWQMS_Projects()
+```
+
+A vector of projects can be then created.
+
+```
+projects_vector <- projects$Project
+```
 
 
