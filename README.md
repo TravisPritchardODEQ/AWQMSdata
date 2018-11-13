@@ -1,8 +1,3 @@
----
-output:
-  html_document: default
-  word_document: default
----
 # AWQMSdata  
 
 
@@ -82,6 +77,11 @@ Use `AWQMS_Stations()` to return available stations from AWQMS. This function's 
 To see all available stations:
 ```
 stations <- AWQMS_Stations()
+```
+
+To see stations that are associated with Oregon DEQ:
+```
+stations <- AWQMS_Stations(org = 'OREGONDEQ')
 ```
 
 To see stations with water temperature and dissolved oxygen data:
