@@ -29,8 +29,8 @@ DBI::dbDisconnect(con)
 projects <- rbind(project1, project2)
 
 projects <- unique(projects)
-
-
+projects <- projects$Project
+projects <- sort(projects)
 
 return(projects)
 

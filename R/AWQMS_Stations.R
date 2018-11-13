@@ -76,6 +76,8 @@ AWQMS_Station <- function(project = NULL, char = NULL, HUC8 = NULL) {
 
 # Return dataframe --------------------------------------------------------
 
+  data_fetch <- data_fetch$MLocID
+  data_fetch <- sort(data_fetch)
 
   return(data_fetch)
 

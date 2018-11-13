@@ -44,6 +44,9 @@ AWQMS_Chars <- function(project = NULL, station = NULL) {
   # Disconnect
   DBI::dbDisconnect(con)
 
+  data_fetch <- data_fetch$Char_Name
+  data_fetch <- sort(chdata_fetchars)
+
   return(data_fetch)
 
 }
