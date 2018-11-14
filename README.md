@@ -3,7 +3,7 @@
 
 AWQMSdata was created to load Oregon DEQ AWQMS data into R. This is intended for internal Oregon DEQ users. Public users should use the AWQMS frontend locacted  [here.](https://www.oregon.gov/deq/wq/Pages/WQdata.aspx)   
 
-There is a Shiny App that can be used to help put together the data retrieval function. You can clone or download that app [here](https://github.com/TravisPritchardODEQ/AWQMSdata_ShinyHelp)  
+There is a Shiny App that can be used to help put together the data retrieval function. You can clone or download that app [here.](https://github.com/TravisPritchardODEQ/AWQMSdata_ShinyHelp)  
 
 
 Note that this package is currently a work in progress. It is being developed by Travis Pritchard- pritchard.travis@deq.state.or.us
@@ -58,7 +58,7 @@ This package contails the following functions:
 #### AWQMS_Data
 Use `AWQMS_Data()` to retrieve data from Oregon DEQ AWQMS database. This dataset is too large to load into R, so you must include parameters to filter down the data. The default start date is 1949-09-15, which represents the earliest datapoint available in AWQMS. 
 
-Note - There is a shiny app to help put together this function. The app helps by allowing you to select from lists of valid values. You can clone or download that app [here].(https://github.com/TravisPritchardODEQ/AWQMSdata_ShinyHelp)  
+Note - There is a shiny app to help put together this function. The app helps by allowing you to select from lists of valid values. You can clone or download that app [here.](https://github.com/TravisPritchardODEQ/AWQMSdata_ShinyHelp)  
 
 To retrieve all available data from 1/1/2017 - 12/31/2017:
 
