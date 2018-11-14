@@ -58,7 +58,7 @@ This package contails the following functions:
 #### AWQMS_Data
 Use `AWQMS_Data()` to retrieve data from Oregon DEQ AWQMS database. This dataset is too large to load into R, so you must include parameters to filter down the data. The default start date is 1949-09-15, which represents the earliest datapoint available in AWQMS. 
 
-Note - There is a shiny app to help put together this function. The app helps by allowing you to select from lists of valid values. You can clone or download that app [here.](https://github.com/TravisPritchardODEQ/AWQMSdata_ShinyHelp)  
+Note - There is a shiny app to help put together this function. The app helps by allowing you to select from lists of valid values. You can clone or download the app [here](https://github.com/TravisPritchardODEQ/AWQMSdata_ShinyHelp) and run locally on your machine.   
 
 To retrieve all available data from 1/1/2017 - 12/31/2017:
 
@@ -83,6 +83,29 @@ data <- AWQMS_Data(startdate = '2017-01-01', enddate = '2017-12-31', char = c('T
 
 
 <br/>
+
+#### AWQMS_Chars
+Use `AWQMS_Chars()` to return available characteristics from AWQMS. Aruments can be project or station
+
+To return all available characteristics in AWQMS:
+
+```
+characteristics <- AWQMS_Chars()
+```
+
+To return all available characteristics in the VolMon program: 
+
+```
+characteristics <- AWQMS_Chars(project = 'ODEQVolMonWQProgram')
+```
+
+To return all available characteristics for Volmon and Continuous Water Quality Monitoring
+
+```
+characteristics <- AWQMS_Chars(project = c('ODEQVolMonWQProgram', 'Continuous Water Quality Monitoring'))
+```
+
+
 
 #### AWQMS_Projects
 Use `AWQMS_Projects()` to return all available projects from AWQMS. This function will include projects found in the Project1, Project2, and Project3 fields. 
