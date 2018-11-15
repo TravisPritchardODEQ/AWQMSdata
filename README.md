@@ -1,7 +1,12 @@
+---
+output:
+  word_document: default
+  html_document: default
+---
 # AWQMSdata  
 
 
-AWQMSdata was created to load Oregon DEQ AWQMS data into R. This is intended for internal Oregon DEQ users. Public users should use the AWQMS frontend locacted  [here.](https://www.oregon.gov/deq/wq/Pages/WQdata.aspx)   
+AWQMSdata was created to load data from Oregon DEQ AWQMS into R. This is intended for internal Oregon DEQ users. Public users should use the AWQMS frontend locacted  [here.](https://www.oregon.gov/deq/wq/Pages/WQdata.aspx)   
 
 There is a Shiny App that can be used to help put together the data retrieval function. You can clone or download that app [here.](https://github.com/TravisPritchardODEQ/AWQMSdata_ShinyHelp)  
 
@@ -27,7 +32,7 @@ install_github("TravisPritchardODEQ/AWQMSdata")
 
 ## Description
 
-This package contails the following functions:
+This package contains the following functions:
 
 
   * __AWQMS_Chars(project, station)__ - Returns characteristics available for downloading from AWQMS
@@ -85,7 +90,7 @@ data <- AWQMS_Data(startdate = '2017-01-01', enddate = '2017-12-31', char = c('T
 <br/>
 
 #### AWQMS_Chars
-Use `AWQMS_Chars()` to return available characteristics from AWQMS. Aruments can be project or station
+Use `AWQMS_Chars()` to return available characteristics from AWQMS. Arguments can be project or station
 
 To return all available characteristics in AWQMS:
 
@@ -105,10 +110,10 @@ To return all available characteristics for Volmon and Continuous Water Quality 
 characteristics <- AWQMS_Chars(project = c('ODEQVolMonWQProgram', 'Continuous Water Quality Monitoring'))
 ```
 
-
+<br/>
 
 #### AWQMS_Projects
-Use `AWQMS_Projects()` to return all available projects from AWQMS. This function will include projects found in the Project1, Project2, and Project3 fields. 
+Use `AWQMS_Projects()` to return all available projects from AWQMS. This function will include projects found in the Project1, Project2, and Project3 fields. This function doesn't take any arguments.  
 
 ```
 projects <- AWQMS_Projects()
