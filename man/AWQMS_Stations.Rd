@@ -10,11 +10,13 @@ AWQMS_Stations(project = NULL, char = NULL, HUC8 = NULL,
 \arguments{
 \item{project}{Optional vector of projects to be filtered on}
 
+\item{char}{Optional vector of characters to be filtered on}
+
 \item{HUC8}{Optional vector of HUC8s to be filtered on}
 
 \item{HUC8_Name}{Optional vector of HUC8 names to be filtered on}
 
-\item{station}{Optional vector of stations to be filtered on}
+\item{org}{Optional vector of organizations to be filtered on}
 }
 \value{
 Dataframe of monitoring locations

@@ -2,9 +2,10 @@
 #'
 #' This function will return a list of monitoring locations with data found in OregonDEQ AWQMS
 #' @param project Optional vector of projects to be filtered on
-#' @param station Optional vector of stations to be filtered on
+#' @param char Optional vector of characters to be filtered on
 #' @param HUC8 Optional vector of HUC8s to be filtered on
 #' @param HUC8_Name Optional vector of HUC8 names to be filtered on
+#' @param org Optional vector of organizations to be filtered on
 #' @return Dataframe of monitoring locations
 #' @examples AWQMS_Station(project = 'Total Maximum Daily Load Sampling', char = "Temperature, water", HUC8 = "17090003")
 #' @export
@@ -27,7 +28,21 @@ AWQMS_Stations <- function(project = NULL, char = NULL, HUC8 = NULL, HUC8_Name =
   }
 
 
-# Station Filter ----------------------------------------------------------
+  # project Filter ----------------------------------------------------------
+
+
+  if (length(char) > 0) {
+
+    if (length(project) > 0) {
+      query = paste0(query, "\n AND (Project1 in ({project*}) OR Project2 in ({project*})) ")
+    } else {
+      query <- paste0(query, "\n WHERE (Project1 in ({project*}) OR Project2 in ({project*})) ")
+    }
+
+  }
+
+
+  # Station Filter ----------------------------------------------------------
 
 
   if (length(char) > 0) {
@@ -67,7 +82,7 @@ AWQMS_Stations <- function(project = NULL, char = NULL, HUC8 = NULL, HUC8_Name =
     query = paste0(query,"\n AND HUC8_Name in ({HUC8_Name*}) " )
 
     } else {
-      query <- paste0(query, "\n WHERE HUC8 IN ({HUC8_Name*})")
+      query <- paste0(query, "\n WHERE HUC8_Name IN ({HUC8_Name*})")
     }
   }
 
