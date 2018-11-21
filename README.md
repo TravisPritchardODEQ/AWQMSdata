@@ -49,7 +49,7 @@ This package contains the following functions:
 | `AWQMS_Chars` | project <br/> station | Return a dataframe of available characteristics |
 | `AWQMS_Orgs` |  project <br/> station | Return a dataframe of available organizations |
 | `AWQMS_Projects` | - | Return a dataframe of available projects |
-| `AWQMS_Stations` | project <br/> char <br/> HUC8 |  Return a dataframe of available stations |
+| `AWQMS_Stations` | project <br/> char <br/> HUC8 <br/> HUC8_Name <br/> org |  Return a dataframe of available stations |
 
 <br/>
 
@@ -99,7 +99,7 @@ To return all available characteristics in the VolMon program:
 characteristics <- AWQMS_Chars(project = 'ODEQVolMonWQProgram')
 ```
 
-To return all available characteristics for Volmon and Continuous Water Quality Monitoring
+To return all available characteristics for Volmon and Continuous Water Quality Monitoring:
 
 ```
 characteristics <- AWQMS_Chars(project = c('ODEQVolMonWQProgram', 'Continuous Water Quality Monitoring'))
@@ -124,7 +124,7 @@ projects_vector <- projects$Project
 
 
 #### AWQMS_Stations
-Use `AWQMS_Stations()` to return available stations from AWQMS. This function's arguments can include any or all of vectors of project, characteristics, HUC8, or HUC8 name.  
+Use `AWQMS_Stations()` to return available stations from AWQMS. This function's arguments can include any or all of vectors of project, characteristics, HUC8, HUC8 name, or organization.  
 
 To see all available stations:
 ```
