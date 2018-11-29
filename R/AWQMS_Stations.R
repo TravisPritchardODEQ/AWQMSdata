@@ -19,7 +19,7 @@ AWQMS_Stations <- function(project = NULL, char = NULL, HUC8 = NULL, HUC8_Name =
 
   con <- DBI::dbConnect(odbc::odbc(), "AWQMS")
 
-  query = "SELECT distinct [MLocID]
+  query = "SELECT distinct  [MLocID], [StationDes], [MonLocType], [EcoRegion3], [EcoRegion4], [HUC8], [HUC8_Name], [HUC10], [HUC12], [HUC12_Name], [Lat_DD], [Long_DD], [Reachcode], [Measure], [AU_ID]
   FROM [awqms].[dbo].[VW_AWQMS_Results]"
 
   if (length(project) > 0) {
