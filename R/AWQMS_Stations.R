@@ -28,18 +28,6 @@ AWQMS_Stations <- function(project = NULL, char = NULL, HUC8 = NULL, HUC8_Name =
   }
 
 
-  # project Filter ----------------------------------------------------------
-
-
-  if (length(char) > 0) {
-
-    if (length(project) > 0) {
-      query = paste0(query, "\n AND (Project1 in ({project*}) OR Project2 in ({project*})) ")
-    } else {
-      query <- paste0(query, "\n WHERE (Project1 in ({project*}) OR Project2 in ({project*})) ")
-    }
-
-  }
 
 
   # Station Filter ----------------------------------------------------------
