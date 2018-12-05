@@ -12,6 +12,11 @@ Note that this package is currently a work in progress. It is being developed by
 
 **_You need an ODBC connection to the AWQMS database named AWQMS, and read access to VW_AWQMS_Results._**
 
+* Staff will need to send a request to helpdesk to be added to the LabDBAWQMSODBC User Group on the LEAD-LIMS server.
+* Add an ODBC connection to AWQMS on server **DEQLEAD-LIMS\AWQMS** named **AWQMS**
+
+ 
+
 You also need to have the [devtools](https://github.com/hadley/devtools) package installed. 
 ```
 install.packages("devtools")
