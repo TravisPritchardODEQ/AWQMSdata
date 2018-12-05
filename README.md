@@ -22,12 +22,18 @@ You also need to have the [devtools](https://github.com/hadley/devtools) package
 install.packages("devtools")
 ```
 
-To install AWQMSdata:
+To install AWQMSdata:<br/>
+___Note - The install process only needs to be run once (or when the package gets updated)___
 ```
 library(devtools)
 install_github("TravisPritchardODEQ/AWQMSdata")
 ```
 
+AWQMSdata is now installed on you computer and can be loaded like any other package. 
+
+```
+library(AWQMSdata)
+```
 
 
 ## Description
