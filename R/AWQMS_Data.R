@@ -11,6 +11,9 @@
 #' @param org optional vector of Organizations to be fetched
 #' @param HUC8 Optional vector of HUC8s to be fetched
 #' @param HUC8_Name Optional vector of HUC8 names to be fetched
+#' @param HUC10 Optional vector of HUC10s to be fetched
+#' @param HUC12 Optional vector of HUC12s to be fetched
+#' @param HUC12_Name Optional vector of HUC12 names to be fetched
 #' @param filterQC If true, do not return MLocID 10000-ORDEQ or sample replicates
 #' @return Dataframe of data from AWQMS
 #' @examples
@@ -22,7 +25,9 @@
 
 AWQMS_Data <- function(startdate = '1949-09-15', enddate = NULL, station = NULL,
                        project = NULL, char = NULL, stat_base = NULL,
-                       media = NULL, org = NULL, HUC8 = NULL, HUC8_Name = NULL, filterQC = TRUE) {
+                       media = NULL, org = NULL, HUC8 = NULL, HUC8_Name = NULL,
+                       HUC10 = NULL, HUC12 = NULL,  HUC12_Name = NULL,
+                       filterQC = TRUE) {
 
   if(missing(startdate)) {
     stop("Need to input startdate")
@@ -94,6 +99,22 @@ AWQMS_Data <- function(startdate = '1949-09-15', enddate = NULL, station = NULL,
 
   if(length(HUC8_Name) > 0){
     query = paste0(query,"\n AND HUC8_Name in ({HUC8_Name*}) " )
+
+  }
+
+  if(length(HUC10) > 0){
+    query = paste0(query,"\n AND HUC10 in ({HUC10*}) " )
+
+  }
+
+  if(length(HUC12) > 0){
+    query = paste0(query,"\n AND HUC12 in ({HUC12*}) " )
+
+  }
+
+
+  if(length(HUC12_Name) > 0){
+    query = paste0(query,"\n AND HUC12_Name in ({HUC12_Name*}) " )
 
   }
 

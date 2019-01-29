@@ -56,7 +56,7 @@ This package contains the following functions:
 
 | Function Name | Arguments | Description |
 | ------------- | --------- | ----------- |
-| `AWQMS_Data`  | startdate <br/> enddate <br/> station <br/> project <br/> char <br/> stat_base <br/> media <br/> org <br/> HUC8 <br/> filterQC | Retrieve a dataframe of data exported from AWQMS       |
+| `AWQMS_Data`  | startdate <br/> enddate <br/> station <br/> project <br/> char <br/> stat_base <br/> media <br/> org <br/> HUC8 <br/> HUC8_Name <br/> HUC10 <br/> HUC12 <br/> HUC12_Name <br/>filterQC | Retrieve a dataframe of data exported from AWQMS       |
 | `AWQMS_Chars` | project <br/> station | Return a dataframe of available characteristics |
 | `AWQMS_Orgs` |  project <br/> station | Return a dataframe of available organizations |
 | `AWQMS_Projects` | - | Return a dataframe of available projects |

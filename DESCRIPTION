@@ -1,7 +1,7 @@
 Package: AWQMSdata
 Type: Package
 Title: Retrives data from Oregon DEQ water quality database AWQMS
-Version: 0.1.0
+Version: 0.2.0
 Author: Travis Pritchard
 Maintainer: Travis Pritchard <pritchard.travis@deq.state.or.us>
 Description: Retrives data from Oregon DEQ water quality database AWQMS
@@ -9,4 +9,4 @@ License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 Imports: odbc, DBI, glue
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1

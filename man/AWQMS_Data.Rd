@@ -6,7 +6,8 @@
 \usage{
 AWQMS_Data(startdate = "1949-09-15", enddate = NULL, station = NULL,
   project = NULL, char = NULL, stat_base = NULL, media = NULL,
-  org = NULL, HUC8 = NULL, HUC8_Name = NULL, filterQC = TRUE)
+  org = NULL, HUC8 = NULL, HUC8_Name = NULL, HUC10 = NULL,
+  HUC12 = NULL, HUC12_Name = NULL, filterQC = TRUE)
 }
 \arguments{
 \item{startdate}{Required parameter setting the startdate of the data being fetched. Format 'yyyy-mm-dd'}
@@ -28,6 +29,12 @@ AWQMS_Data(startdate = "1949-09-15", enddate = NULL, station = NULL,
 \item{HUC8}{Optional vector of HUC8s to be fetched}
 
 \item{HUC8_Name}{Optional vector of HUC8 names to be fetched}
+
+\item{HUC10}{Optional vector of HUC10s to be fetched}
+
+\item{HUC12}{Optional vector of HUC12s to be fetched}
+
+\item{HUC12_Name}{Optional vector of HUC12 names to be fetched}
 
 \item{filterQC}{If true, do not return MLocID 10000-ORDEQ or sample replicates}
 }
