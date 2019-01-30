@@ -2,6 +2,8 @@
 
 export(AWQMS_Chars)
 export(AWQMS_Data)
+export(AWQMS_Data_strds)
 export(AWQMS_Orgs)
 export(AWQMS_Projects)
 export(AWQMS_Stations)
+export(AWQMS_Stations_strds)

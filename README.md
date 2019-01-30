@@ -44,9 +44,14 @@ This package contains the following functions:
   * __AWQMS_Chars(project, station)__ - Returns characteristics available for downloading from AWQMS
   * __AWQMS_Projects()__ - Returns projects available for downloading from AWQMS
   * __AWQMS_Orgs(project, station)__ - Returns organizations with data available for downloading from AWQMS
+  * __AWQMS_Stations(project, char, HUC8, HUC8_Name, org)__ - Returns information about monitoring locations
   * __AWQMS_Data(startdate, enddate, station,
                        project, char, stat_base,
                        media, org, HUC8, filterQC = TRUE)__  - Returns data from AWQMS  
+  * __AWQMS_Data_strds(startdate, enddate, station,
+                       project, char, stat_base,
+                       media, org, HUC8, filterQC = TRUE)__  - Returns data from AWQMS along with the standard codes needed to determine water quality criteria 
+  * __AWQMS_Stations_strds(project, char, HUC8, HUC8_Name, org)__ - Returns information about monitoring locations along with the standard codes needed to determine water quality criteria 
                        
 <br/>
 <br/>
@@ -57,10 +62,12 @@ This package contains the following functions:
 | Function Name | Arguments | Description |
 | ------------- | --------- | ----------- |
 | `AWQMS_Data`  | startdate <br/> enddate <br/> station <br/> project <br/> char <br/> stat_base <br/> media <br/> org <br/> HUC8 <br/> HUC8_Name <br/> HUC10 <br/> HUC12 <br/> HUC12_Name <br/>filterQC | Retrieve a dataframe of data exported from AWQMS       |
+| `AWQMS_Data_strds`  | startdate <br/> enddate <br/> station <br/> project <br/> char <br/> stat_base <br/> media <br/> org <br/> HUC8 <br/> HUC8_Name <br/> HUC10 <br/> HUC12 <br/> HUC12_Name <br/>filterQC | Retrieve a dataframe of data exported from AWQMS combined with standard codes     |
 | `AWQMS_Chars` | project <br/> station | Return a dataframe of available characteristics |
 | `AWQMS_Orgs` |  project <br/> station | Return a dataframe of available organizations |
 | `AWQMS_Projects` | - | Return a dataframe of available projects |
 | `AWQMS_Stations` | project <br/> char <br/> HUC8 <br/> HUC8_Name <br/> org |  Return a dataframe of available stations |
+| `AWQMS_Stations_strds` | project <br/> char <br/> HUC8 <br/> HUC8_Name <br/> org |  Return a dataframe of available stations combined with standard codes |
 
 <br/>
 
