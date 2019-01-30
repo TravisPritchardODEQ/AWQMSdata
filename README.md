@@ -44,32 +44,44 @@ This package contains the following functions:
   * __AWQMS_Chars(project, station)__ - Returns characteristics available for downloading from AWQMS
   * __AWQMS_Projects()__ - Returns projects available for downloading from AWQMS
   * __AWQMS_Orgs(project, station)__ - Returns organizations with data available for downloading from AWQMS
-  * __AWQMS_Stations(project, char, HUC8, HUC8_Name, org)__ - Returns information about monitoring locations
+  * __AWQMS_Stations(project, char, HUC8, HUC8_Name, org, crit_codes)__ - Returns information about monitoring locations
   * __AWQMS_Data(startdate, enddate, station,
                        project, char, stat_base,
-                       media, org, HUC8, filterQC = TRUE)__  - Returns data from AWQMS  
-  * __AWQMS_Data_strds(startdate, enddate, station,
-                       project, char, stat_base,
-                       media, org, HUC8, filterQC = TRUE)__  - Returns data from AWQMS along with the standard codes needed to determine water quality criteria 
-  * __AWQMS_Stations_strds(project, char, HUC8, HUC8_Name, org)__ - Returns information about monitoring locations along with the standard codes needed to determine water quality criteria 
-                       
+                       media, org, HUC8, crit_codes, filterQC)__  - Returns data from AWQMS  
+ 
 <br/>
 <br/>
 
-###### Available functions:                       
+#### Available functions:                       
 
 
-| Function Name | Arguments | Description |
-| ------------- | --------- | ----------- |
-| `AWQMS_Data`  | startdate <br/> enddate <br/> station <br/> project <br/> char <br/> stat_base <br/> media <br/> org <br/> HUC8 <br/> HUC8_Name <br/> HUC10 <br/> HUC12 <br/> HUC12_Name <br/>filterQC | Retrieve a dataframe of data exported from AWQMS       |
+| Function Name | Arguments | Description           |
+| ------------- | --------- | --------------------- |
+| `AWQMS_Data`  | startdate <br/> enddate <br/> station <br/> project <br/> char <br/> stat_base <br/> media <br/> org <br/> HUC8 <br/> HUC8_Name <br/> HUC10 <br/> HUC12 <br/> HUC12_Name <br/> crit_codes <br/> filterQC | Retrieve a dataframe of data exported from AWQMS. If      crit_codes = TRUE, it will bring in standard criteria codes also  |
 | `AWQMS_Data_strds`  | startdate <br/> enddate <br/> station <br/> project <br/> char <br/> stat_base <br/> media <br/> org <br/> HUC8 <br/> HUC8_Name <br/> HUC10 <br/> HUC12 <br/> HUC12_Name <br/>filterQC | Retrieve a dataframe of data exported from AWQMS combined with standard codes     |
 | `AWQMS_Chars` | project <br/> station | Return a dataframe of available characteristics |
 | `AWQMS_Orgs` |  project <br/> station | Return a dataframe of available organizations |
 | `AWQMS_Projects` | - | Return a dataframe of available projects |
-| `AWQMS_Stations` | project <br/> char <br/> HUC8 <br/> HUC8_Name <br/> org |  Return a dataframe of available stations |
+| `AWQMS_Stations` | project <br/> char <br/> HUC8 <br/> HUC8_Name <br/> org <br/> crit_codes |  Return a dataframe of available stations. If      crit_codes = TRUE, it will bring in standard criteria codes also |
 | `AWQMS_Stations_strds` | project <br/> char <br/> HUC8 <br/> HUC8_Name <br/> org |  Return a dataframe of available stations combined with standard codes |
 
 <br/>
+
+#### Data tables included in package
+
+| Table Name | Fields | Description           |
+| ---------- | ------ | --------------------- |
+| `Bact_crit` | BacteriaCode <br/> SS_Crit <br/> Geomean_Crit <br/> Perc_Crit| Bacteria Criteria table. Join by BacteriaCode|
+| `Chla_crit` | MonLocType <br/> Chla_Criteria | Chlorophyll a criteria table. Join by MonLocType|
+| `DO_crit` | DO_code <br/> crit_30D <br/> crit_7Mi <br/> crit_Min <br/> crit_Instant | Disoslved Oxygen Criteria Table. Join by DO_code|
+| `pH_crit`| pH_code <br/> pH_Min <br/> pH_Max| pH criteria table. Join by pH_code |
+| `Temp_crit` | FishUse_code <br/> Temp_Criteria <br/> Comment | Temperature Criteria outside of spawning time periods. Spawning criteria = 13.0. Join by FishUse_code|
+| `LU_BacteriaCode`| Bacteria_class <br/> Bacteria_code | Lookup table to connect numeric bacteria code to bacteria class. Join by Bacteria_code |
+| `LU_DOCode` | DO_Class <br/>  DO_code | Lookup table to connect numeric DO code to DO classification. Join by DO_code |
+| `LU_FishUse` | FishUse <br/> FishUse_code | Lookup table to connect numeric Fish use code to fish use designations | 
+| `LU_Spawn` | SpawnCode <br/> Spawn_dates <br/> SpawnStart <br/> SpawnEnd | Lookup table to obtain spawning dates from spawn code. Join by SpawnCode or DO_Spawncode|
+
+
 
 ## Usage
 
