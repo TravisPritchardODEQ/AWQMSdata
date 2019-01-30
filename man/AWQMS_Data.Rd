@@ -7,7 +7,8 @@
 AWQMS_Data(startdate = "1949-09-15", enddate = NULL, station = NULL,
   project = NULL, char = NULL, stat_base = NULL, media = NULL,
   org = NULL, HUC8 = NULL, HUC8_Name = NULL, HUC10 = NULL,
-  HUC12 = NULL, HUC12_Name = NULL, filterQC = TRUE)
+  HUC12 = NULL, HUC12_Name = NULL, crit_codes = FALSE,
+  filterQC = TRUE)
 }
 \arguments{
 \item{startdate}{Required parameter setting the startdate of the data being fetched. Format 'yyyy-mm-dd'}
@@ -36,6 +37,8 @@ AWQMS_Data(startdate = "1949-09-15", enddate = NULL, station = NULL,
 
 \item{HUC12_Name}{Optional vector of HUC12 names to be fetched}
 
+\item{crit_codes}{If true, include standard codes used in determining criteria}
+
 \item{filterQC}{If true, do not return MLocID 10000-ORDEQ or sample replicates}
 }
 \value{
@@ -46,5 +49,5 @@ This function will retrive data from OregonDEQ AWQMS
 }
 \examples{
 AWQMS_Data(startdate = '2017-1-1', enddate = '2000-12-31', station = c('10591-ORDEQ', '29542-ORDEQ'),
-project = 'Total Maximum Daily Load Sampling', filterQC = FALSE)
+project = 'Total Maximum Daily Load Sampling', filterQC = FALSE, crit_codes = FALSE)
 }

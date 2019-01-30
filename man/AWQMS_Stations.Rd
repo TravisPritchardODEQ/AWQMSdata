@@ -5,7 +5,7 @@
 \title{AWQMS_Station}
 \usage{
 AWQMS_Stations(project = NULL, char = NULL, HUC8 = NULL,
-  HUC8_Name = NULL, org = NULL)
+  HUC8_Name = NULL, org = NULL, crit_codes = FALSE)
 }
 \arguments{
 \item{project}{Optional vector of projects to be filtered on}
@@ -17,6 +17,8 @@ AWQMS_Stations(project = NULL, char = NULL, HUC8 = NULL,
 \item{HUC8_Name}{Optional vector of HUC8 names to be filtered on}
 
 \item{org}{Optional vector of organizations to be filtered on}
+
+\item{crit_codes}{If true, include standard codes used in determining criteria}
 }
 \value{
 Dataframe of monitoring locations
@@ -25,5 +27,5 @@ Dataframe of monitoring locations
 This function will return a list of monitoring locations with data found in OregonDEQ AWQMS
 }
 \examples{
-AWQMS_Station(project = 'Total Maximum Daily Load Sampling', char = "Temperature, water", HUC8 = "17090003")
+AWQMS_Station(project = 'Total Maximum Daily Load Sampling', char = "Temperature, water", HUC8 = "17090003", crit_codes = false)
 }

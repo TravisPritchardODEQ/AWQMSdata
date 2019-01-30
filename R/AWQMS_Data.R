@@ -14,11 +14,12 @@
 #' @param HUC10 Optional vector of HUC10s to be fetched
 #' @param HUC12 Optional vector of HUC12s to be fetched
 #' @param HUC12_Name Optional vector of HUC12 names to be fetched
+#' @param crit_codes If true, include standard codes used in determining criteria
 #' @param filterQC If true, do not return MLocID 10000-ORDEQ or sample replicates
 #' @return Dataframe of data from AWQMS
 #' @examples
 #' AWQMS_Data(startdate = '2017-1-1', enddate = '2000-12-31', station = c('10591-ORDEQ', '29542-ORDEQ'),
-#' project = 'Total Maximum Daily Load Sampling', filterQC = FALSE)
+#' project = 'Total Maximum Daily Load Sampling', filterQC = FALSE, crit_codes = FALSE)
 #' @export
 #'
 #'
@@ -26,7 +27,7 @@
 AWQMS_Data <- function(startdate = '1949-09-15', enddate = NULL, station = NULL,
                        project = NULL, char = NULL, stat_base = NULL,
                        media = NULL, org = NULL, HUC8 = NULL, HUC8_Name = NULL,
-                       HUC10 = NULL, HUC12 = NULL,  HUC12_Name = NULL,
+                       HUC10 = NULL, HUC12 = NULL,  HUC12_Name = NULL, crit_codes = FALSE,
                        filterQC = TRUE) {
 
   if(missing(startdate)) {
@@ -36,61 +37,229 @@ AWQMS_Data <- function(startdate = '1949-09-15', enddate = NULL, station = NULL,
 
 
   # Build base query language
-  query <- "SELECT *
-  FROM [awqms].[dbo].[VW_AWQMS_Results]
+
+  if(crit_codes == TRUE){
+query <- "SELECT a.[OrganizationID]
+  ,a.[Project1]
+  ,a.[Project2]
+  ,a.[Project3]
+  ,a.[MLocID]
+  ,a.[StationDes]
+  ,a.[MonLocType]
+  ,a.[EcoRegion3]
+  ,a.[EcoRegion4]
+  ,a.[HUC8]
+  ,a.[HUC8_Name]
+  ,a.[HUC10]
+  ,a.[HUC12]
+  ,a.[HUC12_Name]
+  ,a.[Lat_DD]
+  ,a.[Long_DD]
+  ,a.[Reachcode]
+  ,a.[Measure]
+  ,a.[AU_ID]
+  ,a.[act_id]
+  ,a.[Activity_Type]
+  ,a.[SampleStartDate]
+  ,a.[SampleStartTime]
+  ,a.[SampleStartTZ]
+  ,a.[SampleMedia]
+  ,a.[SampleSubmedia]
+  ,a.[SamplingMethod]
+  ,a.[chr_uid]
+  ,a.[Char_Name]
+  ,a.[Char_Speciation]
+  ,a.[Sample_Fraction]
+  ,a.[CASNumber]
+  ,a.[Result_UID]
+  ,a.[Result_status]
+  ,a.[Result_Type]
+  ,a.[Result]
+  ,a.[Result_Numeric]
+  ,a.[Result_Operator]
+  ,a.[Result_Unit]
+  ,a.[Unit_UID]
+  ,a.[ResultCondName]
+  ,a.[RelativeDepth]
+  ,a.[Result_Depth]
+  ,a.[Result_Depth_Unit]
+  ,a.[Result_Depth_Reference]
+  ,a.[act_depth_height]
+  ,a.[ActDepthUnit]
+  ,a.[Act_depth_Reference]
+  ,a.[Act_Depth_Top]
+  ,a.[Act_Depth_Top_Unit]
+  ,a.[Act_Depth_Bottom]
+  ,a.[Act_Depth_Bottom_Unit]
+  ,a.[Time_Basis]
+  ,a.[Statistical_Base]
+  ,a.[Statistic_N_Value]
+  ,a.[act_sam_compnt_name]
+  ,a.[stant_name]
+  ,a.[Bio_Intent]
+  ,a.[Taxonomic_Name]
+  ,a.[Analytical_method]
+  ,a.[General_Comments]
+  ,a.[lab_Comments]
+  ,a.[QualifierAbbr]
+  ,a.[QualifierTxt]
+  ,a.[IDLType]
+  ,a.[IDLValue]
+  ,a.[IDLUnit]
+  ,a.[MDLType]
+  ,a.[MDLValue]
+  ,a.[MDLUnit]
+  ,a.[MRLType]
+  ,a.[MRLValue]
+  ,a.[MRLUnit]
+  ,a.[URLType]
+  ,a.[URLValue]
+  ,a.[URLUnit]
+  ,a.[WQX_submit_date]
+  ,s.FishCode
+  ,s.SpawnCode
+  ,s.WaterTypeCode
+  ,s.WaterBodyCode
+  ,s.BacteriaCode
+  ,s.DO_code
+  ,s.ben_use_code
+  ,s.pH_code
+  ,s.DO_SpawnCode
+  FROM  [deqlead-lims\\awqms].[awqms].[dbo].[VW_AWQMS_Results] a
+  LEFT JOIN [deqlead-lims].[Stations].[dbo].[VWStationsFinal] s ON a.MLocID = s.MLocID
+  WHERE SampleStartDate >= Convert(datetime, {startdate})"
+} else {
+  query <- "SELECT a.[OrganizationID]
+  ,a.[Project1]
+  ,a.[Project2]
+  ,a.[Project3]
+  ,a.[MLocID]
+  ,a.[StationDes]
+  ,a.[MonLocType]
+  ,a.[EcoRegion3]
+  ,a.[EcoRegion4]
+  ,a.[HUC8]
+  ,a.[HUC8_Name]
+  ,a.[HUC10]
+  ,a.[HUC12]
+  ,a.[HUC12_Name]
+  ,a.[Lat_DD]
+  ,a.[Long_DD]
+  ,a.[Reachcode]
+  ,a.[Measure]
+  ,a.[AU_ID]
+  ,a.[act_id]
+  ,a.[Activity_Type]
+  ,a.[SampleStartDate]
+  ,a.[SampleStartTime]
+  ,a.[SampleStartTZ]
+  ,a.[SampleMedia]
+  ,a.[SampleSubmedia]
+  ,a.[SamplingMethod]
+  ,a.[chr_uid]
+  ,a.[Char_Name]
+  ,a.[Char_Speciation]
+  ,a.[Sample_Fraction]
+  ,a.[CASNumber]
+  ,a.[Result_UID]
+  ,a.[Result_status]
+  ,a.[Result_Type]
+  ,a.[Result]
+  ,a.[Result_Numeric]
+  ,a.[Result_Operator]
+  ,a.[Result_Unit]
+  ,a.[Unit_UID]
+  ,a.[ResultCondName]
+  ,a.[RelativeDepth]
+  ,a.[Result_Depth]
+  ,a.[Result_Depth_Unit]
+  ,a.[Result_Depth_Reference]
+  ,a.[act_depth_height]
+  ,a.[ActDepthUnit]
+  ,a.[Act_depth_Reference]
+  ,a.[Act_Depth_Top]
+  ,a.[Act_Depth_Top_Unit]
+  ,a.[Act_Depth_Bottom]
+  ,a.[Act_Depth_Bottom_Unit]
+  ,a.[Time_Basis]
+  ,a.[Statistical_Base]
+  ,a.[Statistic_N_Value]
+  ,a.[act_sam_compnt_name]
+  ,a.[stant_name]
+  ,a.[Bio_Intent]
+  ,a.[Taxonomic_Name]
+  ,a.[Analytical_method]
+  ,a.[General_Comments]
+  ,a.[lab_Comments]
+  ,a.[QualifierAbbr]
+  ,a.[QualifierTxt]
+  ,a.[IDLType]
+  ,a.[IDLValue]
+  ,a.[IDLUnit]
+  ,a.[MDLType]
+  ,a.[MDLValue]
+  ,a.[MDLUnit]
+  ,a.[MRLType]
+  ,a.[MRLValue]
+  ,a.[MRLUnit]
+  ,a.[URLType]
+  ,a.[URLValue]
+  ,a.[URLUnit]
+  ,a.[WQX_submit_date]
+  FROM  [deqlead-lims\\awqms].[awqms].[dbo].[VW_AWQMS_Results] a
   WHERE SampleStartDate >= Convert(datetime, {startdate})"
 
-
+}
 
   # Conditially add addional parameters
 
   # add end date
   if (length(enddate) > 0) {
-    query = paste0(query, "\n AND SampleStartDate <= Convert(datetime, {enddate})" )
+    query = paste0(query, "\n AND a.SampleStartDate <= Convert(datetime, {enddate})" )
   }
 
 
   # station
   if (length(station) > 0) {
 
-    query = paste0(query, "\n AND MLocID IN ({station*})")
+    query = paste0(query, "\n AND a.MLocID IN ({station*})")
   }
 
   #Project
 
   if (length(project) > 0) {
-    query = paste0(query, "\n AND (Project1 in ({project*}) OR Project2 in ({project*})) ")
+    query = paste0(query, "\n AND (a.Project1 in ({project*}) OR a.Project2 in ({project*})) ")
 
   }
 
   # characteristic
   if (length(char) > 0) {
-    query = paste0(query, "\n AND Char_Name in ({char*}) ")
+    query = paste0(query, "\n AND a.Char_Name in ({char*}) ")
 
   }
 
   #statistical base
   if(length(stat_base) > 0){
-    query = paste0(query, "\n AND Statistical_Base in ({stat_base*}) ")
+    query = paste0(query, "\n AND a.Statistical_Base in ({stat_base*}) ")
 
   }
 
   # sample media
   if (length(media) > 0) {
-    query = paste0(query, "\n AND SampleMedia in ({media*}) ")
+    query = paste0(query, "\n AND a.SampleMedia in ({media*}) ")
 
   }
 
   # organization
   if (length(org) > 0){
-    query = paste0(query,"\n AND OrganizationID in ({org*}) " )
+    query = paste0(query,"\n AND a.OrganizationID in ({org*}) " )
 
   }
 
   #HUC8
 
   if(length(HUC8) > 0){
-    query = paste0(query,"\n AND HUC8 in ({HUC8*}) " )
+    query = paste0(query,"\n AND a.HUC8 in ({HUC8*}) " )
 
   }
 
@@ -98,29 +267,29 @@ AWQMS_Data <- function(startdate = '1949-09-15', enddate = NULL, station = NULL,
   #HUC8_Name
 
   if(length(HUC8_Name) > 0){
-    query = paste0(query,"\n AND HUC8_Name in ({HUC8_Name*}) " )
+    query = paste0(query,"\n AND a.HUC8_Name in ({HUC8_Name*}) " )
 
   }
 
   if(length(HUC10) > 0){
-    query = paste0(query,"\n AND HUC10 in ({HUC10*}) " )
+    query = paste0(query,"\n AND a.HUC10 in ({HUC10*}) " )
 
   }
 
   if(length(HUC12) > 0){
-    query = paste0(query,"\n AND HUC12 in ({HUC12*}) " )
+    query = paste0(query,"\n AND a.HUC12 in ({HUC12*}) " )
 
   }
 
 
   if(length(HUC12_Name) > 0){
-    query = paste0(query,"\n AND HUC12_Name in ({HUC12_Name*}) " )
+    query = paste0(query,"\n AND a.HUC12_Name in ({HUC12_Name*}) " )
 
   }
 
   if(filterQC){
-    query = paste0(query,"\n AND MLocID <> '10000-ORDEQ'
-                   \n AND activity_type NOT LIKE 'Quality Control%'" )
+    query = paste0(query,"\n AND a.MLocID <> '10000-ORDEQ'
+                   \n AND a.activity_type NOT LIKE 'Quality Control%'" )
 
   }
 
