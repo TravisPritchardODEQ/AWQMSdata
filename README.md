@@ -55,8 +55,8 @@ This package contains the following functions:
 #### Available functions:                       
 
 
-| Function Name | Arguments | Description           |
-| ------------- | --------- | --------------------- |
+| Function Name | Arguments | Description                 |
+| ------------- | --------- | --------------------------- |
 | `AWQMS_Data`  | startdate <br/> enddate <br/> station <br/> project <br/> char <br/> stat_base <br/> media <br/> org <br/> HUC8 <br/> HUC8_Name <br/> HUC10 <br/> HUC12 <br/> HUC12_Name <br/> crit_codes <br/> filterQC | Retrieve a dataframe of data exported from AWQMS. If      crit_codes = TRUE, it will bring in standard criteria codes also  |
 | `AWQMS_Data_strds`  | startdate <br/> enddate <br/> station <br/> project <br/> char <br/> stat_base <br/> media <br/> org <br/> HUC8 <br/> HUC8_Name <br/> HUC10 <br/> HUC12 <br/> HUC12_Name <br/>filterQC | Retrieve a dataframe of data exported from AWQMS combined with standard codes     |
 | `AWQMS_Chars` | project <br/> station | Return a dataframe of available characteristics |
@@ -69,13 +69,15 @@ This package contains the following functions:
 
 #### Data tables included in package
 
-| Table Name | Fields | Description           |
-| ---------- | ------ | --------------------- |
+| Table Name | Fields | Description                 |
+| ---------- | ------ | --------------------------- |
 | `Bact_crit` | BacteriaCode <br/> SS_Crit <br/> Geomean_Crit <br/> Perc_Crit| Bacteria Criteria table. Join by BacteriaCode|
 | `Chla_crit` | MonLocType <br/> Chla_Criteria | Chlorophyll a criteria table. Join by MonLocType|
 | `DO_crit` | DO_code <br/> crit_30D <br/> crit_7Mi <br/> crit_Min <br/> crit_Instant | Disoslved Oxygen Criteria Table. Join by DO_code|
 | `pH_crit`| pH_code <br/> pH_Min <br/> pH_Max| pH criteria table. Join by pH_code |
 | `Temp_crit` | FishUse_code <br/> Temp_Criteria <br/> Comment | Temperature Criteria outside of spawning time periods. Spawning criteria = 13.0. Join by FishUse_code|
+| `ToxAL_crit` | Pollu_ID <br/> Pollutant <br/> Acute_FW <br/> Chronic_FW <br/> Acute_SW <br/> Chronic_SW <br/> Fraction | Aquatic life toxics criteria. Currently a tricky one to join due to differences in parameter names Need to join by Pollu_ID | 
+| `ToxHH_crit`| Pollu_ID <br/> Pollutant <br/>  WaterOrganism <br/>  Organism <br/>  Organism_SW  <br/> Fraction | Human health toxics criteria. Currently a tricky one to join due to differences in parameter names. Need to join by Pollu_ID |
 | `LU_BacteriaCode`| Bacteria_class <br/> Bacteria_code | Lookup table to connect numeric bacteria code to bacteria class. Join by Bacteria_code |
 | `LU_DOCode` | DO_Class <br/>  DO_code | Lookup table to connect numeric DO code to DO classification. Join by DO_code |
 | `LU_FishUse` | FishUse <br/> FishUse_code | Lookup table to connect numeric Fish use code to fish use designations | 
