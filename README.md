@@ -73,7 +73,7 @@ This package contains the following functions:
 | ---------- | ------ | --------------------------- |
 | `Bact_crit` | BacteriaCode <br/> SS_Crit <br/> Geomean_Crit <br/> Perc_Crit| Bacteria Criteria table. Join by BacteriaCode|
 | `Chla_crit` | MonLocType <br/> Chla_Criteria | Chlorophyll a criteria table. Join by MonLocType|
-| `DO_crit` | DO_code <br/> crit_30D <br/> crit_7Mi <br/> crit_Min <br/> crit_Instant | Disoslved Oxygen Criteria Table. Join by DO_code|
+| `DO_crit` | DO_code <br/> crit_30D <br/> crit_7Mi <br/> crit_Min <br/> crit_Instant | Dissolved Oxygen Criteria Table. Join by DO_code|
 | `pH_crit`| pH_code <br/> pH_Min <br/> pH_Max| pH criteria table. Join by pH_code |
 | `Temp_crit` | FishUse_code <br/> Temp_Criteria <br/> Comment | Temperature Criteria outside of spawning time periods. Spawning criteria = 13.0. Join by FishUse_code|
 | `ToxAL_crit` | Pollu_ID <br/> Pollutant <br/> Acute_FW <br/> Chronic_FW <br/> Acute_SW <br/> Chronic_SW <br/> Fraction | Aquatic life toxics criteria. Currently a tricky one to join due to differences in parameter names Need to join by Pollu_ID | 
