@@ -13,7 +13,7 @@ Note that this package is currently a work in progress. It is being developed by
 **_You need an ODBC connection to the AWQMS database named AWQMS, and read access to VW_AWQMS_Results._**
 
 * Staff will need to send a request to helpdesk to be added to the LabDBAWQMSODBC and the LABDBSTATIONUSER User Groups on the LEAD-LIMS server.
-* Add an ODBC connection to AWQMS on server **DEQLEAD-LIMS\AWQMS** named **AWQMS**
+* Add an ODBC connection to AWQMS on server named **AWQMS**
 
  
 
