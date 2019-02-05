@@ -13,7 +13,7 @@ AWQMS_Orgs <- function(project = NULL, station = NULL) {
   #Connect to database
   con <- DBI::dbConnect(odbc::odbc(), "AWQMS")
 
-  query = "SELECT distinct [OrganizationID]
+  query = "SELECT distinct [OrganizationID], [Org_Name]
   FROM [awqms].[dbo].[VW_AWQMS_Results]"
 
   if (length(project) > 0) {

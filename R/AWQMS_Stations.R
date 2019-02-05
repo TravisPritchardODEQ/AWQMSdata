@@ -63,7 +63,7 @@ AWQMS_Stations <- function(project = NULL, char = NULL, HUC8 = NULL, HUC8_Name =
     a.[Long_DD],
     a.[Reachcode],
     a.[Measure],
-    a.[AU_ID],
+    a.[AU_ID]
     FROM  [deqlead-lims\\awqms].[awqms].[dbo].[VW_AWQMS_Results] a"
 
   }
