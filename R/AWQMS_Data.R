@@ -30,11 +30,6 @@ AWQMS_Data <- function(startdate = '1949-09-15', enddate = NULL, station = NULL,
                        HUC10 = NULL, HUC12 = NULL,  HUC12_Name = NULL, crit_codes = FALSE,
                        filterQC = TRUE) {
 
-  if(missing(startdate)) {
-    stop("Need to input startdate")
-  }
-
-
 
   # Build base query language
 
