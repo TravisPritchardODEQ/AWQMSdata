@@ -14,7 +14,7 @@
 #' @examples
 #'  unit_conv(df,c("Calcium","Chloride","Magnesium","Potassium","Sodium","Sulfate","Organic carbon","Total Sulfate","Sulfide"),"ug/l","mg/l")
 #'  unit_conv(df,"Copper","mg/l","ug/l")
-#'  @export
+#' @export
 #'
 
 
