@@ -14,5 +14,6 @@ Dataframe with input file for BLM
 }
 \description{
 A function that converts data from AWQMS long table format into the wide table format that
-res saying that multiple rows match, look for duplicates in data. Written by Aliana Britson
+the first data found in the calendar day. This is the same method used in 2018IR
+Written by Aliana Britson
 }
