@@ -46,36 +46,25 @@ CuBLM <- function(x) {
   #Set date
   ancillary$date <- as.Date(ancillary$SampleStartDate)
 
-  #Pare down dataframe to only columns we need
-  ancillary<-subset(ancillary,select=c("Char_Name","Result","date","OrganizationID","MLocID"))
+  ancillary<-subset(ancillary,select=c("Char_Name","Result","date","OrganizationID","MLocID", "Project1"))
 
-  # Choose the first result in a day
-  # transform data from long to wide
+
   ancillary <- ancillary %>%
-    dplyr::group_by(Char_Name, date, OrganizationID, MLocID) %>%
+    dplyr::group_by(Char_Name, date, OrganizationID, MLocID,Project1) %>%
     dplyr::summarise(Result = dplyr::first(Result)) %>%
     dplyr::ungroup() %>%
     tidyr::spread(key = Char_Name, value =Result )
 
 
-
-  #just want a subset of the columns, too many columns makes reshape very complicated
-  x<-subset(x,select=c("Char_Name","Result","SampleStartDate","SampleStartTime","OrganizationID","MLocID","Project1"))
-
-  colnames(x) <- c("Char_Name","Result","SampleStartDate","SampleStartTime","OrganizationID","MLocID","Project1")
-
-
-  #Get only copper data
   Copper <- y[grepl("Copper", y$Char_Name), ]
 
-  Copper<-subset(Copper,select=c("Char_Name","Result","SampleStartDate","SampleStartTime","OrganizationID","MLocID","Project1"))
 
-  # Join copper data to ancillary data
+
+  Copper<-subset(Copper,select=c("OrganizationID","Project1", "MLocID",  "SampleStartDate","SampleStartTime", "Char_Name","Result"))
+
   Copper_joined <- Copper %>%
     dplyr::mutate(date = as.Date(SampleStartDate)) %>%
-    dplyr::left_join(ancillary, by = c('date', 'OrganizationID', 'MLocID'))
-
-
+    dplyr::left_join(ancillary, by = c('date', 'OrganizationID', 'MLocID',  "Project1"))
 
   return(Copper_joined)
 }
