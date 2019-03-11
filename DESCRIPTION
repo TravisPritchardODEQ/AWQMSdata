@@ -8,5 +8,5 @@ Description: Retrieves data from Oregon DEQ water quality database AWQMS. For in
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
-Imports: odbc, DBI, glue, dplyr, tidyr
+Imports: odbc, DBI, glue, dplyr, tidyr, magrittr
 RoxygenNote: 6.1.1
