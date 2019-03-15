@@ -56,11 +56,4 @@ unit_conv<-function(x,char,unit,conv){
 
 }
 
-#some test code
-#x<-AWQMS_Data(startdate = "2000-01-01", enddate = "2019-01-01", station = NULL, char = NULL, org = "GP-WM",
-#                  HUC8 = NULL, HUC8_Name = NULL)
-
-#test<-unit_conv(x,c("Calcium","Chloride","Magnesium","Potassium","Sodium","Sulfate","Organic carbon","Total Sulfate","Sulfide"),"ug/l","mg/l")
-
-#test2<-unit_conv(x,"Copper","mg/l","ug/l")
 
