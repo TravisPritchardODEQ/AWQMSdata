@@ -33,7 +33,7 @@ CuBLM <- function(x) {
   y<-subset(x,x$Char_Name %in% char & is.na(x$Statistical_Base)) #&
 
   #combine name and sample fraction, otherwise we get a bunch of rows we don't need
-  #mostly interested in whether an analyte is Total Recoverable or Dissolved, and only for metals
+  #interested in whether an analyte is Total Recoverable or Dissolved, and only for metals
   #can leave out the other Sample Fractions
   y$Char_Name<-
     dplyr::case_when(y$Char_Name %in% c("Calcium","Copper","Magnesium","Potassium","Sodium","Organic carbon")
