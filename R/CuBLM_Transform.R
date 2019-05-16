@@ -30,7 +30,12 @@ CuBLM <- function(x) {
           "Temperature, water","Total Sulfate","Sulfide","Salinity","Conductivity")
 
   #Only want to keep analytes of interest, and remove any samples that are calculated from continuous data (eg. 7 day min)
-  y<-subset(x,x$Char_Name %in% char & is.na(x$Statistical_Base)) #&
+  y<-subset(x,x$Char_Name %in% char & is.na(x$Statistical_Base))
+
+  #there were some special projects at one point that looked at "dissolved alkalinity"
+  #what they did was take two samples, one was filtered (dissolved alkalinity) and the other one wasn't (total alkalinity)
+  #usually alkalinity is taken on a non-filtered sample, so we shall remove the "dissolved alkalinity" samples
+  y<-subset(y,!(y$Char_Name=="Alkalinity, total" & y$Sample_Fraction=="Dissolved"))
 
   #combine name and sample fraction, otherwise we get a bunch of rows we don't need
   #interested in whether an analyte is Total Recoverable or Dissolved, and only for metals
