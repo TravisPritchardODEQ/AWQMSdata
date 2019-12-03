@@ -4,6 +4,7 @@
 #' @param startdate Required parameter setting the startdate of the data being fetched. Format 'yyyy-mm-dd'
 #' @param enddate Optional parameter setting the enddate of the data being fetched. Format 'yyyy-mm-dd'
 #' @param station Optional vector of stations to be fetched
+#' @param AU_ID Optional vector of Assessment Units to be fetched
 #' @param project Optional vector of projects to be fetched
 #' @param char Optional vector of characteristics to be fetched
 #' @param stat_base Optional vector of Result Stattistical Bases to be fetched ex. Maximum
@@ -24,11 +25,24 @@
 #'
 #'
 
-AWQMS_Data <- function(startdate = '1949-09-15', enddate = NULL, station = NULL,
-                       project = NULL, char = NULL, stat_base = NULL,
-                       media = NULL, org = NULL, HUC8 = NULL, HUC8_Name = NULL,
-                       HUC10 = NULL, HUC12 = NULL,  HUC12_Name = NULL, crit_codes = FALSE,
-                       filterQC = TRUE) {
+
+AWQMS_Data <-
+  function(startdate = '1949-09-15',
+           enddate = NULL,
+           station = NULL,
+           AU_ID = NULL,
+           project = NULL,
+           char = NULL,
+           stat_base = NULL,
+           media = NULL,
+           org = NULL,
+           HUC8 = NULL,
+           HUC8_Name = NULL,
+           HUC10 = NULL,
+           HUC12 = NULL,
+           HUC12_Name = NULL,
+           crit_codes = FALSE,
+           filterQC = TRUE) {
 
 
   # Build base query language
@@ -67,6 +81,13 @@ query <- "SELECT a.*
 
     query = paste0(query, "\n AND a.MLocID IN ({station*})")
   }
+
+    # AU
+    if (length(AU_ID) > 0) {
+
+      query = paste0(query, "\n AND a.AU_ID IN ({AU_ID*})")
+    }
+
 
   #Project
 
