@@ -38,8 +38,6 @@ AWQMS_Data_Cont(startdate = "1949-09-15", enddate = NULL,
 \item{Result_Status}{oprtion vector of result status to be fetched. Set to Result_Status = 'Final' if only data that has passed QAQC is included}
 
 \item{crit_codes}{If true, include standard codes used in determining criteria}
-
-\item{stat_base}{Optional vector of Result Stattistical Bases to be fetched ex. Maximum}
 }
 \value{
 Dataframe of data from AWQMS

@@ -6,7 +6,6 @@
 #' @param station Optional vector of stations to be fetched
 #' @param AU_ID Optional vector of Assessment units to be fetched
 #' @param char Optional vector of characteristics to be fetched
-#' @param stat_base Optional vector of Result Stattistical Bases to be fetched ex. Maximum
 #' @param media Optional vector of sample media to be fetched
 #' @param org optional vector of Organizations to be fetched
 #' @param HUC8 Optional vector of HUC8s to be fetched
