@@ -1,11 +1,10 @@
-#' AWQMS_Data
+#' AWQMS_Data_Cont
 #'
-#' This function will retrive data from OregonDEQ AWQMS
+#' This function will retrive raw continuous data from OregonDEQ AWQMS
 #' @param startdate Required parameter setting the startdate of the data being fetched. Format 'yyyy-mm-dd'
 #' @param enddate Optional parameter setting the enddate of the data being fetched. Format 'yyyy-mm-dd'
 #' @param station Optional vector of stations to be fetched
-#' @param AU_ID Optional vector of Assessment Units to be fetched
-#' @param project Optional vector of projects to be fetched
+#' @param AU_ID Optional vector of Assessment units to be fetched
 #' @param char Optional vector of characteristics to be fetched
 #' @param stat_base Optional vector of Result Stattistical Bases to be fetched ex. Maximum
 #' @param media Optional vector of sample media to be fetched
@@ -15,25 +14,20 @@
 #' @param HUC10 Optional vector of HUC10s to be fetched
 #' @param HUC12 Optional vector of HUC12s to be fetched
 #' @param HUC12_Name Optional vector of HUC12 names to be fetched
+#' @param Result_Status oprtion vector of result status to be fetched. Set to Result_Status = 'Final' if only data that has passed QAQC is included
 #' @param crit_codes If true, include standard codes used in determining criteria
-#' @param filterQC If true, do not return MLocID 10000-ORDEQ or sample replicates
 #' @return Dataframe of data from AWQMS
 #' @examples
-#' AWQMS_Data(startdate = '2017-1-1', enddate = '2000-12-31', station = c('10591-ORDEQ', '29542-ORDEQ'),
-#' project = 'Total Maximum Daily Load Sampling', filterQC = FALSE, crit_codes = FALSE)
+#' AWQMS_Data_Cont(station = '39446-ORDEQ', Result_Status = 'Final')
 #' @export
-#'
-#'
 
 
-AWQMS_Data <-
+AWQMS_Data_Cont <-
   function(startdate = '1949-09-15',
            enddate = NULL,
            station = NULL,
            AU_ID = NULL,
-           project = NULL,
            char = NULL,
-           stat_base = NULL,
            media = NULL,
            org = NULL,
            HUC8 = NULL,
@@ -41,14 +35,14 @@ AWQMS_Data <-
            HUC10 = NULL,
            HUC12 = NULL,
            HUC12_Name = NULL,
-           crit_codes = FALSE,
-           filterQC = TRUE) {
+           Result_Status = NULL,
+           crit_codes = FALSE
+  ) {
 
 
-  # Build base query language
 
   if(crit_codes == TRUE){
-query <- "SELECT a.*
+    query <- "SELECT a.*
   ,s.FishCode
   ,s.SpawnCode
   ,s.WaterTypeCode
@@ -58,21 +52,20 @@ query <- "SELECT a.*
   ,s.ben_use_code
   ,s.pH_code
   ,s.DO_SpawnCode
-  FROM  [deqlead-lims\\awqms].[awqms].[dbo].[VW_AWQMS_Results] a
+  FROM  [deqlead-lims\\awqms].[awqms].[dbo].[VW_AWQMS_Cont_Results] a
   LEFT JOIN [deqlead-lims].[Stations].[dbo].[VWStationsFinal] s ON a.MLocID = s.MLocID
-  WHERE SampleStartDate >= Convert(datetime, {startdate})"
-} else {
-  query <- "SELECT a.*
-  FROM  [deqlead-lims\\awqms].[awqms].[dbo].[VW_AWQMS_Results] a
-  WHERE SampleStartDate >= Convert(datetime, {startdate})"
+  WHERE Result_Date >= Convert(datetime, {startdate})"
+  } else {
+    query <- "SELECT a.*
+  FROM  [deqlead-lims\\awqms].[awqms].[dbo].[VW_AWQMS_Cont_Results] a
+  WHERE Result_Date >= Convert(datetime, {startdate})"
 
-}
+  }
 
-  # Conditially add addional parameters
 
   # add end date
   if (length(enddate) > 0) {
-    query = paste0(query, "\n AND a.SampleStartDate <= Convert(datetime, {enddate})" )
+    query = paste0(query, "\n AND a.Result_Date <= Convert(datetime, {enddate})" )
   }
 
 
@@ -82,19 +75,13 @@ query <- "SELECT a.*
     query = paste0(query, "\n AND a.MLocID IN ({station*})")
   }
 
-    # AU
-    if (length(AU_ID) > 0) {
+  # AU
+  if (length(AU_ID) > 0) {
 
-      query = paste0(query, "\n AND a.AU_ID IN ({AU_ID*})")
-    }
-
-
-  #Project
-
-  if (length(project) > 0) {
-    query = paste0(query, "\n AND (a.Project1 in ({project*}) OR a.Project2 in ({project*})) ")
-
+    query = paste0(query, "\n AND a.AU_ID IN ({AU_ID*})")
   }
+
+
 
   # characteristic
   if (length(char) > 0) {
@@ -102,11 +89,6 @@ query <- "SELECT a.*
 
   }
 
-  #statistical base
-  if(length(stat_base) > 0){
-    query = paste0(query, "\n AND a.Statistical_Base in ({stat_base*}) ")
-
-  }
 
   # sample media
   if (length(media) > 0) {
@@ -151,11 +133,12 @@ query <- "SELECT a.*
 
   }
 
-  if(filterQC){
-    query = paste0(query,"\n AND a.MLocID <> '10000-ORDEQ'
-                   \n AND a.activity_type NOT LIKE 'Quality Control%'" )
+    if(length(Result_Status) > 0){
+      query = paste0(query,"\n AND a.Result_Status in ({Result_Status*}) " )
 
-  }
+    }
+
+
 
   #Connect to database
   con <- DBI::dbConnect(odbc::odbc(), "AWQMS")
@@ -174,3 +157,5 @@ query <- "SELECT a.*
   return(data_fetch)
 
 }
+
+
