@@ -46,8 +46,11 @@ This package contains the following functions:
   * __AWQMS_Orgs(project, station)__ - Returns organizations with data available for downloading from AWQMS
   * __AWQMS_Stations(project, char, HUC8, HUC8_Name, org, crit_codes)__ - Returns information about monitoring locations
   * __AWQMS_Data(startdate, enddate, station,
-                       project, char, stat_base,
-                       media, org, HUC8, crit_codes, filterQC)__  - Returns data from AWQMS  
+                       project, char, stat_base, HUC8, HUC8_Name, HUC10, HUC12, HUC12_Name
+                       media, org, HUC8, crit_codes, filterQC)__  - Returns data from AWQMS 
+  * __AWQMS_Data_Cont(startdate, enddate, station, AU_ID, char, media, org
+                      HUC8, HUC8_Name, HUC10, HUC12, HUC12_Name,Result_Status,crit_codes)__  - Returns raw continuous data from AWQMS
+   
  
 <br/>
 <br/>
