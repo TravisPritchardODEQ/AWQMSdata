@@ -1,9 +1,15 @@
 #' CuBLM
 #'
 #' A function that converts data from AWQMS long table format into the wide table format that
-#  is used by the copper BLM model and the NPDES Copper BLM templates. Ancillary data is
-#' the first data found in the calendar day. This is the same method used in 2018IR
-#' Written by Aliana Britson
+#' is used by the copper BLM model and the NPDES Copper BLM templates. Ancillary data is
+#' the first data found in the calendar day. This is the same method used in 2018IR.
+#'
+#' Output includes the method detection and method reporting limit for Copper, as well as result
+#' value and also the "Result_Type" for each characteristic so that
+#' user can better judge the quality of the data. This function does not return data that has
+#' a "Rejected" status in AWQMS.
+#'
+#' Written by Aliana Britson, some modifications by Travis Pritchard
 #'
 #' @param x table output from AWQMS query
 #' @return Dataframe with input file for BLM
@@ -51,29 +57,44 @@ CuBLM <- function(x) {
   #Set date
   ancillary$date <- as.Date(ancillary$SampleStartDate)
 
-  ancillary<-subset(ancillary,select=c("Char_Name","Result","date","OrganizationID","MLocID", "Project1"))
+  ancillary<-subset(ancillary,select=c("Char_Name","Result","date","OrganizationID","MLocID", "Project1","Result_Type"))
 
+  type<-subset(ancillary,select=c("Char_Name","date","OrganizationID","MLocID", "Project1","Result_Type"))
 
+  #get ancillary data into wide table format
   ancillary <- ancillary %>%
     dplyr::group_by(Char_Name, date, OrganizationID, MLocID,Project1) %>%
     dplyr::summarise(Result = dplyr::first(Result)) %>%
     dplyr::ungroup() %>%
     tidyr::spread(key = Char_Name, value =Result )
 
+  #get result type data into wide table format
+  type<- type %>%
+    dplyr::group_by(Char_Name, date, OrganizationID, MLocID,Project1) %>%
+    dplyr::summarise(Result_Type = dplyr::first(Result_Type)) %>%
+    dplyr::ungroup() %>%
+    tidyr::spread(key = Char_Name, value =Result_Type )
 
   Copper <- y[grepl("Copper", y$Char_Name), ]
 
 
 
-  Copper<-subset(Copper,select=c("OrganizationID","Project1", "MLocID",  "SampleStartDate","SampleStartTime", "Char_Name","Result"))
+  Copper<-subset(Copper,select=c("OrganizationID","Project1", "MLocID",  "SampleStartDate","SampleStartTime", "Char_Name","Result","MDLValue",
+                                 "MRLValue","Result_Type"))
 
   Copper_joined <- Copper %>%
     dplyr::mutate(date = as.Date(SampleStartDate)) %>%
-    dplyr::left_join(ancillary, by = c('date', 'OrganizationID', 'MLocID',  "Project1"))
+    dplyr::left_join(ancillary, by = c('date', 'OrganizationID', 'MLocID',  "Project1")) %>%
+    dplyr::left_join(type, by = c('date', 'OrganizationID', 'MLocID',  "Project1"))
+
+  #column names are a bit weird now, rename a bit
+  names(Copper_joined)<-stringr::str_replace(names(Copper_joined),".x","")
+  names(Copper_joined)<-stringr::str_replace(names(Copper_joined),"\\.y"," Result_Type")
 
   return(Copper_joined)
 }
 
-
-
+library(AWQMSdata)
+library(tidyverse)
+x<-AWQMS_Data(startdate='2019-09-04',enddate='2019-09-04')
 
