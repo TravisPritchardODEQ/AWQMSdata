@@ -1,3 +1,7 @@
+# AWQMSdata 1.1 (2019-12-13)
+
+* Merged Aliana Britson's updates to copper BLM script which adds Result type for all characteristics
+
 # AWQMSdata 1.0 (2019-12-03)
 
 * Added AWQMS_Data_Cont() to query raw continuous data
