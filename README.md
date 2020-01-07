@@ -46,8 +46,11 @@ This package contains the following functions:
   * __AWQMS_Orgs(project, station)__ - Returns organizations with data available for downloading from AWQMS
   * __AWQMS_Stations(project, char, HUC8, HUC8_Name, org, crit_codes)__ - Returns information about monitoring locations
   * __AWQMS_Data(startdate, enddate, station,
-                       project, char, stat_base,
-                       media, org, HUC8, crit_codes, filterQC)__  - Returns data from AWQMS  
+                       project, char, stat_base, HUC8, HUC8_Name, HUC10, HUC12, HUC12_Name
+                       media, org, HUC8, crit_codes, filterQC)__  - Returns data from AWQMS 
+  * __AWQMS_Data_Cont(startdate, enddate, station, AU_ID, char, media, org
+                      HUC8, HUC8_Name, HUC10, HUC12, HUC12_Name, Result_Status, crit_codes)__  - Returns raw continuous data from AWQMS
+   
  
 <br/>
 <br/>
@@ -57,8 +60,8 @@ This package contains the following functions:
 
 | Function Name | Arguments | Description                 |
 | ------------- | --------- | --------------------------- |
-| `AWQMS_Data`  | startdate <br/> enddate <br/> station <br/> project <br/> char <br/> stat_base <br/> media <br/> org <br/> HUC8 <br/> HUC8_Name <br/> HUC10 <br/> HUC12 <br/> HUC12_Name <br/> crit_codes <br/> filterQC | Retrieve a dataframe of data exported from AWQMS. If      crit_codes = TRUE, it will bring in standard criteria codes also  |
-| `AWQMS_Data_strds`  | startdate <br/> enddate <br/> station <br/> project <br/> char <br/> stat_base <br/> media <br/> org <br/> HUC8 <br/> HUC8_Name <br/> HUC10 <br/> HUC12 <br/> HUC12_Name <br/>filterQC | Retrieve a dataframe of data exported from AWQMS combined with standard codes     |
+| `AWQMS_Data`  | startdate <br/> enddate <br/> station <br/> AU_ID <br/>project <br/> char <br/> stat_base <br/> media <br/> org <br/> HUC8 <br/> HUC8_Name <br/> HUC10 <br/> HUC12 <br/> HUC12_Name <br/> crit_codes <br/> filterQC | Retrieve a dataframe of data exported from AWQMS. If      crit_codes = TRUE, it will bring in standard criteria codes also  |
+| `AWQMS_Data_Cont`  | startdate <br/> enddate <br/> station <br/> AU_ID <br/> char <br/>  media <br/> org <br/> HUC8 <br/> HUC8_Name <br/> HUC10 <br/> HUC12 <br/> HUC12_Name <br/> Result_Status <br/> crit_codes  | Retrieve a dataframe of raw continious data exported from AWQMS. If      crit_codes = TRUE, it will bring in standard criteria codes also  |
 | `AWQMS_Chars` | project <br/> station | Return a dataframe of available characteristics |
 | `AWQMS_Orgs` |  project <br/> station | Return a dataframe of available organizations |
 | `AWQMS_Projects` | - | Return a dataframe of available projects |

@@ -2,9 +2,11 @@
 
 export(AWQMS_Chars)
 export(AWQMS_Data)
+export(AWQMS_Data_Cont)
 export(AWQMS_Orgs)
 export(AWQMS_Projects)
 export(AWQMS_Stations)
 export(CuBLM)
+export(query_stations)
 export(unit_conv)
 importFrom(magrittr,"%>%")

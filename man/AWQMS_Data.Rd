@@ -5,10 +5,10 @@
 \title{AWQMS_Data}
 \usage{
 AWQMS_Data(startdate = "1949-09-15", enddate = NULL, station = NULL,
-  project = NULL, char = NULL, stat_base = NULL, media = NULL,
-  org = NULL, HUC8 = NULL, HUC8_Name = NULL, HUC10 = NULL,
-  HUC12 = NULL, HUC12_Name = NULL, crit_codes = FALSE,
-  filterQC = TRUE)
+  AU_ID = NULL, project = NULL, char = NULL, stat_base = NULL,
+  media = NULL, org = NULL, HUC8 = NULL, HUC8_Name = NULL,
+  HUC10 = NULL, HUC12 = NULL, HUC12_Name = NULL,
+  crit_codes = FALSE, filterQC = TRUE)
 }
 \arguments{
 \item{startdate}{Required parameter setting the startdate of the data being fetched. Format 'yyyy-mm-dd'}
@@ -16,6 +16,8 @@ AWQMS_Data(startdate = "1949-09-15", enddate = NULL, station = NULL,
 \item{enddate}{Optional parameter setting the enddate of the data being fetched. Format 'yyyy-mm-dd'}
 
 \item{station}{Optional vector of stations to be fetched}
+
+\item{AU_ID}{Optional vector of Assessment Units to be fetched}
 
 \item{project}{Optional vector of projects to be fetched}
 

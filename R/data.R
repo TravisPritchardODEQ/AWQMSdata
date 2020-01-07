@@ -94,6 +94,16 @@
 
 
 
+#'Benefical uses lookup table
+#'
+#'A dataframe to lookup beneficial uses by ben_use_code
+#'
+#'@format A dataframe
+#'
+"LU_BenUseCode"
+
+
+
 
 
 
