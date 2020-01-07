@@ -95,7 +95,13 @@ CuBLM <- function(x) {
   return(Copper_joined)
 }
 
+<<<<<<< HEAD
 #library(AWQMSdata)
 #library(tidyverse)
 #x<-AWQMS_Data(startdate='2019-12-02',enddate='2019-12-02')
+=======
+library(AWQMSdata)
+library(tidyverse)
+x<-AWQMS_Data(startdate='2019-09-04',enddate='2019-09-04')
+>>>>>>> 8d73e4d85f7d6ecf71b544023b22bb6eb611cde7
 
