@@ -67,6 +67,7 @@ This package contains the following functions:
 | `AWQMS_Projects` | - | Return a dataframe of available projects |
 | `AWQMS_Stations` | project <br/> char <br/> HUC8 <br/> HUC8_Name <br/> org <br/> crit_codes |  Return a dataframe of available stations. If      crit_codes = TRUE, it will bring in standard criteria codes also |
 | `AWQMS_Stations_strds` | project <br/> char <br/> HUC8 <br/> HUC8_Name <br/> org |  Return a dataframe of available stations combined with standard codes |
+| `query_stations` | stations_odbc  <br/> mlocs <br/> huc8_name <br/> huc10_name  <br/> huc12_name <br/> huc8 <br/> huc10 <br/> huc12 <br/> au_id <br/> gnis_name <br/> reachcode <br/> owrd_basin <br/> state|  Return a dataframe of stations queried from stations database|
 
 <br/>
 
