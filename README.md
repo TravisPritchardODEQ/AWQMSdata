@@ -13,7 +13,7 @@ Note that this package is currently a work in progress. It is being developed by
 **_You need an ODBC connection to the AWQMS database named AWQMS, the Stations database names Stations, and read access to VW_AWQMS_Results._**
 
 * Staff will need to send a request to helpdesk to be added to the LabDBAWQMSODBC and the LABDBSTATIONUSER User Groups on the LEAD-LIMS server.
-* Add an ODBC connection to AWQMS on server named **AWQMS** and to Stations database named **Stations**
+* Add an ODBC connection to AWQMS on server named **AWQMS** and to Stations database named **Stations**. Email Travis if you need help setting this up. 
 
  
 
@@ -209,3 +209,12 @@ To return all available organizations that have water temperature and dissolved 
 > organizations <- AWQMS_Orgs(station = stations_vector)  
 ```
 
+<br/>
+
+#### query_stations 
+Use `query_stations()` to return station information from the Stations Database. This differs from AWQMS_Stations() in that it directly queries the stations database, as opposed to going through AWQMS. 
+
+```
+# Retrieve information from all stations in the North Coast Admin Basin
+stations <- query_stations(owrd_basin = 'North Coast')
+ ```
