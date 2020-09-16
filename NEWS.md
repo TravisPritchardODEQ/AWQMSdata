@@ -1,3 +1,14 @@
+# AWQMSdata 1.1
+
+# AWQMSdata 1.1 (2020-09-16)
+### Breaking Updates
+* Changed column names in criteria table sto align with what comes out of AWQMS
+
+### Non-breaking Upates
+* Added Mlocs_crit() to query stations database to provide criteria codes.
+  Function joins criteria tables to provide site speific criteria
+  
+
 # AWQMSdata 1.0 (2019-12-03)
 
 * Added AWQMS_Data_Cont() to query raw continuous data
