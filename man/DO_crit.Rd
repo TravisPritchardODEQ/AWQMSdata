@@ -4,7 +4,9 @@
 \name{DO_crit}
 \alias{DO_crit}
 \title{Dissolved Oxygen criteria}
-\format{A dataframe}
+\format{
+A dataframe
+}
 \usage{
 DO_crit
 }

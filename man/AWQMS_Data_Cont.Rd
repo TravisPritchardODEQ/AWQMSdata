@@ -4,11 +4,22 @@
 \alias{AWQMS_Data_Cont}
 \title{AWQMS_Data_Cont}
 \usage{
-AWQMS_Data_Cont(startdate = "1949-09-15", enddate = NULL,
-  station = NULL, AU_ID = NULL, char = NULL, media = NULL,
-  org = NULL, HUC8 = NULL, HUC8_Name = NULL, HUC10 = NULL,
-  HUC12 = NULL, HUC12_Name = NULL, Result_Status = NULL,
-  crit_codes = FALSE)
+AWQMS_Data_Cont(
+  startdate = "1949-09-15",
+  enddate = NULL,
+  station = NULL,
+  AU_ID = NULL,
+  char = NULL,
+  media = NULL,
+  org = NULL,
+  HUC8 = NULL,
+  HUC8_Name = NULL,
+  HUC10 = NULL,
+  HUC12 = NULL,
+  HUC12_Name = NULL,
+  Result_Status = NULL,
+  crit_codes = FALSE
+)
 }
 \arguments{
 \item{startdate}{Required parameter setting the startdate of the data being fetched. Format 'yyyy-mm-dd'}

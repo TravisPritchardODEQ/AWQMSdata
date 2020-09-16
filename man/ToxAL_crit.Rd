@@ -4,7 +4,9 @@
 \name{ToxAL_crit}
 \alias{ToxAL_crit}
 \title{Aquatic Life toxic criteria}
-\format{A dataframe}
+\format{
+A dataframe
+}
 \usage{
 ToxAL_crit
 }

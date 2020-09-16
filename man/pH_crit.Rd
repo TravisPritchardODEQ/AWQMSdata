@@ -4,7 +4,9 @@
 \name{pH_crit}
 \alias{pH_crit}
 \title{pH  criteria}
-\format{A dataframe}
+\format{
+A dataframe
+}
 \usage{
 pH_crit
 }

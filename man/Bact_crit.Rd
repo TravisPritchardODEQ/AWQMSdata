@@ -4,7 +4,9 @@
 \name{Bact_crit}
 \alias{Bact_crit}
 \title{Bacteria criteria}
-\format{A dataframe}
+\format{
+A dataframe
+}
 \usage{
 Bact_crit
 }
