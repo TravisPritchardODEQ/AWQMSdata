@@ -50,6 +50,11 @@ This package contains the following functions:
                        media, org, HUC8, crit_codes, filterQC)__  - Returns data from AWQMS 
   * __AWQMS_Data_Cont(startdate, enddate, station, AU_ID, char, media, org
                       HUC8, HUC8_Name, HUC10, HUC12, HUC12_Name, Result_Status, crit_codes)__  - Returns raw continuous data from AWQMS
+  * __query_stations(stations_odbc, mlocs, huc8_name, huc10_name, huc12_name,
+                           huc8, huc10, huc12,
+                           au_id, gnis_name, reachcode,
+                           owrd_basin, state )__ - Retrieve station information from ODEQ's Stations database based on a set of query paramaters.                   
+  * __Mlocs_crit(mlocs, stations_odbc)__ - Returns criteria codes and site speific criteria
    
  
 <br/>
@@ -66,7 +71,8 @@ This package contains the following functions:
 | `AWQMS_Orgs` |  project <br/> station | Return a dataframe of available organizations |
 | `AWQMS_Projects` | - | Return a dataframe of available projects |
 | `AWQMS_Stations` | project <br/> char <br/> HUC8 <br/> HUC8_Name <br/> org <br/> crit_codes |  Return a dataframe of available stations. If      crit_codes = TRUE, it will bring in standard criteria codes also |
-| `AWQMS_Stations_strds` | project <br/> char <br/> HUC8 <br/> HUC8_Name <br/> org |  Return a dataframe of available stations combined with standard codes |
+| `query_stations` | stations_odbc <br/> mlocs <br/> huc8_name <br/> huc10_name <br/> huc12_name <br/> huc8 <br/> huc10 <br/>  huc10<br/>huc12  <br/> au_id <br/> gnis_name <br/>  reachcode  <br/>owrd_basin <br/> state |  Retrieve station information from ODEQ's Stations database based on a set of query paramaters. |
+| `Mlocs_crit` | mlocs <br/> stations_odbc  |  Return a dataframe of  stations combined with site spefic standard codes |
 
 <br/>
 
@@ -74,11 +80,11 @@ This package contains the following functions:
 
 | Table Name | Fields | Description                 |
 | ---------- | ------ | --------------------------- |
-| `Bact_crit` | BacteriaCode <br/> SS_Crit <br/> Geomean_Crit <br/> Perc_Crit| Bacteria Criteria table. Join by BacteriaCode|
+| `Bact_crit` | BacteriaCode <br/> Bacteria_SS_Crit <br/> Bacteria_Geomean_Crit <br/> Bacteria_Percentage_Crit| Bacteria Criteria table. Join by BacteriaCode|
 | `Chla_crit` | MonLocType <br/> Chla_Criteria | Chlorophyll a criteria table. Join by MonLocType|
-| `DO_crit` | DO_code <br/> crit_30D <br/> crit_7Mi <br/> crit_Min <br/> crit_Instant | Dissolved Oxygen Criteria Table. Join by DO_code|
+| `DO_crit` | DO_code <br/> DO_30D_crit <br/> DO_7Mi_crit <br/> DO_abs_min_crit <br/> DO_Instant_crit | Dissolved Oxygen Criteria Table. Join by DO_code|
 | `pH_crit`| pH_code <br/> pH_Min <br/> pH_Max| pH criteria table. Join by pH_code |
-| `Temp_crit` | FishUse_code <br/> Temp_Criteria <br/> Comment | Temperature Criteria outside of spawning time periods. Spawning criteria = 13.0. Join by FishUse_code|
+| `Temp_crit` | FishCode <br/> Temp_Criteria <br/> Comment | Temperature Criteria outside of spawning time periods. Spawning criteria = 13.0. Join by FishCode|
 | `ToxAL_crit` | Pollu_ID <br/> Pollutant <br/> Acute_FW <br/> Chronic_FW <br/> Acute_SW <br/> Chronic_SW <br/> Fraction | Aquatic life toxics criteria. Currently a tricky one to join due to differences in parameter names Need to join by Pollu_ID | 
 | `ToxHH_crit`| Pollu_ID <br/> Pollutant <br/>  WaterOrganism <br/>  Organism <br/>  Organism_SW  <br/> Fraction | Human health toxics criteria. Currently a tricky one to join due to differences in parameter names. Need to join by Pollu_ID |
 | `LU_BacteriaCode`| Bacteria_class <br/> Bacteria_code | Lookup table to connect numeric bacteria code to bacteria class. Join by Bacteria_code |
