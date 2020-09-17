@@ -1,7 +1,7 @@
 # AWQMSdata  
 
 
-AWQMSdata was created to load data from Oregon DEQ AWQMS into R. This is intended for internal Oregon DEQ users. Public users should use the AWQMS frontend located [here.](https://www.oregon.gov/deq/wq/Pages/WQdata.aspx)   
+AWQMSdata was created to load data from Oregon DEQ AWQMS into R. **This is intended for internal Oregon DEQ users. Public users should use the AWQMS frontend located [here.](https://www.oregon.gov/deq/wq/Pages/WQdata.aspx)**   
 
 There is a Shiny App that can be used to help put together the data retrieval function. You can clone or download that app [here.](https://github.com/TravisPritchardODEQ/AWQMSdata_ShinyHelp)  
 
@@ -10,10 +10,12 @@ Note that this package is currently a work in progress. It is being developed by
 
 ## Installation
 
-**_You need an ODBC connection to the AWQMS database named AWQMS, and read access to VW_AWQMS_Results._**
+**_You need an ODBC connection to the AWQMS database named AWQMS, and read access to VW_AWQMS_Results. You will also need an ODBC connection to the Stations databse named STATIONS_**
 
 * Staff will need to send a request to helpdesk to be added to the LabDBAWQMSODBC and the LABDBSTATIONUSER User Groups on the LEAD-LIMS server.
-* Add an ODBC connection to AWQMS on server named **AWQMS**
+* Add an ODBC connection to AWQMS on server named **AWQMS**. 
+* Add an ODBC connection to the stations database named **STATIONS**.
+* Email Travis Pritchard for help setting up ODBC connections.  
 
  
 
