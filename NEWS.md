@@ -2,7 +2,8 @@
 
 # AWQMSdata 1.1 (2020-09-16)
 ### Breaking Updates
-* Changed column names in criteria table sto align with what comes out of AWQMS
+* Changed column names in criteria tables to align with what comes out of AWQMS.
+  See readme for new column names. 
 
 ### Non-breaking Upates
 * Added Mlocs_crit() to query stations database to provide criteria codes.
