@@ -82,7 +82,7 @@ This package contains the following functions:
 
 | Table Name | Fields | Description                 |
 | ---------- | ------ | --------------------------- |
-| `Bact_crit` | BacteriaCode <br/> Bacteria_SS_Crit <br/> Bacteria_Geomean_Crit <br/> Bacteria_Percentage_Crit| Bacteria Criteria table. Join by BacteriaCode|
+| `Bacteria_crit` | BacteriaCode <br/> Bacteria_SS_Crit <br/> Bacteria_Geomean_Crit <br/> Bacteria_Percentage_Crit|OBSOLETE Bacteria Criteria table. Join by BacteriaCode|
 | `Chla_crit` | MonLocType <br/> Chla_Criteria | Chlorophyll a criteria table. Join by MonLocType|
 | `DO_crit` | DO_code <br/> DO_30D_crit <br/> DO_7Mi_crit <br/> DO_abs_min_crit <br/> DO_Instant_crit | Dissolved Oxygen Criteria Table. Join by DO_code|
 | `pH_crit`| pH_code <br/> pH_Min <br/> pH_Max| pH criteria table. Join by pH_code |
@@ -93,7 +93,7 @@ This package contains the following functions:
 | `LU_DOCode` | DO_Class <br/>  DO_code | Lookup table to connect numeric DO code to DO classification. Join by DO_code |
 | `LU_FishUse` | FishUse <br/> FishUse_code | Lookup table to connect numeric Fish use code to fish use designations | 
 | `LU_Spawn` | SpawnCode <br/> Spawn_dates <br/> SpawnStart <br/> SpawnEnd | Lookup table to obtain spawning dates from spawn code. Join by SpawnCode or DO_Spawncode|
-
+| `Bact_crit` | BacteriaCode <br/> SS_Crit <br/> Geomean_Crit <br/> Perc_Crit| *OBSOLETE* Bacteria Criteria table. Join by BacteriaCode|
 
 
 ## Usage
