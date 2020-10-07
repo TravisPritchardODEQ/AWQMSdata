@@ -4,7 +4,9 @@
 \name{LU_BenUseCode}
 \alias{LU_BenUseCode}
 \title{Benefical uses lookup table}
-\format{A dataframe}
+\format{
+A dataframe
+}
 \usage{
 LU_BenUseCode
 }

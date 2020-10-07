@@ -4,7 +4,9 @@
 \name{LU_DOCode}
 \alias{LU_DOCode}
 \title{Dissolved Oxygen Code Lookup Table}
-\format{A dataframe}
+\format{
+A dataframe
+}
 \usage{
 LU_DOCode
 }

@@ -4,7 +4,9 @@
 \name{LU_FishUse}
 \alias{LU_FishUse}
 \title{Fish Use Lookup Table}
-\format{A dataframe}
+\format{
+A dataframe
+}
 \usage{
 LU_FishUse
 }

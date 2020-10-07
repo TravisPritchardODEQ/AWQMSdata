@@ -4,7 +4,9 @@
 \name{LU_BacteriaCode}
 \alias{LU_BacteriaCode}
 \title{Bacteria Code Lookup Table}
-\format{A dataframe}
+\format{
+A dataframe
+}
 \usage{
 LU_BacteriaCode
 }

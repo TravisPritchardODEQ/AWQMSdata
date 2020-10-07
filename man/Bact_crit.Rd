@@ -4,11 +4,13 @@
 \name{Bact_crit}
 \alias{Bact_crit}
 \title{Bacteria criteria}
-\format{A dataframe}
+\format{
+A dataframe
+}
 \usage{
 Bact_crit
 }
 \description{
-A dataframe of the Bacteria criteria
+An obsolete dataframe of the Bacteria criteria. Kept for legacy purposes
 }
 \keyword{datasets}

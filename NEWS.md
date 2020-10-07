@@ -1,3 +1,14 @@
+
+
+# AWQMSdata 1.1 (2020-09-16)
+### Breaking Updates
+* Changed column names in criteria tables to align with what comes out of AWQMS.
+  See readme for new column names. 
+
+### Non-breaking Upates
+* Added Mlocs_crit() to query stations database to provide criteria codes.
+  Function joins criteria tables to provide site speific criteria
+
 # AWQMSdata 1.2 (2020-04-15)
 
 * Changed format of SampleStartTime in AWQMSdata to remove decimal seconds. Time is now dsilayed as hh:mm:ss
@@ -5,6 +16,7 @@
 # AWQMSdata 1.1 (2019-12-13)
 
 * Merged Aliana Britson's updates to copper BLM script which adds Result type for all characteristics
+
 
 # AWQMSdata 1.0 (2019-12-03)
 

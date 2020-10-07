@@ -18,12 +18,20 @@
 
 #'Bacteria criteria
 #'
-#'A dataframe of the Bacteria criteria
+#'An obsolete dataframe of the Bacteria criteria. Kept for legacy purposes
 #'
 #'@format A dataframe
 #'
 "Bact_crit"
 
+
+#'Bacteria criteria
+#'
+#'An updated dataframe of the Bacteria criteria
+#'
+#'@format A dataframe
+#'
+"Bacteria_crit"
 
 #'chlorophyll a  criteria
 #'

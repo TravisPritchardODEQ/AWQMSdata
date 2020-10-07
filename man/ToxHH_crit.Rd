@@ -4,7 +4,9 @@
 \name{ToxHH_crit}
 \alias{ToxHH_crit}
 \title{Human Health toxic criteria}
-\format{A dataframe}
+\format{
+A dataframe
+}
 \usage{
 ToxHH_crit
 }

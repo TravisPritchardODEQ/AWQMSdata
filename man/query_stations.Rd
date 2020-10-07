@@ -4,11 +4,21 @@
 \alias{query_stations}
 \title{Query ODEQ's Stations database.}
 \usage{
-query_stations(stations_odbc = "STATIONS", mlocs = NULL,
-  huc8_name = NULL, huc10_name = NULL, huc12_name = NULL,
-  huc8 = NULL, huc10 = NULL, huc12 = NULL, au_id = NULL,
-  gnis_name = NULL, reachcode = NULL, owrd_basin = NULL,
-  state = c("OR", "ID", "CA", "WA", "NV", "PACIFIC OCEAN"))
+query_stations(
+  stations_odbc = "STATIONS",
+  mlocs = NULL,
+  huc8_name = NULL,
+  huc10_name = NULL,
+  huc12_name = NULL,
+  huc8 = NULL,
+  huc10 = NULL,
+  huc12 = NULL,
+  au_id = NULL,
+  gnis_name = NULL,
+  reachcode = NULL,
+  owrd_basin = NULL,
+  state = c("OR", "ID", "CA", "WA", "NV", "PACIFIC OCEAN")
+)
 }
 \arguments{
 \item{stations_odbc}{Stations database ODBC system data source name (DSN) identifed in the ODBC data sources administrator. Default is "STATIONS".}

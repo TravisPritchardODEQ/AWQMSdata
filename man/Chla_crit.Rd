@@ -4,7 +4,9 @@
 \name{Chla_crit}
 \alias{Chla_crit}
 \title{chlorophyll a  criteria}
-\format{A dataframe}
+\format{
+A dataframe
+}
 \usage{
 Chla_crit
 }

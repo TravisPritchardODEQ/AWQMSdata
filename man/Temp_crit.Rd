@@ -4,7 +4,9 @@
 \name{Temp_crit}
 \alias{Temp_crit}
 \title{Temperature criteria}
-\format{A dataframe}
+\format{
+A dataframe
+}
 \usage{
 Temp_crit
 }

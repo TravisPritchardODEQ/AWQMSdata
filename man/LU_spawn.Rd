@@ -4,7 +4,9 @@
 \name{LU_spawn}
 \alias{LU_spawn}
 \title{Spawning Period Lookup Table}
-\format{A dataframe}
+\format{
+A dataframe
+}
 \usage{
 LU_spawn
 }
