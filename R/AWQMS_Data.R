@@ -35,6 +35,7 @@ AWQMS_Data <-
            char = NULL,
            stat_base = NULL,
            media = NULL,
+           submedia = NULL,
            org = NULL,
            HUC8 = NULL,
            HUC8_Name = NULL,
@@ -113,6 +114,13 @@ query <- "SELECT a.*
     query = paste0(query, "\n AND a.SampleMedia in ({media*}) ")
 
   }
+
+
+    # sample submedia
+    if (length(submedia) > 0) {
+      query = paste0(query, "\n AND a.SampleSubmedia in ({submedia*}) ")
+
+    }
 
   # organization
   if (length(org) > 0){

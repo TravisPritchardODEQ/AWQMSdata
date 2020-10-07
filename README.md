@@ -67,7 +67,7 @@ This package contains the following functions:
 
 | Function Name | Arguments | Description                 |
 | ------------- | --------- | --------------------------- |
-| `AWQMS_Data`  | startdate <br/> enddate <br/> station <br/> AU_ID <br/>project <br/> char <br/> stat_base <br/> media <br/> org <br/> HUC8 <br/> HUC8_Name <br/> HUC10 <br/> HUC12 <br/> HUC12_Name <br/> crit_codes <br/> filterQC | Retrieve a dataframe of data exported from AWQMS. If      crit_codes = TRUE, it will bring in standard criteria codes also  |
+| `AWQMS_Data`  | startdate <br/> enddate <br/> station <br/> AU_ID <br/>project <br/> char <br/> stat_base <br/> media <br/>  submedia <br/> org <br/> HUC8 <br/> HUC8_Name <br/> HUC10 <br/> HUC12 <br/> HUC12_Name <br/> crit_codes <br/> filterQC | Retrieve a dataframe of data exported from AWQMS. If      crit_codes = TRUE, it will bring in standard criteria codes also  |
 | `AWQMS_Data_Cont`  | startdate <br/> enddate <br/> station <br/> AU_ID <br/> char <br/>  media <br/> org <br/> HUC8 <br/> HUC8_Name <br/> HUC10 <br/> HUC12 <br/> HUC12_Name <br/> Result_Status <br/> crit_codes  | Retrieve a dataframe of raw continious data exported from AWQMS. If      crit_codes = TRUE, it will bring in standard criteria codes also  |
 | `AWQMS_Chars` | project <br/> station | Return a dataframe of available characteristics |
 | `AWQMS_Orgs` |  project <br/> station | Return a dataframe of available organizations |
