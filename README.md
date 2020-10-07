@@ -10,10 +10,10 @@ Note that this package is currently a work in progress. It is being developed by
 
 ## Installation
 
-**_You need an ODBC connection to the AWQMS database named AWQMS, and read access to VW_AWQMS_Results._**
+**_You need an ODBC connection to the AWQMS database named AWQMS, the Stations database names Stations, and read access to VW_AWQMS_Results._**
 
 * Staff will need to send a request to helpdesk to be added to the LabDBAWQMSODBC and the LABDBSTATIONUSER User Groups on the LEAD-LIMS server.
-* Add an ODBC connection to AWQMS on server named **AWQMS**
+* Add an ODBC connection to AWQMS on server named **AWQMS** and to Stations database named **Stations**. Email Travis if you need help setting this up. 
 
  
 
@@ -67,6 +67,7 @@ This package contains the following functions:
 | `AWQMS_Projects` | - | Return a dataframe of available projects |
 | `AWQMS_Stations` | project <br/> char <br/> HUC8 <br/> HUC8_Name <br/> org <br/> crit_codes |  Return a dataframe of available stations. If      crit_codes = TRUE, it will bring in standard criteria codes also |
 | `AWQMS_Stations_strds` | project <br/> char <br/> HUC8 <br/> HUC8_Name <br/> org |  Return a dataframe of available stations combined with standard codes |
+| `query_stations` | stations_odbc  <br/> mlocs <br/> huc8_name <br/> huc10_name  <br/> huc12_name <br/> huc8 <br/> huc10 <br/> huc12 <br/> au_id <br/> gnis_name <br/> reachcode <br/> owrd_basin <br/> state|  Return a dataframe of stations queried from stations database|
 
 <br/>
 
@@ -208,3 +209,12 @@ To return all available organizations that have water temperature and dissolved 
 > organizations <- AWQMS_Orgs(station = stations_vector)  
 ```
 
+<br/>
+
+#### query_stations 
+Use `query_stations()` to return station information from the Stations Database. This differs from AWQMS_Stations() in that it directly queries the stations database, as opposed to going through AWQMS. 
+
+```
+# Retrieve information from all stations in the North Coast Admin Basin
+stations <- query_stations(owrd_basin = 'North Coast')
+ ```

@@ -1,3 +1,7 @@
+# AWQMSdata 1.2 (2020-04-15)
+
+* Changed format of SampleStartTime in AWQMSdata to remove decimal seconds. Time is now dsilayed as hh:mm:ss
+
 # AWQMSdata 1.1 (2019-12-13)
 
 * Merged Aliana Britson's updates to copper BLM script which adds Result type for all characteristics
