@@ -1,6 +1,6 @@
 
 
-# AWQMSdata 1.3 (2020-09-16)
+# AWQMSdata 1.3 (2020-10-07)
 ### Breaking Updates
 * Changed column names in criteria tables to align with what comes out of AWQMS.
   See readme for new column names. 
