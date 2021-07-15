@@ -58,16 +58,16 @@ CuBLM <- function(x) {
   #Set date
   ancillary$date <- as.Date(ancillary$SampleStartDate)
 
-  ancillary<-subset(ancillary,select=c("Char_Name","Result","date","OrganizationID","MLocID", "Project1","Result_Type"))
+  ancillary<-subset(ancillary,select=c("Char_Name","Result_Text","date","OrganizationID","MLocID", "Project1","Result_Type"))
 
   type<-subset(ancillary,select=c("Char_Name","date","OrganizationID","MLocID", "Project1","Result_Type"))
 
   #get ancillary data into wide table format
   ancillary <- ancillary %>%
     dplyr::group_by(Char_Name, date, OrganizationID, MLocID,Project1) %>%
-    dplyr::summarise(Result = dplyr::first(Result)) %>%
+    dplyr::summarise(Result_Text = dplyr::first(Result_Text)) %>%
     dplyr::ungroup() %>%
-    tidyr::spread(key = Char_Name, value =Result )
+    tidyr::spread(key = Char_Name, value =Result_Text )
 
   #get result type data into wide table format
   type<- type %>%
@@ -80,7 +80,7 @@ CuBLM <- function(x) {
 
 
 
-  Copper<-subset(Copper,select=c("OrganizationID","Project1", "MLocID",  "SampleStartDate","SampleStartTime", "Char_Name","Result","MDLValue",
+  Copper<-subset(Copper,select=c("OrganizationID","Project1", "MLocID",  "SampleStartDate","SampleStartTime", "Char_Name","Result_Text","MDLValue",
                                  "MRLValue","Result_Type"))
 
   Copper_joined <- Copper %>%
