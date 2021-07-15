@@ -88,8 +88,8 @@ AlBLM <- function(x) {
   return(Aluminum_joined)
 }
 
-library(AWQMSdata)
-library(tidyverse)
-x<-AWQMS_Data(startdate='2019-12-02',enddate='2020-06-02')
-try<-AlBLM(x)
+#library(AWQMSdata)
+#library(tidyverse)
+#x<-AWQMS_Data(startdate='2019-12-02',enddate='2020-06-02')
+#try<-AlBLM(x)
 
