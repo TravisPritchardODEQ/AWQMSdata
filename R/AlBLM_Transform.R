@@ -82,7 +82,7 @@ AlBLM <- function(x) {
     dplyr::left_join(type, by = c('date', 'OrganizationID', 'MLocID',  "Project1"))
 
   #column names are a bit weird now, rename a bit
-  names(Aluminum_joined)<-stringr::str_replace(names(Aluminum_joined),".x","")
+  names(Aluminum_joined)<-stringr::str_replace(names(Aluminum_joined),"\\.x","")
   names(Aluminum_joined)<-stringr::str_replace(names(Aluminum_joined),"\\.y"," Result_Type")
 
   return(Aluminum_joined)

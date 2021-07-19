@@ -89,7 +89,7 @@ CuBLM <- function(x) {
     dplyr::left_join(type, by = c('date', 'OrganizationID', 'MLocID',  "Project1"))
 
   #column names are a bit weird now, rename a bit
-  names(Copper_joined)<-stringr::str_replace(names(Copper_joined),".x","")
+  names(Copper_joined)<-stringr::str_replace(names(Copper_joined),"\\.x","")
   names(Copper_joined)<-stringr::str_replace(names(Copper_joined),"\\.y"," Result_Type")
 
   return(Copper_joined)
