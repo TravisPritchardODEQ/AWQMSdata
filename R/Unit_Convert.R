@@ -66,7 +66,7 @@ unit_conv<-function(x,char,unit,conv){
 
   #we changed Result_Numeric, now we want to make sure that Result shows the same value by replacing it
   #with result numeric concatenated with < for NDs (or > when it exists)
-  x$Result<-paste0(ifelse(!(x$Result_Operator %in% "="),x$Result_Operator,""),x$Result_Numeric)
+  x$Result_Text<-paste0(ifelse(!(x$Result_Operator %in% "="),x$Result_Operator,""),x$Result_Numeric)
 
   return(x)
 
