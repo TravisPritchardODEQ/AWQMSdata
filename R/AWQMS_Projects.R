@@ -14,10 +14,10 @@ AWQMS_Projects <- function() {
 con <- DBI::dbConnect(odbc::odbc(), "AWQMS")
 
 project1 <- DBI::dbGetQuery(con, "SELECT DISTINCT       Project1 AS 'Project'
-                               FROM            [deqlead-lims\\awqms].[awqms].[dbo].[VW_AWQMS_Results]")
+                               FROM            [awqms].[dbo].[VW_AWQMS_Results]")
 
 project2 <- DBI::dbGetQuery(con, "SELECT DISTINCT       Project2 AS 'Project'
-                               FROM            [deqlead-lims\\awqms].[awqms].[dbo].[VW_AWQMS_Results]")
+                               FROM           [awqms].[dbo].[VW_AWQMS_Results]")
 
 #project3 <- dbGetQuery(con, "SELECT DISTINCT       Project3 AS 'Project'
 #                             FROM            [deqlead-lims\\awqms].[awqms].[dbo].[VW_AWQMS_Results]")

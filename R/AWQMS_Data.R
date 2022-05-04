@@ -140,8 +140,8 @@ query <- "SELECT a.[OrganizationID]
   ,s.ben_use_code
   ,s.pH_code
   ,s.DO_SpawnCode
-  FROM  [deqlead-lims\\awqms].[awqms].[dbo].[VW_AWQMS_Results] a
-  LEFT JOIN [deqlead-lims].[Stations].[dbo].[VWStationsFinal] s ON a.MLocID = s.MLocID
+  FROM  [awqms].[dbo].[VW_AWQMS_Results] a
+  LEFT JOIN [Stations].[dbo].[VWStationsFinal] s ON a.MLocID = s.MLocID
   WHERE SampleStartDate >= Convert(datetime, {startdate})"
 } else {
   query <- "SELECT a.[OrganizationID]
@@ -226,7 +226,7 @@ query <- "SELECT a.[OrganizationID]
 , a.[URLValue]
 , a.[URLUnit]
 , a.[WQX_submit_date]
-  FROM  [deqlead-lims\\awqms].[awqms].[dbo].[VW_AWQMS_Results] a
+  FROM [awqms].[dbo].[VW_AWQMS_Results] a
   WHERE SampleStartDate >= Convert(datetime, {startdate})"
 
 }
