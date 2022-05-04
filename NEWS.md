@@ -1,4 +1,6 @@
-
+# AWQMSdata 1.5 (2022-05-04)
+### Breaking Updates
+* Bug fix following AWQMS server update. User will need to update package. 
 
 # AWQMSdata 1.3 (2020-10-07)
 ### Breaking Updates
