@@ -51,12 +51,12 @@ AWQMS_Data_Cont <-
   ,s.ben_use_code
   ,s.pH_code
   ,s.DO_SpawnCode
-  FROM  [deqlead-lims\\awqms].[awqms].[dbo].[VW_AWQMS_Cont_Results] a
-  LEFT JOIN [deqlead-lims].[Stations].[dbo].[VWStationsFinal] s ON a.MLocID = s.MLocID
+  FROM  [awqms].[dbo].[VW_AWQMS_Cont_Results] a
+  LEFT JOIN[Stations].[dbo].[VWStationsFinal] s ON a.MLocID = s.MLocID
   WHERE Result_Date >= Convert(datetime, {startdate})"
   } else {
     query <- "SELECT a.*
-  FROM  [deqlead-lims\\awqms].[awqms].[dbo].[VW_AWQMS_Cont_Results] a
+  FROM [awqms].[dbo].[VW_AWQMS_Cont_Results] a
   WHERE Result_Date >= Convert(datetime, {startdate})"
 
   }

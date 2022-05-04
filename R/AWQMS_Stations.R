@@ -46,8 +46,8 @@ AWQMS_Stations <- function(project = NULL, char = NULL, HUC8 = NULL, HUC8_Name =
     s.ben_use_code,
     s.pH_code,
     s.DO_SpawnCode
-    FROM  [deqlead-lims\\awqms].[awqms].[dbo].[VW_AWQMS_Results] a
-    LEFT JOIN [deqlead-lims].[Stations].[dbo].[VWStationsFinal] s ON a.MLocID = s.MLocID"
+    FROM [awqms].[dbo].[VW_AWQMS_Results] a
+    LEFT JOIN [Stations].[dbo].[VWStationsFinal] s ON a.MLocID = s.MLocID"
   } else {
     query = "SELECT distinct  a.[MLocID],
     a.[StationDes],
@@ -64,7 +64,7 @@ AWQMS_Stations <- function(project = NULL, char = NULL, HUC8 = NULL, HUC8_Name =
     a.[Reachcode],
     a.[Measure],
     a.[AU_ID]
-    FROM  [deqlead-lims\\awqms].[awqms].[dbo].[VW_AWQMS_Results] a"
+    FROM  [[awqms].[dbo].[VW_AWQMS_Results] a"
 
   }
 
