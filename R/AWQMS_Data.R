@@ -43,8 +43,29 @@ AWQMS_Data <-
            HUC12 = NULL,
            HUC12_Name = NULL,
            crit_codes = FALSE,
-           filterQC = TRUE) {
+           filterQC = TRUE,
+           return_query = FALSE) {
 
+
+
+    #testing
+    startdate = '1949-09-15'
+    enddate = NULL
+    station = c('30143-ORDEQ', '30147-ORDEQ')
+    AU_ID = NULL
+    project = NULL
+    char = c('Temperature, water')
+    stat_base = NULL
+    media = NULL
+    submedia = NULL
+    org = NULL
+    HUC8 = NULL
+    HUC8_Name = NULL
+    HUC10 = NULL
+    HUC12 = NULL
+    HUC12_Name = NULL
+    crit_codes = FALSE
+    filterQC = TRUE
 
   # Build base query language
 
@@ -333,14 +354,19 @@ query <- "SELECT a.[OrganizationID]
   # Create query language
   qry <- glue::glue_sql(query, .con = con)
 
-  #
+
+  if(return_query){
+    data_fetch <- qry
+
+  } else {
+
   # Query the database
   data_fetch <- DBI::dbGetQuery(con, qry)
 
 
   # Disconnect
   DBI::dbDisconnect(con)
-
+}
   return(data_fetch)
 
 }
