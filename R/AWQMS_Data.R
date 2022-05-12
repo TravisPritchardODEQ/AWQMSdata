@@ -49,23 +49,23 @@ AWQMS_Data <-
 
 
     #testing
-    startdate = '1949-09-15'
-    enddate = NULL
-    station = c('30143-ORDEQ', '30147-ORDEQ')
-    AU_ID = NULL
-    project = NULL
-    char = c('Temperature, water')
-    stat_base = NULL
-    media = NULL
-    submedia = NULL
-    org = NULL
-    HUC8 = NULL
-    HUC8_Name = NULL
-    HUC10 = NULL
-    HUC12 = NULL
-    HUC12_Name = NULL
-    crit_codes = FALSE
-    filterQC = TRUE
+    # startdate = '1949-09-15'
+    # enddate = NULL
+    # station = c('30143-ORDEQ', '30147-ORDEQ')
+    # AU_ID = NULL
+    # project = NULL
+    # char = c('Temperature, water')
+    # stat_base = NULL
+    # media = NULL
+    # submedia = NULL
+    # org = NULL
+    # HUC8 = NULL
+    # HUC8_Name = NULL
+    # HUC10 = NULL
+    # HUC12 = NULL
+    # HUC12_Name = NULL
+    # crit_codes = FALSE
+    # filterQC = TRUE
 
   # Build base query language
 
