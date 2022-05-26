@@ -1,5 +1,5 @@
-# AWQMSdata 1.6
-
+# AWQMSdata 1.7 (2022-05-26)
+* Added error checks to AWQMSdata if numeric HUCs are not in character format. 
 
 # AWQMSdata 1.6 (2022-05-12)
 * Added return_query = FALSE as argument in AWQMS_Data. If true, will return actual query sent to AWQMS. Hopefully 
