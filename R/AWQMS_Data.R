@@ -17,6 +17,7 @@
 #' @param HUC12_Name Optional vector of HUC12 names to be fetched
 #' @param crit_codes If true, include standard codes used in determining criteria
 #' @param filterQC If true, do not return MLocID 10000-ORDEQ or sample replicates
+#' @param return_query If true, return the query language that would have been sent to AWQMS. If TRUE, nothing is sent to AWQMS. This is useful for troubleshooting.
 #' @return Dataframe of data from AWQMS
 #' @examples
 #' AWQMS_Data(startdate = '2017-1-1', enddate = '2000-12-31', station = c('10591-ORDEQ', '29542-ORDEQ'),

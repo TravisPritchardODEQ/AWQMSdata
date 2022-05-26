@@ -13,6 +13,7 @@ AWQMS_Data(
   char = NULL,
   stat_base = NULL,
   media = NULL,
+  submedia = NULL,
   org = NULL,
   HUC8 = NULL,
   HUC8_Name = NULL,
@@ -20,7 +21,8 @@ AWQMS_Data(
   HUC12 = NULL,
   HUC12_Name = NULL,
   crit_codes = FALSE,
-  filterQC = TRUE
+  filterQC = TRUE,
+  return_query = FALSE
 )
 }
 \arguments{
@@ -55,6 +57,8 @@ AWQMS_Data(
 \item{crit_codes}{If true, include standard codes used in determining criteria}
 
 \item{filterQC}{If true, do not return MLocID 10000-ORDEQ or sample replicates}
+
+\item{return_query}{If true, return the query language that would have been sent to AWQMS. If TRUE, nothing is sent to AWQMS. This is useful for troubleshooting.}
 }
 \value{
 Dataframe of data from AWQMS
