@@ -70,8 +70,11 @@ AWQMS_Data <-
 
   # Build base query language
 
+    AWQMS_server <- Sys.getenv('AWQMS_SERVER')
+    Stations_server <- Sys.getenv('STATIONS_SERVER')
+
   if(crit_codes == TRUE){
-query <- "SELECT a.[OrganizationID]
+query <- paste0("SELECT a.[OrganizationID]
 , a.[Org_Name]
 , a.[Project1]
 , a.[Project2]
@@ -162,11 +165,11 @@ query <- "SELECT a.[OrganizationID]
   ,s.ben_use_code
   ,s.pH_code
   ,s.DO_SpawnCode
-  FROM  [awqms].[dbo].[VW_AWQMS_Results] a
-  LEFT JOIN [Stations].[dbo].[VWStationsFinal] s ON a.MLocID = s.MLocID
-  WHERE SampleStartDate >= Convert(datetime, {startdate})"
+  FROM  ",AWQMS_server,"[VW_AWQMS_Results] a
+  LEFT JOIN ", Stations_server,"[VWStationsFinal] s ON a.MLocID = s.MLocID
+  WHERE SampleStartDate >= Convert(datetime, {startdate})")
 } else {
-  query <- "SELECT a.[OrganizationID]
+  query <- paste0("SELECT a.[OrganizationID]
 , a.[Org_Name]
 , a.[Project1]
 , a.[Project2]
@@ -248,8 +251,8 @@ query <- "SELECT a.[OrganizationID]
 , a.[URLValue]
 , a.[URLUnit]
 , a.[WQX_submit_date]
-  FROM [awqms].[dbo].[VW_AWQMS_Results] a
-  WHERE SampleStartDate >= Convert(datetime, {startdate})"
+FROM  ",AWQMS_server,"[VW_AWQMS_Results] a
+  WHERE SampleStartDate >= Convert(datetime, {startdate})")
 
 }
 

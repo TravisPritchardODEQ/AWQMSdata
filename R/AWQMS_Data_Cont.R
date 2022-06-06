@@ -38,10 +38,11 @@ AWQMS_Data_Cont <-
            crit_codes = FALSE
   ) {
 
-
+    AWQMS_server <- Sys.getenv('AWQMS_SERVER')
+    Stations_server <- Sys.getenv('STATIONS_SERVER')
 
   if(crit_codes == TRUE){
-    query <- "SELECT a.*
+    query <- paste0("SELECT a.*
   ,s.FishCode
   ,s.SpawnCode
   ,s.WaterTypeCode
@@ -51,13 +52,13 @@ AWQMS_Data_Cont <-
   ,s.ben_use_code
   ,s.pH_code
   ,s.DO_SpawnCode
-  FROM  [awqms].[dbo].[VW_AWQMS_Cont_Results] a
-  LEFT JOIN[Stations].[dbo].[VWStationsFinal] s ON a.MLocID = s.MLocID
-  WHERE Result_Date >= Convert(datetime, {startdate})"
+  FROM  ",AWQMS_server,"[VW_AWQMS_Cont_Results] a
+  LEFT JOIN ", Stations_server,"[VWStationsFinal] s ON a.MLocID = s.MLocID
+  WHERE Result_Date >= Convert(datetime, {startdate})")
   } else {
-    query <- "SELECT a.*
-  FROM [awqms].[dbo].[VW_AWQMS_Cont_Results] a
-  WHERE Result_Date >= Convert(datetime, {startdate})"
+    query <- paste0("SELECT a.*
+  FROM  ",AWQMS_server,"[VW_AWQMS_Cont_Results] a
+  WHERE Result_Date >= Convert(datetime, {startdate})")
 
   }
 
