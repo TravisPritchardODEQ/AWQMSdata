@@ -10,8 +10,13 @@
 
 AWQMS_Chars <- function(project = NULL, station = NULL) {
 
+  # Get environment variables
+  readRenviron("~/.Renviron")
+  assert_AWQMS()
+
 
   AWQMS_server <- Sys.getenv('AWQMS_SERVER')
+
   #Connect to database
   con <- DBI::dbConnect(odbc::odbc(), "AWQMS")
 

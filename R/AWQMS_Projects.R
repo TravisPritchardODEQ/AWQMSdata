@@ -10,6 +10,9 @@
 #'
 AWQMS_Projects <- function() {
 
+
+   # Get environment variables
+  readRenviron("~/.Renviron")
   AWQMS_server <- Sys.getenv('AWQMS_SERVER')
 
 #Connect to database

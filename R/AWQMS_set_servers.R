@@ -10,6 +10,7 @@
 #' existing file, while making a backup of your original file for disaster
 #' recovery purposes. The point of this function is to not put SQL server address in public
 #' spaces such as github. The parameters used in the function MUST be kept secret.
+#' This code was very heavily borrowed from qualtRics by Julia Silge and Jasper Ginn
 #' @param AWQMS_SERVER The first three brackets of the AWQMS server address formatted in quotes. must end with .
 #' Example [SERVER].[database_name].[dbo].
 #' @param STATIONS_SERVER The first three brackets of the STATIONS server address formatted in quotes. must end with .

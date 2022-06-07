@@ -68,11 +68,18 @@ AWQMS_Data <-
     # crit_codes = FALSE
     # filterQC = TRUE
 
-  # Build base query language
+
+
+    # Get environment variables
+    readRenviron("~/.Renviron")
+    assert_STATIONS()
+    assert_AWQMS()
 
     AWQMS_server <- Sys.getenv('AWQMS_SERVER')
     Stations_server <- Sys.getenv('STATIONS_SERVER')
 
+
+     # Build base query language
   if(crit_codes == TRUE){
 query <- paste0("SELECT a.[OrganizationID]
 , a.[Org_Name]

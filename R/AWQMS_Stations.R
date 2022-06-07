@@ -14,6 +14,8 @@
 
 AWQMS_Stations <- function(project = NULL, char = NULL, HUC8 = NULL, HUC8_Name = NULL, org = NULL, crit_codes = FALSE) {
 
+  # Get environment variables
+  readRenviron("~/.Renviron")
   AWQMS_server <- Sys.getenv('AWQMS_SERVER')
   Stations_server <- Sys.getenv('STATIONS_SERVER')
 # Connect to database -----------------------------------------------------

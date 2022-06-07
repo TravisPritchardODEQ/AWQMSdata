@@ -38,6 +38,8 @@ AWQMS_Data_Cont <-
            crit_codes = FALSE
   ) {
 
+    # Get environment variables
+    readRenviron("~/.Renviron")
     AWQMS_server <- Sys.getenv('AWQMS_SERVER')
     Stations_server <- Sys.getenv('STATIONS_SERVER')
 

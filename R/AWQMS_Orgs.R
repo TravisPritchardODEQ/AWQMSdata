@@ -9,7 +9,8 @@
 
 
 AWQMS_Orgs <- function(project = NULL, station = NULL) {
-
+  # Get environment variables
+  readRenviron("~/.Renviron")
   AWQMS_server <- Sys.getenv('AWQMS_SERVER')
   #Connect to database
   con <- DBI::dbConnect(odbc::odbc(), "AWQMS")
