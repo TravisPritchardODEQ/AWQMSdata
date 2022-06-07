@@ -53,7 +53,7 @@ AWQMS_set_servers <- function(AWQMS_SERVER, STATIONS_SERVER,
     renv <- file.path(home, ".Renviron")
     if (file.exists(renv)) {
       # Backup original .Renviron before doing anything else here.
-      file.copy(renv, file.path(home, ".Renviron_backup"))
+      file.copy(renv, file.path(home, paste0(".Renviron_backup_", Sys.Date())))
     }
     if (!file.exists(renv)) {
       file.create(renv)
