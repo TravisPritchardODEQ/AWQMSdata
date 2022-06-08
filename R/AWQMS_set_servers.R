@@ -4,13 +4,15 @@
 #' `.Renviron` file so it can be called securely without being stored in
 #' your code. After you have installed these two credentials, they can be
 #' called any time with `Sys.getenv("AWQMS_SERVER")` or
-#' `Sys.getenv("STATIONS_SERVER")`. If you do not have an
+#' `Sys.getenv("STATIONS_SERVER")`. I had some problems when on VPN that caused R to not look in the correct spot.
+#' You can run readRenviron("~/.Renviron") to force read the `.Renviron` file. The query functions will run
+#' `readRenviron("~/.Renviron")`to be sure it's loaded correctly. If you do not have an
 #' `.Renviron` file, the function will create one for you. If you already
 #' have an `.Renviron` file, the function will append the key to your
 #' existing file, while making a backup of your original file for disaster
 #' recovery purposes. The point of this function is to not put SQL server address in public
 #' spaces such as github. The parameters used in the function MUST be kept secret.
-#' This code was very heavily borrowed from qualtRics by Julia Silge and Jasper Ginn
+#' This code was very heavily borrowed from the qualtRics package authored by Julia Silge and Jasper Ginn.
 #' @param AWQMS_SERVER The first three brackets of the AWQMS server address formatted in quotes. must end with .
 #' Example [SERVER].[database_name].[dbo].
 #' @param STATIONS_SERVER The first three brackets of the STATIONS server address formatted in quotes. must end with .
