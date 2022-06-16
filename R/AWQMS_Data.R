@@ -70,7 +70,24 @@ AWQMS_Data <-
     # crit_codes = FALSE
     # filterQC = TRUE
 
+if(!(is.character(HUC8) | is.null(HUC8))){
 
+  stop('HUC8 value must be a character')
+}
+
+    if(!(is.character(HUC10) | is.null(HUC10))){
+
+      stop('HUC10 value must be a character')
+    }
+
+    if(!(is.character(HUC12) | is.null(HUC12))){
+
+      stop('HUC12 value must be a character')
+    }
+
+
+
+  # Build base query language
 
     # Get environment variables
     readRenviron("~/.Renviron")
