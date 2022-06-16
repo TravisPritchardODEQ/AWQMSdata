@@ -10,11 +10,18 @@
 
 AWQMS_Chars <- function(project = NULL, station = NULL) {
 
+  # Get environment variables
+  readRenviron("~/.Renviron")
+  assert_AWQMS()
+
+
+  AWQMS_server <- Sys.getenv('AWQMS_SERVER')
+
   #Connect to database
   con <- DBI::dbConnect(odbc::odbc(), "AWQMS")
 
-  query = "SELECT distinct [Char_Name]
-  FROM [awqms].[dbo].[VW_AWQMS_Results]"
+  query = paste0("SELECT distinct [Char_Name]
+  FROM ",AWQMS_server,"[VW_AWQMS_Results]")
 
   if (length(project) > 0) {
     query <- paste0(query, "\n WHERE (Project1 in ({project*}) OR Project2 in ({project*}))")

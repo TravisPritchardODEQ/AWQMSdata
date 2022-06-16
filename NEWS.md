@@ -1,3 +1,8 @@
+# AWQMSdata 2.0
+* Major update. Added AWQMS_set_servers function to implement needed fix where we need to specify server addresses in query sent to database. Since we don't want to publish the server addresses, we need to save them in our .Renviron to be usable. All the AWQMSdata functions were rewritten to incorporate this change. 
+
+* Added CAS number as a query parameter in AWQMS_Data().
+
 # AWQMSdata 1.7 (2022-05-26)
 * Added error checks to AWQMSdata if numeric HUCs are not in character format. 
 

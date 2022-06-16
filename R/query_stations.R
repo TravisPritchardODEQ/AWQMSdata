@@ -41,8 +41,12 @@ query_stations <- function(stations_odbc="STATIONS", mlocs=NULL,
                            au_id=NULL, gnis_name=NULL, reachcode=NULL,
                            owrd_basin=NULL, state=c("OR", "ID", "CA", "WA", "NV", "PACIFIC OCEAN")){
 
+  readRenviron("~/.Renviron")
+  AWQMS_server <- Sys.getenv('AWQMS_SERVER')
+  Stations_server <- Sys.getenv('STATIONS_SERVER')
+
   # Build base query
-  query <- "Select * from VWStationsFinal where STATE in ({state*})"
+  query <- paste0("Select * from ",Stations_server,"[VWStationsFinal] where STATE in ({state*})")
 
   if(length(mlocs) > 0){
     query = paste0(query,"\n AND MLocID in ({mlocs*}) " )

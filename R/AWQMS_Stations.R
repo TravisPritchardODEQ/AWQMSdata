@@ -14,7 +14,10 @@
 
 AWQMS_Stations <- function(project = NULL, char = NULL, HUC8 = NULL, HUC8_Name = NULL, org = NULL, crit_codes = FALSE) {
 
-
+  # Get environment variables
+  readRenviron("~/.Renviron")
+  AWQMS_server <- Sys.getenv('AWQMS_SERVER')
+  Stations_server <- Sys.getenv('STATIONS_SERVER')
 # Connect to database -----------------------------------------------------
 
 
@@ -22,7 +25,7 @@ AWQMS_Stations <- function(project = NULL, char = NULL, HUC8 = NULL, HUC8_Name =
 
   if(crit_codes == TRUE){
 
-    query = "SELECT distinct  a.[MLocID],
+    query = paste0("SELECT distinct  a.[MLocID],
     a.[StationDes],
     a.[MonLocType],
     a.[EcoRegion3],
@@ -46,10 +49,10 @@ AWQMS_Stations <- function(project = NULL, char = NULL, HUC8 = NULL, HUC8_Name =
     s.ben_use_code,
     s.pH_code,
     s.DO_SpawnCode
-    FROM [awqms].[dbo].[VW_AWQMS_Results] a
-    LEFT JOIN [Stations].[dbo].[VWStationsFinal] s ON a.MLocID = s.MLocID"
+    FROM ", AWQMS_server,"[VW_AWQMS_Results] a
+    LEFT JOIN ",Stations_server,"[VWStationsFinal] s ON a.MLocID = s.MLocID")
   } else {
-    query = "SELECT distinct  a.[MLocID],
+    query = paste0("SELECT distinct  a.[MLocID],
     a.[StationDes],
     a.[MonLocType],
     a.[EcoRegion3],
@@ -64,7 +67,7 @@ AWQMS_Stations <- function(project = NULL, char = NULL, HUC8 = NULL, HUC8_Name =
     a.[Reachcode],
     a.[Measure],
     a.[AU_ID]
-    FROM  [[awqms].[dbo].[VW_AWQMS_Results] a"
+      FROM ", AWQMS_server,"[VW_AWQMS_Results] a")
 
   }
 
