@@ -7,6 +7,7 @@
 #' @param AU_ID Optional vector of Assessment Units to be fetched
 #' @param project Optional vector of projects to be fetched
 #' @param char Optional vector of characteristics to be fetched
+#' @param casnumber Optional vector of CAS numbers to be fetched
 #' @param stat_base Optional vector of Result Stattistical Bases to be fetched ex. Maximum
 #' @param media Optional vector of sample media to be fetched
 #' @param org optional vector of Organizations to be fetched
@@ -34,6 +35,7 @@ AWQMS_Data <-
            AU_ID = NULL,
            project = NULL,
            char = NULL,
+           casnumber = NULL,
            stat_base = NULL,
            media = NULL,
            submedia = NULL,
@@ -296,6 +298,12 @@ FROM  ",AWQMS_server,"[VW_AWQMS_Results] a
     query = paste0(query, "\n AND a.Char_Name in ({char*}) ")
 
   }
+
+    # CAS number
+    if (length(casnumber) > 0) {
+      query = paste0(query, "\n AND a.CASNumber in ({casnumber*}) ")
+
+    }
 
   #statistical base
   if(length(stat_base) > 0){

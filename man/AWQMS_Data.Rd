@@ -11,6 +11,7 @@ AWQMS_Data(
   AU_ID = NULL,
   project = NULL,
   char = NULL,
+  casnumber = NULL,
   stat_base = NULL,
   media = NULL,
   submedia = NULL,
@@ -37,6 +38,8 @@ AWQMS_Data(
 \item{project}{Optional vector of projects to be fetched}
 
 \item{char}{Optional vector of characteristics to be fetched}
+
+\item{casnumber}{Optional vector of CAS numbers to be fetched}
 
 \item{stat_base}{Optional vector of Result Stattistical Bases to be fetched ex. Maximum}
 
