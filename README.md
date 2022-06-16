@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
-
 # AWQMSdata
 
 AWQMSdata was created to load data from Oregon DEQ AWQMS into R. **This
