@@ -46,8 +46,7 @@ AWQMS_Raw_Macros <-
            StageID = NULL,
            UniqueTaxon = NULL,
            Analytical_method = NULL,
-           return_query = FALSE,
-
+           return_query = FALSE
            ){
 
 
