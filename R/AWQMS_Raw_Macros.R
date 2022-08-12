@@ -16,6 +16,12 @@
 #' @param HUC10 Optional vector of HUC10s to be fetched
 #' @param HUC12 Optional vector of HUC12s to be fetched
 #' @param HUC12_Name Optional vector of HUC12 names to be fetched
+#' @param Char_Name Optional vector or characteristic names. Options are: 'Count', 'Density'
+#' @param Bio_Intent Optional vector or Bio_intent. Options are: 'Population Census', 'Species Density'
+#' @param Taxonomic_Name Optional vector of taxa
+#' @param StageID Optional vector of stages. Options are: NULL, 'Adult', 'Larva', 'Pupa'
+#' @param UniqueTaxon Optioal vector. Options are: 'UniqueTaxon', 'AmbiguousTaxon'
+#' @param return_query If FALSE, fetches data from AWQMS. If TRUE, returns string of query language.
 #' @return Dataframe of data from AWQMS
 #' @export
 
@@ -34,7 +40,15 @@ AWQMS_Raw_Macros <-
            HUC10 = NULL,
            HUC12 = NULL,
            HUC12_Name = NULL,
-           return_query = FALSE){
+           Char_Name = NULL,
+           Bio_Intent = NULL,
+           Taxonomic_Name = NULL,
+           StageID = NULL,
+           UniqueTaxon = NULL,
+           Analytical_method = NULL,
+           return_query = FALSE,
+
+           ){
 
 
 
@@ -206,10 +220,49 @@ AWQMS_Raw_Macros <-
 
     #reference
 
-    if(length(ReferenceSite  ) > 0){
+    if(length(ReferenceSite) > 0){
       query = paste0(query,"\n AND ReferenceSite in ({ReferenceSite*}) " )
 
     }
+
+    #Bio_Intent
+
+    if(length(Bio_Intent) > 0){
+      query = paste0(query,"\n AND Bio_Intent in ({Bio_Intent*}) " )
+
+    }
+
+    #taxa
+    if(length(Taxonomic_Name) > 0){
+      query = paste0(query,"\n AND Taxonomic_Name in ({Taxonomic_Name*}) " )
+
+    }
+
+    #stage
+    if(length(StageID) > 0){
+      query = paste0(query,"\n AND StageID in ({StageID*}) " )
+
+    }
+
+    #unique taxa
+    if(length(UniqueTaxon) > 0){
+      query = paste0(query,"\n AND UniqueTaxon in ({UniqueTaxon*}) " )
+
+    }
+
+
+    #analytical method
+    if(length(Analytical_method) > 0){
+      query = paste0(query,"\n AND Analytical_method in ({Analytical_method*}) " )
+
+    }
+
+    #characteristic
+    if(length(Char_Name) > 0){
+      query = paste0(query,"\n AND Char_Name in ({Char_Name*}) " )
+
+    }
+
 
 
     #Connect to database
