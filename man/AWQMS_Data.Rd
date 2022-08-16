@@ -67,7 +67,7 @@ AWQMS_Data(
 Dataframe of data from AWQMS
 }
 \description{
-This function will retrive data from OregonDEQ AWQMS
+This function will retrieve data from OregonDEQ AWQMS
 }
 \examples{
 AWQMS_Data(startdate = '2017-1-1', enddate = '2000-12-31', station = c('10591-ORDEQ', '29542-ORDEQ'),
