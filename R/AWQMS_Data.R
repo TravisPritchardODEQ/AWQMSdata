@@ -1,6 +1,6 @@
 #' AWQMS_Data
 #'
-#' This function will retrive data from OregonDEQ AWQMS
+#' This function will retrieve data from OregonDEQ AWQMS
 #' @param startdate Required parameter setting the startdate of the data being fetched. Format 'yyyy-mm-dd'
 #' @param enddate Optional parameter setting the enddate of the data being fetched. Format 'yyyy-mm-dd'
 #' @param station Optional vector of stations to be fetched
@@ -282,7 +282,7 @@ FROM  ",AWQMS_server,"[VW_AWQMS_Results] a
 
 }
 
-  # Conditially add addional parameters
+
 
   # add end date
   if (length(enddate) > 0) {

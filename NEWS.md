@@ -1,3 +1,6 @@
+# AWQMSdata 2.1 (2022-08-12)
+* Bioassessment data update. Added functions to query data from the following views in AWQMS: Raw_Macros, Bio_Metrics, Bio_Indexes
+
 # AWQMSdata 2.0
 * Major update. Added AWQMS_set_servers function to implement needed fix where we need to specify server addresses in query sent to database. Since we don't want to publish the server addresses, we need to save them in our .Renviron to be usable. All the AWQMSdata functions were rewritten to incorporate this change. 
 
