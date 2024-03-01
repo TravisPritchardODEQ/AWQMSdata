@@ -45,7 +45,7 @@
 #' @export
 
 
-AWQMS_set_password <- function(AWQMS_Password, STATIONS_SERVER,
+AWQMS_credentials <- function(AWQMS_usr, AWQMS_pass,
                               overwrite = FALSE,
                               install = TRUE){
 
@@ -63,28 +63,29 @@ AWQMS_set_password <- function(AWQMS_Password, STATIONS_SERVER,
       if (isTRUE(overwrite)) {
         message("Your original .Renviron will be backed up and stored in your R HOME directory if needed.")
         oldenv <- readLines(renv)
-        newenv <- oldenv[-grep("AWQMS_Password|STATIONS_SERVER", oldenv)]
+
+        newenv <- oldenv[!grepl('^AWQMS_usr$|^AWQMS_pass$', oldenv)]
         writeLines(newenv, renv)
       }
       else {
         tv <- readLines(renv)
-        if (any(grepl("AWQMS_Password|STATIONS_SERVER", tv))) {
-          stop("Server Addresses already exist. You can overwrite them with the argument overwrite=TRUE", call. = FALSE)
+        if (any(grepl("'^AWQMS_usr$|^AWQMS_pass$'", tv))) {
+          stop("User Name and Password already exist. You can overwrite them with the argument overwrite=TRUE", call. = FALSE)
         }
       }
     }
 
-    AWQMSconcat <- paste0("AWQMS_Password = '", AWQMS_Password, "'")
-    Stationsconcat <- paste0("STATIONS_SERVER = '", STATIONS_SERVER, "'")
+    AWQMSconcat <- paste0("AWQMS_usr = '", AWQMS_usr, "'")
+    Stationsconcat <- paste0("AWQMS_pass = '", AWQMS_pass, "'")
     # Append credentials to .Renviron file
     write(AWQMSconcat, renv, sep = "\n", append = TRUE)
     write(Stationsconcat, renv, sep = "\n", append = TRUE)
-    message('The server addresses have been stored in your .Renviron.  \nTo use now, restart R or run `readRenviron("~/.Renviron")`')
+    message('The Username and passwords have been stored in your .Renviron.  \nTo use now, restart R or run `readRenviron("~/.Renviron")`')
   } else {
     message("To install the addresses for use in future sessions, run this function with `install = TRUE`.")
     Sys.setenv(
-      AWQMS_Password = AWQMS_Password,
-      STATIONS_SERVER = STATIONS_SERVER
+      AWQMS_usr = AWQMS_usr,
+      AWQMS_pass = AWQMS_pass
     )
   }
 }
