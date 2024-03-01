@@ -55,10 +55,6 @@ AWQMS_Bio_Indexes <-   function(startdate = NULL,
   readRenviron("~/.Renviron")
   assert_AWQMS()
 
-  # AWQMS_usr <- Sys.getenv('AWQMS_usr')
-  # AWQMS_pass <- Sys.getenv('AWQMS_pass')
-
-
 
 # Initial stations hit, if needed ---------------------------------------------------------------------------------
 
@@ -217,83 +213,3 @@ AWQMS_Bio_Indexes <-   function(startdate = NULL,
 
 
 
-
-
-#
-#
-#   # Conditionally add additional parameters -----------------------------------------------------------------------------
-#
-#   # add end date
-#   if (length(enddate) > 0) {
-#     query = paste0(query, "\n AND Sample_Date <= Convert(datetime, {enddate})" )
-#   }
-#
-#
-#   # station
-#   if (length(station) > 0) {
-#
-#     query = paste0(query, "\n AND MLocID IN ({station*})")
-#   }
-#
-#   # AU
-#   if (length(AU_ID) > 0) {
-#
-#     query = paste0(query, "\n AND AU_ID IN ({AU_ID*})")
-#   }
-#
-#
-#   #Project
-#
-#   if (length(project) > 0) {
-#     query = paste0(query, "\n AND (Project1 in ({project*}) OR Project2 in ({project*})) ")
-#
-#   }
-#
-#   # organization
-#   if (length(org) > 0){
-#     query = paste0(query,"\n AND OrganizationID in ({org*}) " )
-#
-#   }
-#
-#   if(length(HUC12_Name) > 0){
-#     query = paste0(query,"\n AND HUC12_Name in ({HUC12_Name*}) " )
-#
-#   }
-#
-#   #reference
-#
-#   if(length(ReferenceSite) > 0){
-#     query = paste0(query,"\n AND ReferenceSite in ({ReferenceSite*}) " )
-#
-#   }
-#
-#   #metric
-#
-#   if(length(Index_Name) > 0){
-#     query = paste0(query,"\n AND Index_Name in ({Index_Name*}) " )
-#
-#   }
-#
-#
-#   #Connect to database
-#   con <- DBI::dbConnect(odbc::odbc(), "AWQMS")
-#
-#   # Create query language
-#   qry <- glue::glue_sql(query, .con = con)
-#
-#
-#   if(return_query){
-#     data_fetch <- qry
-#
-#   } else {
-#
-#     # Query the database
-#     data_fetch <- DBI::dbGetQuery(con, qry)
-#
-#
-#     # Disconnect
-#     DBI::dbDisconnect(con)
-#   }
-#   return(data_fetch)
-#
-# }
