@@ -178,14 +178,14 @@ if(!(is.character(HUC8) | is.null(HUC8))){
 
     # Get login credientials
     readRenviron("~/.Renviron")
-    AWQMS_usr <- Sys.getenv('AWQMS_usr')
-    AWQMS_pass <- Sys.getenv('AWQMS_pass')
+    # AWQMS_usr <- Sys.getenv('AWQMS_usr')
+    # AWQMS_pass <- Sys.getenv('AWQMS_pass')
 
 
 
     con <- DBI::dbConnect(odbc::odbc(), 'AWQMS-cloud',
-                          UID      =  AWQMS_usr,
-                          PWD      =  AWQMS_pass)
+                          UID      =   Sys.getenv('AWQMS_usr'),
+                          PWD      =  Sys.getenv('AWQMS_pass'))
 
 
     # Get query Language
@@ -300,6 +300,7 @@ if(!(is.character(HUC8) | is.null(HUC8))){
                  pH_code) |>
           filter(MLocID %in% stations) |>
           collect()
+
         print("Query stations database- Complete")
         toc()
 
