@@ -32,8 +32,8 @@ AWQMS_Bio_Indexes <-   function(startdate = NULL,
 # Testing ---------------------------------------------------------------------------------------------------------
   # startdate = NULL
   # enddate = NULL
-  # MLocID = NULL
-  # AU_ID = 'OR_WS_171200050206_05_106661'
+  # MLocID =  '10404-ORDEQ'
+  # AU_ID = NULL
   # HUC12_Name = NULL
   # project = NULL
   # OrganizationID = NULL

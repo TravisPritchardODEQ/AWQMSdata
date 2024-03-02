@@ -17,11 +17,11 @@
 AWQMS_Bio_Metrics <-
   function(startdate = '1949-09-15',
            enddate = NULL,
-           station = NULL,
+           MLocID = NULL,
            AU_ID = NULL,
            HUC12_Name = NULL,
            project = NULL,
-           org = NULL,
+           OrganizationID = NULL,
            ReferenceSite = NULL,
            Metric_Name = NULL,
            DQL = NULL,
@@ -38,112 +38,165 @@ AWQMS_Bio_Metrics <-
 
     # Get environment variables
     readRenviron("~/.Renviron")
-    assert_STATIONS()
     assert_AWQMS()
 
-    AWQMS_server <- Sys.getenv('AWQMS_SERVER')
-    Stations_server <- Sys.getenv('STATIONS_SERVER')
+
+
+
+    if(!is.null(c(AU_ID, HUC12_Name, ReferenceSite))){
+
+      print("Query stations database...")
+      tic("Station Database Query")
+
+      # connect to stations database
+      station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
+
+      stations_filter <- tbl(station_con, "VWStationsFinal") |>
+        select(MLocID, EcoRegion2, HUC12_Name,AU_ID, GNIS_Name,ReferenceSite)
+
+      # Add appropriate filters
+
+      if(!is.null(HUC12_Name)){
+        stations_filter <- stations_filter |>
+          filter(HUC12_Name %in% {{HUC12_Name}})
+
+      }
+
+      if(!is.null(AU_ID )){
+        stations_filter <- stations_filter |>
+          filter(AU_ID  %in% {{AU_ID}})
+
+      }
+
+      if(!is.null(ReferenceSite )){
+        stations_filter <- stations_filter |>
+          filter(ReferenceSite  %in% {{ReferenceSite}})
+
+      }
+
+
+
+      stations_filter <- stations_filter |>
+        collect()
+
+      mlocs_filtered <- stations_filter$MLocID
+
+      DBI::dbDisconnect(station_con)
+
+      print("Query stations database- Complete")
+      toc()
+
+    }
+
 
 
     ## Build base query language ---------------------------------------------------------------------------------------
 
-    query <- paste0("SELECT  [org_id]
-      ,[MLocID]
-      ,[StationDes]
-      ,[MonLocType]
-      ,[EcoRegion2]
-      ,[HUC12_Name]
-      ,[AU_ID]
-      ,[GNIS_Name]
-      ,[ReferenceSite]
-      ,[Project]
-      ,[act_id]
-      ,[Act_Type]
-      ,[Sample_Date]
-      ,[Sample_Method]
-      ,[Metric_UID]
-      ,[Metric_Name]
-      ,[Score]
-      ,[DQL]
-      ,[Comments]
-  FROM ",AWQMS_server,"[VW_Bio_Metrics]
-    WHERE Sample_Date >= Convert(datetime, {startdate})")
 
 
 
-    # Conditionally add additional parameters -----------------------------------------------------------------------------
+    con <- DBI::dbConnect(odbc::odbc(), 'AWQMS-cloud',
+                          UID      =   Sys.getenv('AWQMS_usr'),
+                          PWD      =  Sys.getenv('AWQMS_pass'))
+
+    AWQMS_data <- tbl(con, 'metrics_deq_vw')
+
+    #if HUC filter, filter on resultant mlocs
+    if(exists('mlocs_filtered')){
+
+      AWQMS_data <- AWQMS_data |>
+        filter(MLocID %in% mlocs_filtered)
+    }
+
+    # add start date
+    if (length(startdate) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        filter(Sample_Date   >= startdate)
+    }
+
+    # add start date
+    if (length(enddate) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        filter(Sample_Date <= enddate)
+    }
+
 
     # add end date
-    if (length(enddate) > 0) {
-      query = paste0(query, "\n AND Sample_Date <= Convert(datetime, {enddate})" )
+    if (length(MLocID) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        filter(MLocID %in% {{MLocID}})
     }
-
-
-    # station
-    if (length(station) > 0) {
-
-      query = paste0(query, "\n AND MLocID IN ({station*})")
-    }
-
-    # AU
-    if (length(AU_ID) > 0) {
-
-      query = paste0(query, "\n AND AU_ID IN ({AU_ID*})")
-    }
-
-
-    #Project
 
     if (length(project) > 0) {
-      query = paste0(query, "\n AND (Project1 in ({project*}) OR Project2 in ({project*})) ")
-
-    }
-
-    # organization
-    if (length(org) > 0){
-      query = paste0(query,"\n AND OrganizationID in ({org*}) " )
-
-    }
-
-    if(length(HUC12_Name) > 0){
-      query = paste0(query,"\n AND HUC12_Name in ({HUC12_Name*}) " )
-
-    }
-
-    #reference
-
-    if(length(ReferenceSite) > 0){
-      query = paste0(query,"\n AND ReferenceSite in ({ReferenceSite*}) " )
-
-    }
-
-    #metric
-
-    if(length(Metric_Name) > 0){
-      query = paste0(query,"\n AND Metric_Name in ({Metric_Name*}) " )
-
+      AWQMS_data <- AWQMS_data |>
+        filter(Project1 %in% project)
     }
 
 
-    #Connect to database
-    con <- DBI::dbConnect(odbc::odbc(), "AWQMS")
+    if (length(OrganizationID) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        filter(OrganizationID %in% {{OrganizationID}} )
+    }
 
-    # Create query language
-    qry <- glue::glue_sql(query, .con = con)
+    if (length(Metric_Name) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        filter(Metric_Name %in% {{Metric_Name}} )
+    }
 
+    if (length(DQL) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        filter(DQL %in% {{DQL}} )
+    }
 
     if(return_query){
-      data_fetch <- qry
+      AWQMS_data <- AWQMS_data |>
+        show_query()
 
     } else {
 
       # Query the database
-      data_fetch <- DBI::dbGetQuery(con, qry)
+
+      print("Query AWQMS database...")
+      tic("AWQMS database query")
+      AWQMS_data <- AWQMS_data |>
+        collect()
+      print("Query AWQMS database- Complete")
+      toc()
+
+
+      if(exists('stations_filter')){
+        AWQMS_data <- AWQMS_data |>
+          left_join(stations_filter, by = 'MLocID' )
+
+
+
+      } else {
+
+        stations <- AWQMS_data$MLocID
+        tic("Station Database Query")
+
+        print("Query stations database...")
+        station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
+
+        stations_filter <- tbl(station_con, "VWStationsFinal") |>
+          select(MLocID, EcoRegion2, HUC12_Name,AU_ID, GNIS_Name,ReferenceSite)|>
+          filter(MLocID %in% stations) |>
+          collect()
+
+        print("Query stations database- Complete")
+        toc()
+
+        AWQMS_data <- AWQMS_data |>
+          left_join(stations_filter, by = 'MLocID' )
+
+      }
 
 
       # Disconnect
       DBI::dbDisconnect(con)
     }
-    return(data_fetch)
+    return(AWQMS_data)
 
   }
+
+
