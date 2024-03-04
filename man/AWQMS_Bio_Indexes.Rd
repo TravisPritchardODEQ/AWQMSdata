@@ -5,13 +5,13 @@
 \title{AWQMS_Bio_Indexes}
 \usage{
 AWQMS_Bio_Indexes(
-  startdate = "1949-09-15",
+  startdate = NULL,
   enddate = NULL,
-  station = NULL,
+  MLocID = NULL,
   AU_ID = NULL,
   HUC12_Name = NULL,
   project = NULL,
-  org = NULL,
+  OrganizationID = NULL,
   ReferenceSite = NULL,
   Index_Name = NULL,
   DQL = NULL,
@@ -24,13 +24,9 @@ AWQMS_Bio_Indexes(
 
 \item{enddate}{Optional parameter setting the enddate of the data being fetched. Format 'yyyy-mm-dd'}
 
-\item{station}{Optional vector of stations to be fetched}
-
 \item{AU_ID}{Optional vector of Assessment Units to be fetched}
 
 \item{project}{Optional vector of projects to be fetched}
-
-\item{org}{optional vector of Organizations to be fetched}
 
 \item{ReferenceSite}{filter for reference or non reference streams. NOT CURRENTLY POPULATED}
 
@@ -39,6 +35,10 @@ AWQMS_Bio_Indexes(
 \item{DQL}{Optional vector of DQLs to fetch}
 
 \item{return_query}{If FALSE, fetches data from AWQMS. If TRUE, returns string of query language.}
+
+\item{station}{Optional vector of stations to be fetched}
+
+\item{org}{optional vector of Organizations to be fetched}
 }
 \description{
 Thus function will retrieve Bio_Indexes data from Oregon DEQ AWQMS

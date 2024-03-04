@@ -27,12 +27,12 @@
 
 
 AWQMS_Raw_Macros <-
-  function(startdate = '1949-09-15',
+  function(startdate = NULL,
            enddate = NULL,
-           station = NULL,
+           MLocID = NULL,
            AU_ID = NULL,
            project = NULL,
-           org = NULL,
+           OrganizationID = NULL,
            Wade_Boat = NULL,
            ReferenceSite = NULL,
            HUC8 = NULL,
@@ -71,6 +71,103 @@ AWQMS_Raw_Macros <-
 
 
 
+
+
+# Initial STATIONS database pull ---------------------------------------------------------------------------------------------
+
+    #If needed to filter on info stored in stations database, query stations and get a list of mlocs to filter
+
+
+
+
+    # If information from stations is needed to filter AWQMS, we need to pull from stations first
+    if(!is.null(c(HUC8, HUC8_Name, HUC10, HUC12, HUC12_Name, AU_ID, ReferenceSite, Wade_Boat))){
+
+      print("Query stations database...")
+      tic("Station Database Query")
+
+      # connect to stations database
+      station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
+
+      stations_filter <- tbl(station_con, "VWStationsFinal") |>
+        select(MLocID, EcoRegion3, EcoRegion4, EcoRegion2, HUC12_Name, Lat_DD, Long_DD,
+               Reachcode, Measure, ELEV_Ft, GNIS_Name, Conf_Score, QC_Comm, COMID, precip_mm, temp_Cx10,
+               Predator_WorE, AU_ID, GNIS_Name,ReferenceSite, Wade_Boat)
+
+      # Add appropriate filters
+
+      if(!is.null(HUC8)){
+        stations_filter <- stations_filter |>
+          filter(HUC8 %in% {{HUC8}})
+
+      }
+
+      if(!is.null(HUC8_Name)){
+        stations_filter <- stations_filter |>
+          filter(HUC8_Name %in% {{HUC8_Name}})
+
+      }
+
+      if(!is.null(HUC10)){
+        stations_filter <- stations_filter |>
+          filter(HUC10 %in% {{HUC10}})
+
+      }
+
+      if(!is.null(HUC12)){
+        stations_filter <- stations_filter |>
+          filter(HUC12 %in% {{HUC12}})
+
+      }
+
+      if(!is.null(HUC12_Name)){
+        stations_filter <- stations_filter |>
+          filter(HUC12_Name %in% {{HUC12_Name}})
+
+      }
+
+      if(!is.null(AU_ID)){
+        stations_filter <- stations_filter |>
+          filter(AU_ID %in% {{AU_ID}})
+
+      }
+
+
+      if(!is.null(GNIS_Name)){
+        stations_filter <- stations_filter |>
+          filter(GNIS_Name %in% {{GNIS_Name}})
+
+      }
+
+
+      if(!is.null(ReferenceSite)){
+        stations_filter <- stations_filter |>
+          filter(ReferenceSite %in% {{ReferenceSite}})
+
+      }
+
+      if(!is.null(Wade_Boat)){
+        stations_filter <- stations_filter |>
+          filter(Wade_Boat %in% {{Wade_Boat}})
+
+      }
+
+
+
+      stations_filter <- stations_filter |>
+        collect()
+
+      mlocs_filtered <- stations_filter$MLocID
+
+      DBI::dbDisconnect(station_con)
+
+      print("Query stations database- Complete")
+      toc()
+
+    }
+
+
+
 # Build base query language ---------------------------------------------------------------------------------------
 
 
@@ -80,158 +177,141 @@ AWQMS_Raw_Macros <-
 
     # Get environment variables
     readRenviron("~/.Renviron")
-    assert_STATIONS()
+
     assert_AWQMS()
 
-    AWQMS_server <- Sys.getenv('AWQMS_SERVER')
-    Stations_server <- Sys.getenv('STATIONS_SERVER')
 
 
-## Build base query language ---------------------------------------------------------------------------------------
+    con <- DBI::dbConnect(odbc::odbc(), 'AWQMS-cloud',
+                          UID      =   Sys.getenv('AWQMS_usr'),
+                          PWD      =  Sys.getenv('AWQMS_pass'))
 
-    query <- paste0("SELECT *
-        FROM  ",AWQMS_server,"[VW_Raw_Macros]
-          WHERE SampleStart_Date >= Convert(datetime, {startdate})")
+    AWQMS_data <- tbl(con, 'results_macro_deq_vw')
 
 
-# Conditionally add additional parameters -----------------------------------------------------------------------------
+    #if HUC filter, filter on resultant mlocs
+    if(exists('mlocs_filtered')){
+
+      AWQMS_data <- AWQMS_data |>
+        filter(MLocID %in% mlocs_filtered)
+    }
+
+    # add start date
+    if (length(startdate) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        filter(SampleStart_Date >= {{startdate}})
+    }
+
+
 
     # add end date
+
+
     if (length(enddate) > 0) {
-      query = paste0(query, "\n AND SampleStart_Date <= Convert(datetime, {enddate})" )
+      AWQMS_data <- AWQMS_data |>
+        filter(SampleStart_Date<= {{enddate}})
     }
 
-
-    # station
-    if (length(station) > 0) {
-
-      query = paste0(query, "\n AND MLocID IN ({station*})")
+    if (length(MLocID) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        filter(MLocID %in% {{MLocID}})
     }
-
-    # AU
-    if (length(AU_ID) > 0) {
-
-      query = paste0(query, "\n AND AU_ID IN ({AU_ID*})")
-    }
-
-
-    #Project
 
     if (length(project) > 0) {
-      query = paste0(query, "\n AND (Project1 in ({project*}) OR Project2 in ({project*})) ")
-
+      AWQMS_data <- AWQMS_data |>
+        filter(Project1 %in% project)
     }
 
-    # organization
-    if (length(org) > 0){
-      query = paste0(query,"\n AND OrganizationID in ({org*}) " )
-
-    }
-    #HUCs
-
-    if(length(HUC8) > 0){
-      query = paste0(query,"\n AND HUC8 in ({HUC8*}) " )
-
+    if (length(project) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        filter(Project1 %in% project)
     }
 
-
-
-    if(length(HUC8_Name) > 0){
-      query = paste0(query,"\n AND HUC8_Name in ({HUC8_Name*}) " )
-
+    if (length(OrganizationID) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        filter(OrganizationID %in% {{OrganizationID}} )
     }
 
-    if(length(HUC10) > 0){
-      query = paste0(query,"\n AND HUC10 in ({HUC10*}) " )
-
+    if (length(Char_Name) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        filter(Char_Name  %in% {{Char_Name}} )
     }
 
-    if(length(HUC12) > 0){
-      query = paste0(query,"\n AND HUC12 in ({HUC12*}) " )
-
+    if (length(Bio_Intent) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        filter(Bio_Intent  %in% {{Bio_Intent}} )
     }
 
-
-    if(length(HUC12_Name) > 0){
-      query = paste0(query,"\n AND HUC12_Name in ({HUC12_Name*}) " )
-
+    if (length(Taxonomic_Name) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        filter(Taxonomic_Name  %in% {{Taxonomic_Name}} )
     }
 
-  #wade or boat
-    if(length(Wade_Boat ) > 0){
-      query = paste0(query,"\n AND Wade_Boatin ({Wade_Boat*}) " )
-
+    if (length(StageID) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        filter(StageID  %in% {{StageID}} )
     }
 
-    #reference
-
-    if(length(ReferenceSite) > 0){
-      query = paste0(query,"\n AND ReferenceSite in ({ReferenceSite*}) " )
-
+    if (length(UniqueTaxon) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        filter(UniqueTaxon  %in% {{UniqueTaxon}} )
     }
 
-    #Bio_Intent
-
-    if(length(Bio_Intent) > 0){
-      query = paste0(query,"\n AND Bio_Intent in ({Bio_Intent*}) " )
-
-    }
-
-    #taxa
-    if(length(Taxonomic_Name) > 0){
-      query = paste0(query,"\n AND Taxonomic_Name in ({Taxonomic_Name*}) " )
-
-    }
-
-    #stage
-    if(length(StageID) > 0){
-      query = paste0(query,"\n AND StageID in ({StageID*}) " )
-
-    }
-
-    #unique taxa
-    if(length(UniqueTaxon) > 0){
-      query = paste0(query,"\n AND UniqueTaxon in ({UniqueTaxon*}) " )
-
-    }
-
-
-    #analytical method
-    if(length(Analytical_method) > 0){
-      query = paste0(query,"\n AND Analytical_method in ({Analytical_method*}) " )
-
-    }
-
-    #characteristic
-    if(length(Char_Name) > 0){
-      query = paste0(query,"\n AND Char_Name in ({Char_Name*}) " )
-
+    if (length(Analytical_method) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        filter(Analytical_method  %in% {{Analytical_method}} )
     }
 
 
 
-    #Connect to database
-    con <- DBI::dbConnect(odbc::odbc(), "AWQMS")
+    # Query the database
 
-    # Create query language
-    qry <- glue::glue_sql(query, .con = con)
+    print("Query AWQMS database...")
+    tic("AWQMS database query")
+    AWQMS_data <- AWQMS_data |>
+      collect()
+    print("Query AWQMS database- Complete")
+    toc()
 
 
-    if(return_query){
-      data_fetch <- qry
+    if(exists('stations_filter')){
+      AWQMS_data <- AWQMS_data |>
+        left_join(stations_filter, by = 'MLocID' )
+
+
 
     } else {
 
-      # Query the database
-      data_fetch <- DBI::dbGetQuery(con, qry)
+      stations <- AWQMS_data$MLocID
+      tic("Station Database Query")
 
+      print("Query stations database...")
+      station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
-      # Disconnect
-      DBI::dbDisconnect(con)
+      stations_filter <- tbl(station_con, "VWStationsFinal") |>
+        select(MLocID, EcoRegion3, EcoRegion4, EcoRegion2, HUC12_Name, Lat_DD, Long_DD,
+               Reachcode, Measure, ELEV_Ft, GNIS_Name, Conf_Score, QC_Comm, COMID, precip_mm, temp_Cx10,
+               Predator_WorE, AU_ID, GNIS_Name,ReferenceSite, Wade_Boat)|>
+        filter(MLocID %in% stations) |>
+        collect()
+
+      print("Query stations database- Complete")
+      toc()
+
+      AWQMS_data <- AWQMS_data |>
+        left_join(stations_filter, by = 'MLocID' )
+
     }
-    return(data_fetch)
+
+
+    # Disconnect
+    DBI::dbDisconnect(con)
+
+return(AWQMS_data)
 
   }
+
+
 
 
 

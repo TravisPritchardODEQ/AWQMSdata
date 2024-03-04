@@ -5,12 +5,12 @@
 \title{AWQMS_Raw_Macros}
 \usage{
 AWQMS_Raw_Macros(
-  startdate = "1949-09-15",
+  startdate = NULL,
   enddate = NULL,
-  station = NULL,
+  MLocID = NULL,
   AU_ID = NULL,
   project = NULL,
-  org = NULL,
+  OrganizationID = NULL,
   Wade_Boat = NULL,
   ReferenceSite = NULL,
   HUC8 = NULL,
@@ -33,13 +33,9 @@ AWQMS_Raw_Macros(
 
 \item{enddate}{Optional parameter setting the enddate of the data being fetched. Format 'yyyy-mm-dd'}
 
-\item{station}{Optional vector of stations to be fetched}
-
 \item{AU_ID}{Optional vector of Assessment Units to be fetched}
 
 \item{project}{Optional vector of projects to be fetched}
-
-\item{org}{optional vector of Organizations to be fetched}
 
 \item{Wade_Boat}{option for filtering wadeable or boat samples. Options are: 'wadeable', 'boatable', or NULL.}
 
@@ -67,6 +63,10 @@ AWQMS_Raw_Macros(
 \item{UniqueTaxon}{Optioal vector. Options are: 'UniqueTaxon', 'AmbiguousTaxon'}
 
 \item{return_query}{If FALSE, fetches data from AWQMS. If TRUE, returns string of query language.}
+
+\item{station}{Optional vector of stations to be fetched}
+
+\item{org}{optional vector of Organizations to be fetched}
 }
 \value{
 Dataframe of data from AWQMS

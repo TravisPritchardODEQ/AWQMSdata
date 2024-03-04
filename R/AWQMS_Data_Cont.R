@@ -43,20 +43,7 @@ AWQMS_Data_Cont <-
 
 # Testing ---------------------------------------------------------------------------------------------------------
 
-    startdate = NULL
-    enddate = NULL
-    MLocID = NULL
-    AU_ID = NULL
-    Char_Name = NULL
-    SampleMedia = NULL
-    OrganizationID = NULL
-    HUC8 = NULL
-    HUC8_Name = NULL
-    HUC10 = NULL
-    HUC12 = NULL
-    HUC12_Name = NULL
-    Result_Status = NULL
-    crit_codes = FALSE
+de
 
 
 # Initial STATIONS database pull ---------------------------------------------------------------------------------------------
@@ -112,7 +99,7 @@ AWQMS_Data_Cont <-
 
       }
 
-      if(!is.null(AU_ID )){
+      if(!is.null(AU_ID)){
         stations_filter <- stations_filter |>
           filter(AU_ID  %in% {{AU_ID}})
 
@@ -265,7 +252,7 @@ AWQMS_Data_Cont <-
 
     # Disconnect
     DBI::dbDisconnect(con)
-  }
+
 return(AWQMS_data)
 
 }

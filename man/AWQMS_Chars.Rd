@@ -4,15 +4,15 @@
 \alias{AWQMS_Chars}
 \title{AWQMS_Chars}
 \usage{
-AWQMS_Chars(project = NULL, station = NULL)
+AWQMS_Chars(project = NULL, MLocID = NULL)
 }
 \arguments{
 \item{project}{Optional vector of projects to be filtered on}
 
-\item{station}{Optional vector of stations to be filtered on}
+\item{MLocID}{Optional vector of stations to be filtered on}
 }
 \value{
-Dataframe of monitoring locations
+Dataframe of available characteristics
 }
 \description{
 This function will return a list of characterustucs found in OregonDEQ AWQMS

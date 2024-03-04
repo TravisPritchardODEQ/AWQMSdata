@@ -15,7 +15,7 @@
 #' @export
 
 AWQMS_Bio_Metrics <-
-  function(startdate = '1949-09-15',
+  function(startdate = NULL,
            enddate = NULL,
            MLocID = NULL,
            AU_ID = NULL,
@@ -62,13 +62,13 @@ AWQMS_Bio_Metrics <-
 
       }
 
-      if(!is.null(AU_ID )){
+      if(!is.null(AU_ID)){
         stations_filter <- stations_filter |>
           filter(AU_ID  %in% {{AU_ID}})
 
       }
 
-      if(!is.null(ReferenceSite )){
+      if(!is.null(ReferenceSite)){
         stations_filter <- stations_filter |>
           filter(ReferenceSite  %in% {{ReferenceSite}})
 
@@ -111,13 +111,13 @@ AWQMS_Bio_Metrics <-
     # add start date
     if (length(startdate) > 0) {
       AWQMS_data <- AWQMS_data |>
-        filter(Sample_Date   >= startdate)
+        filter(SampleStart_Date   >= startdate)
     }
 
     # add start date
     if (length(enddate) > 0) {
       AWQMS_data <- AWQMS_data |>
-        filter(Sample_Date <= enddate)
+        filter(SampleStart_Date <= enddate)
     }
 
 

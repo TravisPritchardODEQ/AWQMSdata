@@ -7,15 +7,15 @@
 AWQMS_Data(
   startdate = "1949-09-15",
   enddate = NULL,
-  station = NULL,
+  MLocID = NULL,
   AU_ID = NULL,
   project = NULL,
-  char = NULL,
-  casnumber = NULL,
-  stat_base = NULL,
-  media = NULL,
-  submedia = NULL,
-  org = NULL,
+  Char_Name = NULL,
+  CASNumber = NULL,
+  Statistical_Base = NULL,
+  SampleMedia = NULL,
+  SampleSubmedia = NULL,
+  OrganizationID = NULL,
   HUC8 = NULL,
   HUC8_Name = NULL,
   HUC10 = NULL,
@@ -27,25 +27,27 @@ AWQMS_Data(
 )
 }
 \arguments{
-\item{startdate}{Required parameter setting the startdate of the data being fetched. Format 'yyyy-mm-dd'}
+\item{startdate}{Optional parameter setting the startdate of the data being fetched. Format 'yyyy-mm-dd'}
 
 \item{enddate}{Optional parameter setting the enddate of the data being fetched. Format 'yyyy-mm-dd'}
 
-\item{station}{Optional vector of stations to be fetched}
+\item{MLocID}{Optional vector of stations to be fetched}
 
 \item{AU_ID}{Optional vector of Assessment Units to be fetched}
 
 \item{project}{Optional vector of projects to be fetched}
 
-\item{char}{Optional vector of characteristics to be fetched}
+\item{Char_Name}{Optional vector of characteristics to be fetched}
 
-\item{casnumber}{Optional vector of CAS numbers to be fetched}
+\item{CASNumber}{Optional vector of CAS numbers to be fetched}
 
-\item{stat_base}{Optional vector of Result Stattistical Bases to be fetched ex. Maximum}
+\item{Statistical_Base}{Optional vector of Result Stattistical Bases to be fetched ex. Maximum}
 
-\item{media}{Optional vector of sample media to be fetched}
+\item{SampleMedia}{Optional vector of sample media to be fetched}
 
-\item{org}{optional vector of Organizations to be fetched}
+\item{SampleSubmedia}{Optional vector of sample submedia to be fetched}
+
+\item{OrganizationID}{optional vector of Organizations to be fetched}
 
 \item{HUC8}{Optional vector of HUC8s to be fetched}
 
@@ -70,6 +72,6 @@ Dataframe of data from AWQMS
 This function will retrieve data from OregonDEQ AWQMS
 }
 \examples{
-AWQMS_Data(startdate = '2017-1-1', enddate = '2000-12-31', station = c('10591-ORDEQ', '29542-ORDEQ'),
+AWQMS_Data(startdate = '2000-1-1', enddate = '2000-12-31', MLocID = c('10591-ORDEQ', '29542-ORDEQ'),
 project = 'Total Maximum Daily Load Sampling', filterQC = FALSE, crit_codes = FALSE)
 }
