@@ -1,3 +1,5 @@
+# AWQMSdata 3.0
+
 # AWQMSdata 2.1 (2022-08-12)
 * Bioassessment data update. Added functions to query data from the following views in AWQMS: Raw_Macros, Bio_Metrics, Bio_Indexes
 
