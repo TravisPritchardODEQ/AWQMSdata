@@ -122,7 +122,7 @@ AWQMS_Bio_Indexes <-   function(startdate = NULL,
   # add start date
   if (length(startdate) > 0) {
     AWQMS_data <- AWQMS_data |>
-      dplyr::filter(SampleStartDate >= startdate)
+      dplyr::filter(Sample_Date >= startdate)
   }
 
 

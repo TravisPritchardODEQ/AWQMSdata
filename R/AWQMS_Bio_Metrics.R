@@ -111,13 +111,13 @@ AWQMS_Bio_Metrics <-
     # add start date
     if (length(startdate) > 0) {
       AWQMS_data <- AWQMS_data |>
-        dplyr::filter(SampleStart_Date   >= startdate)
+        dplyr::filter(Sample_Date  >= startdate)
     }
 
     # add start date
     if (length(enddate) > 0) {
       AWQMS_data <- AWQMS_data |>
-        dplyr::filter(SampleStart_Date <= enddate)
+        dplyr::filter(Sample_Date <= enddate)
     }
 
 
