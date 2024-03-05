@@ -24,24 +24,24 @@ AWQMS_Orgs <- function(project = NULL, MLocID = NULL) {
                         PWD      =  Sys.getenv('AWQMS_pass'))
 
 
-  AWQMS_data <- tbl(con, 'results_deq_vw')
+  AWQMS_data <- dplyr::tbl(con, 'results_deq_vw')
 
   if (length(project) > 0) {
     AWQMS_data <- AWQMS_data |>
-      filter(Project1 %in% project)
+      dplyr::filter(Project1 %in% project)
   }
 
 
   if (length(MLocID) > 0) {
     AWQMS_data <- AWQMS_data |>
-      filter(MLocID %in% {{MLocID}})
+      dplyr::filter(MLocID %in% {{MLocID}})
   }
 
 
   AWQMS_data <- AWQMS_data |>
-    select(OrganizationID, org_name) |>
-    distinct() |>
-    collect()
+    dplyr::select(OrganizationID, org_name) |>
+    dplyr::distinct() |>
+    dplyr::collect()
 
 
   # Disconnect

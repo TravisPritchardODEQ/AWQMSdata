@@ -43,7 +43,6 @@ AWQMS_Data_Cont <-
 
 # Testing ---------------------------------------------------------------------------------------------------------
 
-de
 
 
 # Initial STATIONS database pull ---------------------------------------------------------------------------------------------
@@ -57,13 +56,13 @@ de
     if(!is.null(c(HUC8, HUC8_Name, HUC10, HUC12, HUC12_Name, AU_ID))){
 
       print("Query stations database...")
-      tic("Station Database Query")
+      tictoc::tic("Station Database Query")
 
       # connect to stations database
       station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
-      stations_filter <- tbl(station_con, "VWStationsFinal") |>
-        select(MLocID, EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
+      stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
+        dplyr::select(MLocID, EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
                HUC12, HUC12_Name, Reachcode, Measure,AU_ID, WaterTypeCode, WaterBodyCode,
                ben_use_code, FishCode, SpawnCode,DO_code,DO_SpawnCode,  BacteriaCode,
                pH_code)
@@ -71,37 +70,37 @@ de
       # Add appropriate filters
       if(!is.null(HUC8)){
         stations_filter <- stations_filter |>
-          filter(HUC8 %in% {{HUC8}})
+          dplyr::filter(HUC8 %in% {{HUC8}})
 
       }
 
       if(!is.null(HUC8_Name)){
         stations_filter <- stations_filter |>
-          filter(HUC8_Name %in% {{HUC8_Name}})
+          dplyr::filter(HUC8_Name %in% {{HUC8_Name}})
 
       }
 
       if(!is.null(HUC10)){
         stations_filter <- stations_filter |>
-          filter(HUC10 %in% {{HUC10}})
+          dplyr::filter(HUC10 %in% {{HUC10}})
 
       }
 
       if(!is.null(HUC12)){
         stations_filter <- stations_filter |>
-          filter(HUC12 %in% {{HUC12}})
+          dplyr::filter(HUC12 %in% {{HUC12}})
 
       }
 
       if(!is.null(HUC12_Name)){
         stations_filter <- stations_filter |>
-          filter(HUC12_Name %in% {{HUC12_Name}})
+          dplyr::filter(HUC12_Name %in% {{HUC12_Name}})
 
       }
 
       if(!is.null(AU_ID)){
         stations_filter <- stations_filter |>
-          filter(AU_ID  %in% {{AU_ID}})
+          dplyr::filter(AU_ID  %in% {{AU_ID}})
 
       }
 
@@ -111,14 +110,14 @@ de
 
 
       stations_filter <- stations_filter |>
-        collect()
+        dplyr::collect()
 
       mlocs_filtered <- stations_filter$MLocID
 
       DBI::dbDisconnect(station_con)
 
       print("Query stations database- Complete")
-      toc()
+      tictoc::toc()
 
     }
 
@@ -147,13 +146,13 @@ de
     if(exists('mlocs_filtered')){
 
       AWQMS_data <- AWQMS_data |>
-        filter(MLocID %in% mlocs_filtered)
+        dplyr::filter(MLocID %in% mlocs_filtered)
     }
 
     # add start date
     if (length(startdate) > 0) {
       AWQMS_data <- AWQMS_data |>
-        filter(SampleStartDate >= startdate)
+        dplyr::filter(SampleStartDate >= startdate)
     }
 
 
@@ -161,7 +160,7 @@ de
     # add end date
     if (length(enddate) > 0) {
       AWQMS_data <- AWQMS_data |>
-        filter(SampleStartDate <= enddate)
+        dplyr::filter(SampleStartDate <= enddate)
     }
 
     if (length(MLocID) > 0) {
@@ -173,20 +172,20 @@ de
 
     if (length(Char_Name) > 0) {
       AWQMS_data <- AWQMS_data |>
-        filter(Char_Name %in% {{Char_Name}})
+        dplyr::filter(Char_Name %in% {{Char_Name}})
     }
 
 
 
     if (length(SampleMedia  ) > 0) {
       AWQMS_data <- AWQMS_data |>
-        filter(SampleMedia   %in% {{SampleMedia}} )
+        dplyr::filter(SampleMedia   %in% {{SampleMedia}} )
     }
 
 
     if (length(OrganizationID) > 0) {
       AWQMS_data <- AWQMS_data |>
-        filter(OrganizationID %in% {{OrganizationID}} )
+        dplyr::filter(OrganizationID %in% {{OrganizationID}} )
     }
 
     if (length(Result_Status) > 0) {
@@ -198,11 +197,11 @@ de
 
 
     print("Query AWQMS database...")
-    tic("AWQMS database query")
+    tictoc::tic("AWQMS database query")
     AWQMS_data <- AWQMS_data |>
       dplyr::collect()
     print("Query AWQMS database- Complete")
-    toc()
+    tictoc::toc()
 
 
 
@@ -212,38 +211,38 @@ de
 
     if(exists('stations_filter')){
       AWQMS_data <- AWQMS_data |>
-        left_join(stations_filter, by = 'MLocID' )
+        dplyr::left_join(stations_filter, by = 'MLocID' )
 
 
 
     } else {
 
       stations <- AWQMS_data$MLocID
-      tic("Station Database Query")
+      tictoc::tic("Station Database Query")
 
       print("Query stations database...")
       station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
-      stations_filter <- tbl(station_con, "VWStationsFinal") |>
-        select(MLocID, EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
+      stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
+        dplyr::select(MLocID, EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
                HUC12, HUC12_Name, Reachcode, Measure,AU_ID, WaterTypeCode, WaterBodyCode,
                ben_use_code, FishCode, SpawnCode,DO_code,DO_SpawnCode,  BacteriaCode,
                pH_code) |>
-        filter(MLocID %in% stations) |>
-        collect()
+        dplyr::filter(MLocID %in% stations) |>
+        dplyr::collect()
 
       print("Query stations database- Complete")
-      toc()
+      tictoc::toc()
 
       AWQMS_data <- AWQMS_data |>
-        left_join(stations_filter, by = 'MLocID' )
+        dplyr::left_join(stations_filter, by = 'MLocID' )
 
     }
 
     if(crit_codes == FALSE){
 
       AWQMS_data <- AWQMS_data |>
-        select(-WaterTypeCode, -WaterBodyCode, -ben_use_code, -FishCode,
+        dplyr::select(-WaterTypeCode, -WaterBodyCode, -ben_use_code, -FishCode,
                -SpawnCode, -DO_code, -DO_SpawnCode,-BacteriaCode, -pH_code )
     }
 
