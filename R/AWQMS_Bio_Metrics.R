@@ -179,7 +179,7 @@ AWQMS_Bio_Metrics <-
         station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
         stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
-          dplyr::select(MLocID, EcoRegion2, HUC12_Name,AU_ID, GNIS_Name,ReferenceSite)|>
+          dplyr::select(MLocID, EcoRegion2,HUC8_Name, HUC12_Name,AU_ID, GNIS_Name,ReferenceSite)|>
           dplyr::filter(MLocID %in% stations) |>
           dplyr::collect()
 
