@@ -99,7 +99,7 @@ AWQMS_Bio_Indexes <-   function(startdate = NULL,
     DBI::dbDisconnect(station_con)
 
     print("Query stations database- Complete")
-    toctoc::toc()
+    tictoc::toc()
 
     }
 
@@ -171,7 +171,7 @@ AWQMS_Bio_Indexes <-   function(startdate = NULL,
     AWQMS_data <- AWQMS_data |>
       dplyr::collect()
     print("Query AWQMS database- Complete")
-    toctoc::toc()
+    tictoc::toc()
 
 
     if(exists('stations_filter')){
@@ -194,7 +194,7 @@ AWQMS_Bio_Indexes <-   function(startdate = NULL,
         dplyr::collect()
 
       print("Query stations database- Complete")
-      toctoc::toc()
+      tictoc::toc()
 
       AWQMS_data <- AWQMS_data |>
         dplyr::left_join(stations_filter, by = 'MLocID' )
