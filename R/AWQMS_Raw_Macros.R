@@ -90,7 +90,7 @@ AWQMS_Raw_Macros <-
       station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
       stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
-        dplyr::select(MLocID, EcoRegion3, EcoRegion4, EcoRegion2, HUC12_Name, Lat_DD, Long_DD,
+        dplyr::select(MLocID, EcoRegion3, EcoRegion4, EcoRegion2, HUC8_Name, HUC12_Name, Lat_DD, Long_DD,
                Reachcode, Measure, ELEV_Ft, GNIS_Name, Conf_Score, QC_Comm, COMID, precip_mm, temp_Cx10,
                Predator_WorE, AU_ID, GNIS_Name,ReferenceSite, Wade_Boat)
 
@@ -289,7 +289,7 @@ AWQMS_Raw_Macros <-
       station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
       stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
-        dplyr::select(MLocID, EcoRegion3, EcoRegion4, EcoRegion2, HUC12_Name, Lat_DD, Long_DD,
+        dplyr::select(MLocID, EcoRegion3, EcoRegion4, EcoRegion2,HUC8_Name, HUC12_Name, Lat_DD, Long_DD,
                Reachcode, Measure, ELEV_Ft, GNIS_Name, Conf_Score, QC_Comm, COMID, precip_mm, temp_Cx10,
                Predator_WorE, AU_ID, GNIS_Name,ReferenceSite, Wade_Boat)|>
         dplyr::filter(MLocID %in% stations) |>
