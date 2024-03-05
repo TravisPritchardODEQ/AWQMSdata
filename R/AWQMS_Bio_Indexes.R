@@ -66,7 +66,7 @@ AWQMS_Bio_Indexes <-   function(startdate = NULL,
     # connect to stations database
     station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
-    stations_filter <- tbl(station_con, "VWStationsFinal") |>
+    stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
       dplyr::select(MLocID, EcoRegion2, HUC12_Name,AU_ID, GNIS_Name,ReferenceSite)
 
     # Add appropriate filters
@@ -188,7 +188,7 @@ AWQMS_Bio_Indexes <-   function(startdate = NULL,
       print("Query stations database...")
       station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
-      stations_filter <- tbl(station_con, "VWStationsFinal") |>
+      stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
         dplyr::select(MLocID, EcoRegion2, HUC12_Name,AU_ID, GNIS_Name,ReferenceSite)|>
         dplyr::filter(MLocID %in% stations) |>
         dplyr::collect()
