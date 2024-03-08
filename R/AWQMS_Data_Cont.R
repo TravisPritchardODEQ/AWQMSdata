@@ -3,11 +3,11 @@
 #' This function will retrive raw continuous data from OregonDEQ AWQMS
 #' @param startdate Required parameter setting the startdate of the data being fetched. Format 'yyyy-mm-dd'
 #' @param enddate Optional parameter setting the enddate of the data being fetched. Format 'yyyy-mm-dd'
-#' @param station Optional vector of stations to be fetched
+#' @param MLocID Optional vector of stations to be fetched
 #' @param AU_ID Optional vector of Assessment units to be fetched
-#' @param char Optional vector of characteristics to be fetched
-#' @param media Optional vector of sample media to be fetched
-#' @param org optional vector of Organizations to be fetched
+#' @param Char_Name Optional vector of characteristics to be fetched
+#' @param SampleMedia Optional vector of sample media to be fetched
+#' @param OrganizationID optional vector of Organizations to be fetched
 #' @param HUC8 Optional vector of HUC8s to be fetched
 #' @param HUC8_Name Optional vector of HUC8 names to be fetched
 #' @param HUC10 Optional vector of HUC10s to be fetched
