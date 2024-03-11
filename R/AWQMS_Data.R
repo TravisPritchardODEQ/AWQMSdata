@@ -109,7 +109,7 @@ if(!(is.character(HUC8) | is.null(HUC8))){
     if(!is.null(c(HUC8, HUC8_Name, HUC10, HUC12, HUC12_Name, AU_ID))){
 
       print("Query stations database...")
-      toctoc::tic("Station Database Query")
+      titoc::tic("Station Database Query")
 
       # connect to stations database
       station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
@@ -167,7 +167,7 @@ if(!(is.character(HUC8) | is.null(HUC8))){
       DBI::dbDisconnect(station_con)
 
       print("Query stations database- Complete")
-      toctoc::toc()
+      tictoc::toc()
 
     }
 
@@ -288,7 +288,7 @@ if(!(is.character(HUC8) | is.null(HUC8))){
       } else {
 
         stations <- AWQMS_data$MLocID
-        toctoc::tic("Station Database Query")
+        tictoc::tic("Station Database Query")
 
         print("Query stations database...")
         station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
@@ -302,7 +302,7 @@ if(!(is.character(HUC8) | is.null(HUC8))){
           dplyr::collect()
 
         print("Query stations database- Complete")
-        toctoc::toc()
+        tictoc::toc()
 
         AWQMS_data <- AWQMS_data |>
           dplyr::left_join(stations_filter, by = 'MLocID' )
