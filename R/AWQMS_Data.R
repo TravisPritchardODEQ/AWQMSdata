@@ -272,7 +272,7 @@ if(!(is.character(HUC8) | is.null(HUC8))){
       AWQMS_data <- AWQMS_data |>
         dplyr::collect()
       print("Query AWQMS database- Complete")
-      tictic::toc()
+      tictoc::toc()
 
 
 # Add in stations info --------------------------------------------------------------------------------------------
