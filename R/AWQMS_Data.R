@@ -312,7 +312,7 @@ if(!(is.character(HUC8) | is.null(HUC8))){
       if(crit_codes == FALSE){
 
         AWQMS_data <- AWQMS_data |>
-          sdplyr::elect(-WaterTypeCode, -WaterBodyCode, -ben_use_code, -FishCode,
+          dplyr::select(-WaterTypeCode, -WaterBodyCode, -ben_use_code, -FishCode,
                  -SpawnCode, -DO_code, -DO_SpawnCode,-BacteriaCode, -pH_code )
       }
 
