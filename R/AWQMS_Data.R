@@ -109,7 +109,7 @@ if(!(is.character(HUC8) | is.null(HUC8))){
     if(!is.null(c(HUC8, HUC8_Name, HUC10, HUC12, HUC12_Name, AU_ID))){
 
       print("Query stations database...")
-      titoc::tic("Station Database Query")
+      tictoc::tic("Station Database Query")
 
       # connect to stations database
       station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
