@@ -6,9 +6,13 @@
 \usage{
 AWQMS_Stations(
   project = NULL,
-  char = NULL,
+  Char_Name = NULL,
   HUC8 = NULL,
   HUC8_Name = NULL,
+  HUC10 = NULL,
+  HUC12 = NULL,
+  HUC12_Name = NULL,
+  AU_ID = NULL,
   org = NULL,
   crit_codes = FALSE
 )
@@ -16,7 +20,7 @@ AWQMS_Stations(
 \arguments{
 \item{project}{Optional vector of projects to be filtered on}
 
-\item{char}{Optional vector of characters to be filtered on}
+\item{Char_Name}{Optional vector of characters to be filtered on}
 
 \item{HUC8}{Optional vector of HUC8s to be filtered on}
 

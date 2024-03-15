@@ -1,16 +1,17 @@
 #' AWQMS_Data
 #'
 #' This function will retrieve data from OregonDEQ AWQMS
-#' @param startdate Required parameter setting the startdate of the data being fetched. Format 'yyyy-mm-dd'
+#' @param startdate Optional parameter setting the startdate of the data being fetched. Format 'yyyy-mm-dd'
 #' @param enddate Optional parameter setting the enddate of the data being fetched. Format 'yyyy-mm-dd'
-#' @param station Optional vector of stations to be fetched
+#' @param MLocID Optional vector of stations to be fetched
 #' @param AU_ID Optional vector of Assessment Units to be fetched
 #' @param project Optional vector of projects to be fetched
-#' @param char Optional vector of characteristics to be fetched
-#' @param casnumber Optional vector of CAS numbers to be fetched
-#' @param stat_base Optional vector of Result Stattistical Bases to be fetched ex. Maximum
-#' @param media Optional vector of sample media to be fetched
-#' @param org optional vector of Organizations to be fetched
+#' @param Char_Name Optional vector of characteristics to be fetched
+#' @param CASNumber Optional vector of CAS numbers to be fetched
+#' @param Statistical_Base Optional vector of Result Stattistical Bases to be fetched ex. Maximum
+#' @param SampleMedia Optional vector of sample media to be fetched
+#' @param SampleSubmedia Optional vector of sample submedia to be fetched
+#' @param OrganizationID optional vector of Organizations to be fetched
 #' @param HUC8 Optional vector of HUC8s to be fetched
 #' @param HUC8_Name Optional vector of HUC8 names to be fetched
 #' @param HUC10 Optional vector of HUC10s to be fetched
@@ -21,7 +22,7 @@
 #' @param return_query If true, return the query language that would have been sent to AWQMS. If TRUE, nothing is sent to AWQMS. This is useful for troubleshooting.
 #' @return Dataframe of data from AWQMS
 #' @examples
-#' AWQMS_Data(startdate = '2017-1-1', enddate = '2000-12-31', station = c('10591-ORDEQ', '29542-ORDEQ'),
+#' AWQMS_Data(startdate = '2000-1-1', enddate = '2000-12-31', MLocID = c('10591-ORDEQ', '29542-ORDEQ'),
 #' project = 'Total Maximum Daily Load Sampling', filterQC = FALSE, crit_codes = FALSE)
 #' @export
 #'
@@ -31,15 +32,15 @@
 AWQMS_Data <-
   function(startdate = '1949-09-15',
            enddate = NULL,
-           station = NULL,
+           MLocID  = NULL,
            AU_ID = NULL,
            project = NULL,
-           char = NULL,
-           casnumber = NULL,
-           stat_base = NULL,
-           media = NULL,
-           submedia = NULL,
-           org = NULL,
+           Char_Name  = NULL,
+           CASNumber = NULL,
+           Statistical_Base = NULL,
+           SampleMedia = NULL,
+           SampleSubmedia = NULL,
+           OrganizationID = NULL,
            HUC8 = NULL,
            HUC8_Name = NULL,
            HUC10 = NULL,
@@ -70,6 +71,11 @@ AWQMS_Data <-
     # crit_codes = FALSE
     # filterQC = TRUE
 
+
+# Error Checking --------------------------------------------------------------------------------------------------
+
+
+
 if(!(is.character(HUC8) | is.null(HUC8))){
 
   stop('HUC8 value must be a character')
@@ -87,322 +93,239 @@ if(!(is.character(HUC8) | is.null(HUC8))){
 
 
 
-  # Build base query language
-
     # Get environment variables
     readRenviron("~/.Renviron")
-    assert_STATIONS()
     assert_AWQMS()
 
-    AWQMS_server <- Sys.getenv('AWQMS_SERVER')
-    Stations_server <- Sys.getenv('STATIONS_SERVER')
 
+# Initial STATIONS database pull ---------------------------------------------------------------------------------------------
 
-     # Build base query language
-  if(crit_codes == TRUE){
-query <- paste0("SELECT a.[OrganizationID]
-, a.[Org_Name]
-, a.[Project1]
-, a.[Project2]
-, a.[Project3]
-, a.[MLocID]
-, a.[StationDes]
-, a.[MonLocType]
-, a.[EcoRegion3]
-, a.[EcoRegion4]
-, a.[HUC8]
-, a.[HUC8_Name]
-, a.[HUC10]
-, a.[HUC12]
-, a.[HUC12_Name]
-, a.[Lat_DD]
-, a.[Long_DD]
-, a.[Reachcode]
-, a.[Measure]
-, a.[AU_ID]
-, a.[act_id]
-, a.[Activity_Type]
-, a.[SampleStartDate]
-, cast(a.[SampleStartTime] AS time(0)) as [SampleStartTime]
-, a.[SampleStartTZ]
-, a.[SampleMedia]
-, a.[SampleSubmedia]
-, a.[SamplingMethod]
-, a.[chr_uid]
-, a.[Char_Name]
-, a.[Char_Speciation]
-, a.[Sample_Fraction]
-, a.[CASNumber]
-, a.[Result_UID]
-, a.[Result_status]
-, a.[Result_Type]
-, a.[Result_Text]
-, a.[Result_Numeric]
-, a.[Result_Operator]
-, a.[Result_Unit]
-, a.[Unit_UID]
-, a.[ResultCondName]
-, a.[RelativeDepth]
-, a.[Result_Depth]
-, a.[Result_Depth_Unit]
-, a.[Result_Depth_Reference]
-, a.[act_depth_height]
-, a.[ActDepthUnit]
-, a.[Act_depth_Reference]
-, a.[Act_Depth_Top]
-, a.[Act_Depth_Top_Unit]
-, a.[Act_Depth_Bottom]
-, a.[Act_Depth_Bottom_Unit]
-, a.[Time_Basis]
-, a.[Statistical_Base]
-, a.[Statistic_N_Value]
-, a.[act_sam_compnt_name]
-, a.[stant_name]
-, a.[Bio_Intent]
-, a.[Taxonomic_Name]
-, a.[Analytical_method]
-, a.[Method_Code]
-, a.[Method_Context]
-, a.[Analytical_Lab]
-, a.[Activity_Comment]
-, a.[Result_Comment]
-, a.[DQL]
-, a.[QualifierAbbr]
-, a.[QualifierTxt]
-, a.[IDLType]
-, a.[IDLValue]
-, a.[IDLUnit]
-, a.[MDLType]
-, a.[MDLValue]
-, a.[MDLUnit]
-, a.[MRLType]
-, a.[MRLValue]
-, a.[MRLUnit]
-, a.[URLType]
-, a.[URLValue]
-, a.[URLUnit]
-, a.[WQX_submit_date]
-  ,s.FishCode
-  ,s.SpawnCode
-  ,s.WaterTypeCode
-  ,s.WaterBodyCode
-  ,s.BacteriaCode
-  ,s.DO_code
-  ,s.ben_use_code
-  ,s.pH_code
-  ,s.DO_SpawnCode
-  FROM  ",AWQMS_server,"[VW_AWQMS_Results] a
-  LEFT JOIN ", Stations_server,"[VWStationsFinal] s ON a.MLocID = s.MLocID
-  WHERE SampleStartDate >= Convert(datetime, {startdate})")
-} else {
-  query <- paste0("SELECT a.[OrganizationID]
-, a.[Org_Name]
-, a.[Project1]
-, a.[Project2]
-, a.[Project3]
-, a.[MLocID]
-, a.[StationDes]
-, a.[MonLocType]
-, a.[EcoRegion3]
-, a.[EcoRegion4]
-, a.[HUC8]
-, a.[HUC8_Name]
-, a.[HUC10]
-, a.[HUC12]
-, a.[HUC12_Name]
-, a.[Lat_DD]
-, a.[Long_DD]
-, a.[Reachcode]
-, a.[Measure]
-, a.[AU_ID]
-, a.[act_id]
-, a.[Activity_Type]
-, a.[SampleStartDate]
-, cast(a.[SampleStartTime] AS time(0)) as [SampleStartTime]
-, a.[SampleStartTZ]
-, a.[SampleMedia]
-, a.[SampleSubmedia]
-, a.[SamplingMethod]
-, a.[chr_uid]
-, a.[Char_Name]
-, a.[Char_Speciation]
-, a.[Sample_Fraction]
-, a.[CASNumber]
-, a.[Result_UID]
-, a.[Result_status]
-, a.[Result_Type]
-, a.[Result_Text]
-, a.[Result_Numeric]
-, a.[Result_Operator]
-, a.[Result_Unit]
-, a.[Unit_UID]
-, a.[ResultCondName]
-, a.[RelativeDepth]
-, a.[Result_Depth]
-, a.[Result_Depth_Unit]
-, a.[Result_Depth_Reference]
-, a.[act_depth_height]
-, a.[ActDepthUnit]
-, a.[Act_depth_Reference]
-, a.[Act_Depth_Top]
-, a.[Act_Depth_Top_Unit]
-, a.[Act_Depth_Bottom]
-, a.[Act_Depth_Bottom_Unit]
-, a.[Time_Basis]
-, a.[Statistical_Base]
-, a.[Statistic_N_Value]
-, a.[act_sam_compnt_name]
-, a.[stant_name]
-, a.[Bio_Intent]
-, a.[Taxonomic_Name]
-, a.[Analytical_method]
-, a.[Method_Code]
-, a.[Method_Context]
-, a.[Analytical_Lab]
-, a.[Activity_Comment]
-, a.[Result_Comment]
-, a.[DQL]
-, a.[QualifierAbbr]
-, a.[QualifierTxt]
-, a.[IDLType]
-, a.[IDLValue]
-, a.[IDLUnit]
-, a.[MDLType]
-, a.[MDLValue]
-, a.[MDLUnit]
-, a.[MRLType]
-, a.[MRLValue]
-, a.[MRLUnit]
-, a.[URLType]
-, a.[URLValue]
-, a.[URLUnit]
-, a.[WQX_submit_date]
-FROM  ",AWQMS_server,"[VW_AWQMS_Results] a
-  WHERE SampleStartDate >= Convert(datetime, {startdate})")
-
-}
+    #If needed to filter on info stored in stations database, query stations and get a list of mlocs to filter
 
 
 
-  # add end date
-  if (length(enddate) > 0) {
-    query = paste0(query, "\n AND a.SampleStartDate <= Convert(datetime, {enddate})" )
-  }
+
+   # If information from stations is needed to filter AWQMS, we need to pull from stations first
+    if(!is.null(c(HUC8, HUC8_Name, HUC10, HUC12, HUC12_Name, AU_ID))){
+
+      print("Query stations database...")
+      tictoc::tic("Station Database Query")
+
+      # connect to stations database
+      station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
+
+      stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
+        select(MLocID, EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
+               HUC12, HUC12_Name, Reachcode, Measure,AU_ID, WaterTypeCode, WaterBodyCode,
+               ben_use_code, FishCode, SpawnCode,DO_code,DO_SpawnCode,  BacteriaCode,
+               pH_code)
+
+      # Add appropriate filters
+      if(!is.null(HUC8)){
+        stations_filter <- stations_filter |>
+          dplyr::filter(HUC8 %in% {{HUC8}})
+
+      }
+
+      if(!is.null(HUC8_Name)){
+        stations_filter <- stations_filter |>
+          dplyr::filter(HUC8_Name %in% {{HUC8_Name}})
+
+      }
+
+      if(!is.null(HUC10)){
+        stations_filter <- stations_filter |>
+          dplyr::filter(HUC10 %in% {{HUC10}})
+
+      }
+
+      if(!is.null(HUC12)){
+        stations_filter <- stations_filter |>
+          dplyr::filter(HUC12 %in% {{HUC12}})
+
+      }
+
+      if(!is.null(HUC12_Name)){
+        stations_filter <- stations_filter |>
+          dplyr::filter(HUC12_Name %in% {{HUC12_Name}})
+
+      }
+
+      if(!is.null(AU_ID )){
+        stations_filter <- stations_filter |>
+          dplyr::filter(AU_ID  %in% {{AU_ID}})
+
+      }
 
 
-  # station
-  if (length(station) > 0) {
 
-    query = paste0(query, "\n AND a.MLocID IN ({station*})")
-  }
+      stations_filter <- stations_filter |>
+        dplyr::collect()
 
-    # AU
-    if (length(AU_ID) > 0) {
+      mlocs_filtered <- stations_filter$MLocID
 
-      query = paste0(query, "\n AND a.AU_ID IN ({AU_ID*})")
-    }
+      DBI::dbDisconnect(station_con)
 
-
-  #Project
-
-  if (length(project) > 0) {
-    query = paste0(query, "\n AND (a.Project1 in ({project*}) OR a.Project2 in ({project*})) ")
-
-  }
-
-  # characteristic
-  if (length(char) > 0) {
-    query = paste0(query, "\n AND a.Char_Name in ({char*}) ")
-
-  }
-
-    # CAS number
-    if (length(casnumber) > 0) {
-      query = paste0(query, "\n AND a.CASNumber in ({casnumber*}) ")
+      print("Query stations database- Complete")
+      tictoc::toc()
 
     }
 
-  #statistical base
-  if(length(stat_base) > 0){
-    query = paste0(query, "\n AND a.Statistical_Base in ({stat_base*}) ")
-
-  }
-
-  # sample media
-  if (length(media) > 0) {
-    query = paste0(query, "\n AND a.SampleMedia in ({media*}) ")
-
-  }
 
 
-    # sample submedia
-    if (length(submedia) > 0) {
-      query = paste0(query, "\n AND a.SampleSubmedia in ({submedia*}) ")
 
+# Connect to AWQMS ------------------------------------------------------------------------------------------------
+
+    # Get login credientials
+    readRenviron("~/.Renviron")
+    # AWQMS_usr <- Sys.getenv('AWQMS_usr')
+    # AWQMS_pass <- Sys.getenv('AWQMS_pass')
+
+
+
+    con <- DBI::dbConnect(odbc::odbc(), 'AWQMS-cloud',
+                          UID      =   Sys.getenv('AWQMS_usr'),
+                          PWD      =  Sys.getenv('AWQMS_pass'))
+
+
+    # Get query Language
+
+    AWQMS_data <- dplyr::tbl(con, 'results_deq_vw')
+
+    #if HUC filter, filter on resultant mlocs
+    if(exists('mlocs_filtered')){
+
+      AWQMS_data <- AWQMS_data |>
+        dplyr::filter(MLocID %in% mlocs_filtered)
     }
 
-  # organization
-  if (length(org) > 0){
-    query = paste0(query,"\n AND a.OrganizationID in ({org*}) " )
+    # add start date
+    if (length(startdate) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        dplyr::filter(SampleStartDate >= startdate)
+    }
+
+
+
+    # add end date
+    if (length(enddate) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        dplyr::filter(SampleStartDate <= enddate)
+    }
+
+    if (length(MLocID ) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        dplyr::filter(MLocID %in% {{MLocID}})
+    }
+
+
+    if (length(project) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        dplyr::filter(Project1 %in% project)
+    }
+
+    if (length(Char_Name) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        dplyr::filter(Char_Name %in% {{Char_Name}})
+    }
+
+    if (length(CASNumber) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        dplyr::filter(CASNumber  %in% {{CASNumber}})
+    }
+
+    if (length(Statistical_Base ) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        dplyr::filter(Statistical_Base  %in% {{Statistical_Base}} )
+    }
+
+    if (length(SampleMedia  ) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        dplyr::filter(SampleMedia   %in% {{SampleMedia}} )
+    }
+
+    if (length(SampleSubmedia  ) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        dplyr::filter(SampleSubmedia %in% {{SampleSubmedia}} )
+    }
+
+    if (length(OrganizationID) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        dplyr::filter(OrganizationID %in% {{OrganizationID}} )
+    }
+
+    if (filterQC == TRUE) {
+      AWQMS_data <- AWQMS_data |>
+        dplyr::filter(!Activity_Type %like% "Quality Control%")
+    }
+
+    if(return_query){
+      AWQMS_data <- AWQMS_data |>
+        dplyr::show_query()
+
+    } else {
+
+      # Query the database
+
+      print("Query AWQMS database...")
+      tictoc::tic("AWQMS database query")
+      AWQMS_data <- AWQMS_data |>
+        dplyr::collect()
+      print("Query AWQMS database- Complete")
+      tictoc::toc()
+
+
+# Add in stations info --------------------------------------------------------------------------------------------
+
+
+
+      if(exists('stations_filter')){
+        AWQMS_data <- AWQMS_data |>
+          dplyr::left_join(stations_filter, by = 'MLocID' )
+
+
+
+      } else {
+
+        stations <- AWQMS_data$MLocID
+        tictoc::tic("Station Database Query")
+
+        print("Query stations database...")
+        station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
+
+        stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
+          dplyr::select(MLocID, EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
+                 HUC12, HUC12_Name, Reachcode, Measure,AU_ID, WaterTypeCode, WaterBodyCode,
+                 ben_use_code, FishCode, SpawnCode,DO_code,DO_SpawnCode,  BacteriaCode,
+                 pH_code) |>
+          dplyr::filter(MLocID %in% stations) |>
+          dplyr::collect()
+
+        print("Query stations database- Complete")
+        tictoc::toc()
+
+        AWQMS_data <- AWQMS_data |>
+          dplyr::left_join(stations_filter, by = 'MLocID' )
+
+      }
+
+      if(crit_codes == FALSE){
+
+        AWQMS_data <- AWQMS_data |>
+          dplyr::select(-WaterTypeCode, -WaterBodyCode, -ben_use_code, -FishCode,
+                 -SpawnCode, -DO_code, -DO_SpawnCode,-BacteriaCode, -pH_code )
+      }
+
+
+
+
+      # Disconnect
+      DBI::dbDisconnect(con)
+    }
+    return(AWQMS_data)
 
   }
 
-  #HUC8
-
-  if(length(HUC8) > 0){
-    query = paste0(query,"\n AND a.HUC8 in ({HUC8*}) " )
-
-  }
 
 
-  #HUC8_Name
 
-  if(length(HUC8_Name) > 0){
-    query = paste0(query,"\n AND a.HUC8_Name in ({HUC8_Name*}) " )
-
-  }
-
-  if(length(HUC10) > 0){
-    query = paste0(query,"\n AND a.HUC10 in ({HUC10*}) " )
-
-  }
-
-  if(length(HUC12) > 0){
-    query = paste0(query,"\n AND a.HUC12 in ({HUC12*}) " )
-
-  }
-
-
-  if(length(HUC12_Name) > 0){
-    query = paste0(query,"\n AND a.HUC12_Name in ({HUC12_Name*}) " )
-
-  }
-
-  if(filterQC){
-    query = paste0(query,"\n AND a.MLocID <> '10000-ORDEQ'
-                   \n AND a.activity_type NOT LIKE 'Quality Control%'" )
-
-  }
-
-  #Connect to database
-  con <- DBI::dbConnect(odbc::odbc(), "AWQMS")
-
-  # Create query language
-  qry <- glue::glue_sql(query, .con = con)
-
-
-  if(return_query){
-    data_fetch <- qry
-
-  } else {
-
-  # Query the database
-  data_fetch <- DBI::dbGetQuery(con, qry)
-
-
-  # Disconnect
-  DBI::dbDisconnect(con)
-}
-  return(data_fetch)
-
-}

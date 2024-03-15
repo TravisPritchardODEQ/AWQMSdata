@@ -4,18 +4,18 @@
 \alias{AWQMS_Orgs}
 \title{AWQMS_ORGS}
 \usage{
-AWQMS_Orgs(project = NULL, station = NULL)
+AWQMS_Orgs(project = NULL, MLocID = NULL)
 }
 \arguments{
 \item{project}{Optional vector of projects to be filtered on}
 
-\item{station}{Optional vector of stations to be filtered on}
+\item{MLocID}{Optional vector of stations to be filtered on}
 }
 \value{
 Dataframe of organizations with available data
 }
 \description{
-This function will return a list of organizations with data in AWQMS found in OregonDEQ AWQMS
+This function will return a dataframe of organizations with data in AWQMS found in OregonDEQ AWQMS
 }
 \examples{
 AWQMS_Orgs(project = 'Total Maximum Daily Load Sampling', c('10591-ORDEQ', '29542-ORDEQ'))

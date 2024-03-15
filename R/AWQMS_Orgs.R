@@ -1,51 +1,52 @@
 #' AWQMS_ORGS
 #'
-#' This function will return a list of organizations with data in AWQMS found in OregonDEQ AWQMS
+#' This function will return a dataframe of organizations with data in AWQMS found in OregonDEQ AWQMS
 #' @param project Optional vector of projects to be filtered on
-#' @param station Optional vector of stations to be filtered on
+#' @param MLocID Optional vector of stations to be filtered on
 #' @return Dataframe of organizations with available data
 #' @examples AWQMS_Orgs(project = 'Total Maximum Daily Load Sampling', c('10591-ORDEQ', '29542-ORDEQ'))
 #' @export
 
 
-AWQMS_Orgs <- function(project = NULL, station = NULL) {
+AWQMS_Orgs <- function(project = NULL, MLocID = NULL) {
+
   # Get environment variables
   readRenviron("~/.Renviron")
-  AWQMS_server <- Sys.getenv('AWQMS_SERVER')
-  #Connect to database
-  con <- DBI::dbConnect(odbc::odbc(), "AWQMS")
+  assert_AWQMS()
 
-  query = paste0("SELECT distinct [OrganizationID], [Org_Name]
-  FROM ",AWQMS_server,"[VW_AWQMS_Results]")
+
+  AWQMS_server <- Sys.getenv('AWQMS_SERVER')
+
+
+
+  con <- DBI::dbConnect(odbc::odbc(), 'AWQMS-cloud',
+                        UID      =   Sys.getenv('AWQMS_usr'),
+                        PWD      =  Sys.getenv('AWQMS_pass'))
+
+
+  AWQMS_data <- dplyr::tbl(con, 'results_deq_vw')
 
   if (length(project) > 0) {
-    query <- paste0(query, "\n WHERE (Project1 in ({project*}) OR Project2 in ({project*}))")
-
-  }
-
-  # station
-  if (length(station) > 0) {
-
-    if (length(project) > 0) {
-      query = paste0(query, "\n AND MLocID IN ({station*})")
-    } else {
-      query <- paste0(query, "\n WHERE MLocID IN ({station*})")
-    }
-
+    AWQMS_data <- AWQMS_data |>
+      dplyr::filter(Project1 %in% project)
   }
 
 
+  if (length(MLocID) > 0) {
+    AWQMS_data <- AWQMS_data |>
+      dplyr::filter(MLocID %in% {{MLocID}})
+  }
 
-  # Create query language
-  qry <- glue::glue_sql(query, .con = con)
 
+  AWQMS_data <- AWQMS_data |>
+    dplyr::select(OrganizationID, org_name) |>
+    dplyr::distinct() |>
+    dplyr::collect()
 
-  # Query the database
-  data_fetch <- DBI::dbGetQuery(con, qry)
 
   # Disconnect
   DBI::dbDisconnect(con)
 
-  return(data_fetch)
+  return(AWQMS_data)
 
 }
