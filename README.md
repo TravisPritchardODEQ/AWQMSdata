@@ -4,31 +4,34 @@
 
 Some query function arguments have changes to match fields in AWQMS. If you are modifying existing code that uses the AWQMSdata functionality, you will need to change argument names. **The data returned does not have any column name changes, only the arguments you feed AWQMSdata() and other query functions.** See below to table:
 
-| [New Argument]{.underline} | [Old Argument]{.underline} |
-|----------------------------|----------------------------|
-| MLocID                     | station                    |
-| Char_Name                  | char                       |
-| Statistical_Base           | stat_base                  |
-| SampleMedia                | media                      |
-| SampleSubmedia             | submedia                   |
-| OrganizationID             | org                        |
+| New Argument     | Old Argument |
+|------------------|--------------|
+| MLocID           | station      |
+| Char_Name        | char         |
+| Statistical_Base | stat_base    |
+| SampleMedia      | media        |
+| SampleSubmedia   | submedia     |
+| OrganizationID   | org          |
 
-For example if your previous code used *AWQMSdata(station = 1234-ORDEQ)*, you will need to change it to ***AWQMSdata(MLocID = 1234-ORDEQ)***
+For example if your previous code used *AWQMSdata(station = '1234-ORDEQ')*, you will need to change it to ***AWQMSdata(MLocID = '1234-ORDEQ')***
 
 # AWQMSdata
 
 AWQMSdata was created to load data from Oregon DEQ AWQMS into R. **This is intended for internal Oregon DEQ users. Public users should use the AWQMS frontend located [here.](https://www.oregon.gov/deq/wq/Pages/WQdata.aspx)**
 
-Note that this package is currently a work in progress. It is being developed by Travis Pritchard- [pritchard.travis\@deq.state.or.us](mailto:pritchard.travis@deq.state.or.us)
+Note that this package is currently a work in progress. It is being developed by Travis Pritchard. If you have any questions or need troubleshooting, contact him.
 
 ## Installation
 
-***You need an ODBC connection to the AWQMS database named AWQMS, and read access to VW_AWQMS_Results. You will also need an ODBC connection to the Stations database named STATIONS***
+***You need an ODBC connection to the AWQMS database named AWQMS-cloud, as well as a user name and password. You will also need an ODBC connection to the Stations database named STATIONS. When requesting a user name and password, you will be given installation instructions which will walk through these ODBC connection setup processes.***
+
+-   Staff will need to request a username and password.
 
 -   Staff will need to send a request to helpdesk to be added to the LABDBSTATIONUSER User Groups on the LEAD-LIMS server.
+
 -   Add an ODBC connection to the stations database named **STATIONS**.
--   Add an ODBC connection to the AWQMS database
--   Email Travis Pritchard for help setting up ODBC connections.
+
+-   Add an ODBC connection to the AWQMS database named AWQMS-cloud
 
 You also need to have the [devtools](https://github.com/hadley/devtools) package installed.
 
@@ -39,8 +42,7 @@ install.packages("devtools")
 To install AWQMSdata:<br/> *Note - The install process only needs to be run once (or when the package gets updated)*
 
 ```         
-library(devtools)
-install_github("TravisPritchardODEQ/AWQMSdata")
+devtools::install_github("TravisPritchardODEQ/AWQMSdata")
 ```
 
 AWQMSdata is now installed on your computer and can be loaded like any other package.
@@ -55,22 +57,22 @@ library(AWQMSdata)
 
 This package contains the following functions:
 
--   **AWQMS_Data(startdate, enddate, MLocID, AU_ID, project, Char_Name, project, Char_Name, \
+-   **AWQMS_Data(startdate, enddate, MLocID, AU_ID, project, Char_Name, project, Char_Name,\
     CASNumber, Statistical_Base, SampleMedia, SampleSubmedia, OrganizationID, HUC8, HUC8_Name, HUC10, HUC12, HUC12_Name, crit_codes, filterQC)** - Returns data from AWQMS
 -   **AWQMS_Data_Cont(startdate, enddate, MLocID, AU_ID, Char_Name, SampleMedia, OrganizationID, HUC8, HUC8_Name, HUC10, HUC12, HUC12_Name, Result_Status, crit_codes)** - Returns raw continuous data from AWQMS
 -   **AWQMS_Chars(project, MLocID)** - Returns characteristics available for downloading from AWQMS
 -   **AWQMS_Projects()** - Returns projects available for downloading from AWQMS
 -   **AWQMS_Orgs(project, MLocID)** - Returns organizations with data available for downloading from AWQMS
 -   **AWQMS_Stations(project, Char_Name, HUC8, HUC8_Name, OrganizationID, crit_codes)** - Returns information about monitoring locations
--   **query_stations(stations_odbc, mlocs, huc8_name, huc10_name, huc12_name, huc8, huc10, huc12, au_id, gnis_name, reachcode, owrd_basin, state )** - Retrieve station information from ODEQ's Stations database based on a set of query paramaters.\
--   **Mlocs_crit(mlocs, stations_odbc)** - Returns criteria codes and site speific criteria
+-   **query_stations(stations_odbc, mlocs, huc8_name, huc10_name, huc12_name, huc8, huc10, huc12, au_id, gnis_name, reachcode, owrd_basin, state )** - Retrieve station information from ODEQ's Stations database based on a set of query parameters.
+-   **Mlocs_crit(mlocs, stations_odbc)** - Returns criteria codes and site specific criteria
 
 <br/> <br/>
 
 #### Available functions:
 
 | Function Name       | Description                                                                                                                          |
-|-------------------|-----------------------------------|
+|--------------------------|----------------------------------------------|
 | `AWQMS_Data`        | Retrieve a dataframe of data exported from AWQMS. If crit_codes = TRUE, it will bring in standard criteria codes also                |
 | `AWQMS_Data_Cont`   | Retrieve a dataframe of raw continious data exported from AWQMS. If crit_codes = TRUE, it will bring in standard criteria codes also |
 | `AWQMS_Chars`       | Return a dataframe of available characteristics                                                                                      |
@@ -88,7 +90,7 @@ This package contains the following functions:
 #### Data tables included in package
 
 | Table Name        | Fields                                                                                                  | Description                                                                                                                  |
-|-----------------|-------------------------|------------------------------|
+|------------------|-------------------------|-----------------------------|
 | `Bacteria_crit`   | BacteriaCode <br/> Bacteria_SS_Crit <br/> Bacteria_Geomean_Crit <br/> Bacteria_Percentage_Crit          | OBSOLETE Bacteria Criteria table. Join by BacteriaCode                                                                       |
 | `Chla_crit`       | MonLocType <br/> Chla_Criteria                                                                          | Chlorophyll a criteria table. Join by MonLocType                                                                             |
 | `DO_crit`         | DO_code <br/> DO_30D_crit <br/> DO_7Mi_crit <br/> DO_abs_min_crit <br/> DO_Instant_crit                 | Dissolved Oxygen Criteria Table. Join by DO_code                                                                             |
