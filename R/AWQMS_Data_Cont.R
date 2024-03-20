@@ -152,7 +152,7 @@ AWQMS_Data_Cont <-
     # add start date
     if (length(startdate) > 0) {
       AWQMS_data <- AWQMS_data |>
-        dplyr::filter(SampleStartDate >= startdate)
+        dplyr::filter(Result_Date >= startdate)
     }
 
 
@@ -160,7 +160,7 @@ AWQMS_Data_Cont <-
     # add end date
     if (length(enddate) > 0) {
       AWQMS_data <- AWQMS_data |>
-        dplyr::filter(SampleStartDate <= enddate)
+        dplyr::filter(Result_Date <= enddate)
     }
 
     if (length(MLocID) > 0) {

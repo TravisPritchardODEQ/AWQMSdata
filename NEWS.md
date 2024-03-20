@@ -1,3 +1,7 @@
+# AWQMSdata 3.0.1
+
+-   Bugfix. Correcting continuous data startdate filter to use Result_Date.
+
 # AWQMSdata 3.0 (2024-03-15)
 
 ##### Breaking Updates
