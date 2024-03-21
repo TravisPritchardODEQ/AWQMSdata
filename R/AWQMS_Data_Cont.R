@@ -218,6 +218,36 @@ AWQMS_Data_Cont <-
     } else {
 
       stations <- AWQMS_data$MLocID
+
+      if(length(stations) == 0){
+
+        AWQMS_data <- AWQMS_data |>
+          dplyr::mutate(EcoRegion3 = NA_character_,
+                        EcoRegion4 = NA_character_,
+                        HUC8 = NA_character_,
+                        HUC8_Name = NA_character_,
+                        HUC10 = NA_character_,
+                        HUC12 = NA_character_,
+                        HUC12_Name = NA_character_,
+                        Reachcode = NA_character_,
+                        Measure = NA_character_,
+                        AU_ID = NA_character_,
+                        WaterTypeCode = NA_character_,
+                        WaterBodyCode = NA_character_,
+                        ben_use_code = NA_character_,
+                        FishCode = NA_character_,
+                        SpawnCode = NA_character_,
+                        DO_code = NA_character_,
+                        DO_SpawnCode = NA_character_,
+                        BacteriaCode = NA_character_,
+                        pH_code = NA_character_,
+
+                        )
+
+
+
+      } else {
+
       tictoc::tic("Station Database Query")
 
       print("Query stations database...")
@@ -244,6 +274,7 @@ AWQMS_Data_Cont <-
       AWQMS_data <- AWQMS_data |>
         dplyr::select(-WaterTypeCode, -WaterBodyCode, -ben_use_code, -FishCode,
                -SpawnCode, -DO_code, -DO_SpawnCode,-BacteriaCode, -pH_code )
+    }
     }
 
 
