@@ -1,3 +1,7 @@
+# AWQMSdata 3.0.3
+
+-   Adding station description to continuous data pull
+
 # AWQMSdata 3.0.2 (2024-03-21)
 
 -   Big fix. data functions will not error when returning empty dataframes from AWQMS
