@@ -75,7 +75,7 @@ AWQMS_Data_Cont <-
       station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
       stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
-        dplyr::select(MLocID, StationDes, MonLocType,  EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
+        dplyr::select(MLocID, StationDes, Lat_DD,Long_DD,MonLocType,  EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
                HUC12, HUC12_Name, Reachcode, Measure,AU_ID, WaterTypeCode, WaterBodyCode,
                ben_use_code, FishCode, SpawnCode,DO_code,DO_SpawnCode,  BacteriaCode,
                pH_code)
@@ -243,6 +243,8 @@ AWQMS_Data_Cont <-
                         HUC8_Name = NA_character_,
                         HUC10 = NA_character_,
                         HUC12 = NA_character_,
+                        Lat_DD = NA_character_,
+                        Long_DD = NA_character_,
                         HUC12_Name = NA_character_,
                         Reachcode = NA_character_,
                         Measure = NA_character_,
@@ -269,7 +271,7 @@ AWQMS_Data_Cont <-
       station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
       stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
-        dplyr::select(MLocID, StationDes, MonLocType, EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
+        dplyr::select(MLocID,  StationDes, Lat_DD,Long_DD, MonLocType, EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
                HUC12, HUC12_Name, Reachcode, Measure,AU_ID, WaterTypeCode, WaterBodyCode,
                ben_use_code, FishCode, SpawnCode,DO_code,DO_SpawnCode,  BacteriaCode,
                pH_code) |>
