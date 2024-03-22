@@ -1,3 +1,7 @@
+# AWQMSdata 3.0.4
+
+-   Bugfix
+
 # AWQMSdata 3.0.3
 
 -   Adding station description to continuous data pull

@@ -43,7 +43,20 @@ AWQMS_Data_Cont <-
 
 # Testing ---------------------------------------------------------------------------------------------------------
 
-
+    startdate = NULL
+    enddate = NULL
+    MLocID = NULL
+    AU_ID = NULL
+    Char_Name = NULL
+    SampleMedia = NULL
+    OrganizationID = "CITY_STHELENS/BC(NOSTORETID)"
+    HUC8 = NULL
+    HUC8_Name = NULL
+    HUC10 = NULL
+    HUC12 = NULL
+    HUC12_Name = NULL
+    Result_Status = c("Accepted","Final","Validated","Preliminary","Provisional")
+    crit_codes = FALSE
 
 # Initial STATIONS database pull ---------------------------------------------------------------------------------------------
 
@@ -62,7 +75,7 @@ AWQMS_Data_Cont <-
       station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
       stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
-        dplyr::select(MLocID, StationDes,MonLocType,  EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
+        dplyr::select(MLocID, StationDes, MonLocType,  EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
                HUC12, HUC12_Name, Reachcode, Measure,AU_ID, WaterTypeCode, WaterBodyCode,
                ben_use_code, FishCode, SpawnCode,DO_code,DO_SpawnCode,  BacteriaCode,
                pH_code)
@@ -222,7 +235,9 @@ AWQMS_Data_Cont <-
       if(length(stations) == 0){
 
         AWQMS_data <- AWQMS_data |>
-          dplyr::mutate(EcoRegion3 = NA_character_,
+          dplyr::mutate(StationDes = NA_character_,
+                        MonLocType = NA_character_,
+                        EcoRegion3 = NA_character_,
                         EcoRegion4 = NA_character_,
                         HUC8 = NA_character_,
                         HUC8_Name = NA_character_,

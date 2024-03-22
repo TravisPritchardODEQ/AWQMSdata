@@ -291,7 +291,9 @@ if(!(is.character(HUC8) | is.null(HUC8))){
 
         if(length(stations) == 0){
           AWQMS_data <- AWQMS_data |>
-            dplyr::mutate(EcoRegion3 = NA_character_,
+            dplyr::mutate(StationDes = NA_character_,
+                          MonLocType = NA_character_,
+                          EcoRegion3 = NA_character_,
                           EcoRegion4 = NA_character_,
                           HUC8 = NA_character_,
                           HUC8_Name = NA_character_,
