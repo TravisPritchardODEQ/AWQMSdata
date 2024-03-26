@@ -115,7 +115,7 @@ if(!(is.character(HUC8) | is.null(HUC8))){
       station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
       stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
-        select(MLocID, EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
+        dplyr::select(MLocID, EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
                HUC12, HUC12_Name, Reachcode, Measure,AU_ID, WaterTypeCode, WaterBodyCode,
                ben_use_code, FishCode, SpawnCode,DO_code,DO_SpawnCode,  BacteriaCode,
                pH_code)
