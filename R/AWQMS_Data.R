@@ -46,6 +46,7 @@ AWQMS_Data <-
            HUC10 = NULL,
            HUC12 = NULL,
            HUC12_Name = NULL,
+           EcoRegion3 = NULL,
            crit_codes = FALSE,
            filterQC = TRUE,
            return_query = FALSE) {
@@ -106,7 +107,7 @@ if(!(is.character(HUC8) | is.null(HUC8))){
 
 
    # If information from stations is needed to filter AWQMS, we need to pull from stations first
-    if(!is.null(c(HUC8, HUC8_Name, HUC10, HUC12, HUC12_Name, AU_ID))){
+    if(!is.null(c(HUC8, HUC8_Name, HUC10, HUC12, HUC12_Name, AU_ID, EcoRegion3))){
 
       print("Query stations database...")
       tictoc::tic("Station Database Query")
@@ -154,6 +155,12 @@ if(!(is.character(HUC8) | is.null(HUC8))){
       if(!is.null(AU_ID )){
         stations_filter <- stations_filter |>
           dplyr::filter(AU_ID  %in% {{AU_ID}})
+
+      }
+
+      if(!is.null(EcoRegion3)){
+        stations_filter <- stations_filter |>
+          dplyr::filter(EcoRegion3  %in% {{EcoRegion3}})
 
       }
 

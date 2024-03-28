@@ -1,3 +1,7 @@
+# AWQMSdata 3.0.5
+
+-   add ecoregion to AQWMSdata filtering
+
 # AWQMSdata 3.0.4
 
 -   Bugfix
