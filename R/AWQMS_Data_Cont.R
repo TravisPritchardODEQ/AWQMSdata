@@ -43,20 +43,20 @@ AWQMS_Data_Cont <-
 
 # Testing ---------------------------------------------------------------------------------------------------------
 
-    startdate = NULL
-    enddate = NULL
-    MLocID = NULL
-    AU_ID = NULL
-    Char_Name = NULL
-    SampleMedia = NULL
-    OrganizationID = "CITY_STHELENS/BC(NOSTORETID)"
-    HUC8 = NULL
-    HUC8_Name = NULL
-    HUC10 = NULL
-    HUC12 = NULL
-    HUC12_Name = NULL
-    Result_Status = c("Accepted","Final","Validated","Preliminary","Provisional")
-    crit_codes = FALSE
+    # startdate = NULL
+    # enddate = NULL
+    # MLocID = NULL
+    # AU_ID = NULL
+    # Char_Name = NULL
+    # SampleMedia = NULL
+    # OrganizationID = "CITY_STHELENS/BC(NOSTORETID)"
+    # HUC8 = NULL
+    # HUC8_Name = NULL
+    # HUC10 = NULL
+    # HUC12 = NULL
+    # HUC12_Name = NULL
+    # Result_Status = c("Accepted","Final","Validated","Preliminary","Provisional")
+    # crit_codes = FALSE
 
 # Initial STATIONS database pull ---------------------------------------------------------------------------------------------
 
