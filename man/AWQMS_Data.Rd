@@ -21,6 +21,7 @@ AWQMS_Data(
   HUC10 = NULL,
   HUC12 = NULL,
   HUC12_Name = NULL,
+  EcoRegion3 = NULL,
   crit_codes = FALSE,
   filterQC = TRUE,
   return_query = FALSE

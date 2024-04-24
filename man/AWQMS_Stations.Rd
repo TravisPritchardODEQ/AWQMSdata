@@ -6,14 +6,11 @@
 \usage{
 AWQMS_Stations(
   project = NULL,
+  MonLocType = NULL,
   Char_Name = NULL,
   HUC8 = NULL,
   HUC8_Name = NULL,
-  HUC10 = NULL,
-  HUC12 = NULL,
-  HUC12_Name = NULL,
-  AU_ID = NULL,
-  org = NULL,
+  OrganizationID = NULL,
   crit_codes = FALSE
 )
 }
@@ -26,7 +23,7 @@ AWQMS_Stations(
 
 \item{HUC8_Name}{Optional vector of HUC8 names to be filtered on}
 
-\item{org}{Optional vector of organizations to be filtered on}
+\item{OrganizationID}{Optional vector of organizations to be filtered on}
 
 \item{crit_codes}{If true, include standard codes used in determining criteria}
 }

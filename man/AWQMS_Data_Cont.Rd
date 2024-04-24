@@ -26,7 +26,15 @@ AWQMS_Data_Cont(
 
 \item{enddate}{Optional parameter setting the enddate of the data being fetched. Format 'yyyy-mm-dd'}
 
+\item{MLocID}{Optional vector of stations to be fetched}
+
 \item{AU_ID}{Optional vector of Assessment units to be fetched}
+
+\item{Char_Name}{Optional vector of characteristics to be fetched}
+
+\item{SampleMedia}{Optional vector of sample media to be fetched}
+
+\item{OrganizationID}{optional vector of Organizations to be fetched}
 
 \item{HUC8}{Optional vector of HUC8s to be fetched}
 
@@ -41,14 +49,6 @@ AWQMS_Data_Cont(
 \item{Result_Status}{oprtion vector of result status to be fetched. Set to Result_Status = 'Final' if only data that has passed QAQC is included}
 
 \item{crit_codes}{If true, include standard codes used in determining criteria}
-
-\item{station}{Optional vector of stations to be fetched}
-
-\item{char}{Optional vector of characteristics to be fetched}
-
-\item{media}{Optional vector of sample media to be fetched}
-
-\item{org}{optional vector of Organizations to be fetched}
 }
 \value{
 Dataframe of data from AWQMS
