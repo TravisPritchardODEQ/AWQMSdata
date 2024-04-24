@@ -72,7 +72,7 @@ This package contains the following functions:
 #### Available functions:
 
 | Function Name       | Description                                                                                                                          |
-|--------------------------|----------------------------------------------|
+|---------------------|--------------------------------------------------------------------------------------------------------------------------------------|
 | `AWQMS_Data`        | Retrieve a dataframe of data exported from AWQMS. If crit_codes = TRUE, it will bring in standard criteria codes also                |
 | `AWQMS_Data_Cont`   | Retrieve a dataframe of raw continious data exported from AWQMS. If crit_codes = TRUE, it will bring in standard criteria codes also |
 | `AWQMS_Chars`       | Return a dataframe of available characteristics                                                                                      |
@@ -90,7 +90,7 @@ This package contains the following functions:
 #### Data tables included in package
 
 | Table Name        | Fields                                                                                                  | Description                                                                                                                  |
-|------------------|-------------------------|-----------------------------|
+|-------------------|---------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
 | `Bacteria_crit`   | BacteriaCode <br/> Bacteria_SS_Crit <br/> Bacteria_Geomean_Crit <br/> Bacteria_Percentage_Crit          | OBSOLETE Bacteria Criteria table. Join by BacteriaCode                                                                       |
 | `Chla_crit`       | MonLocType <br/> Chla_Criteria                                                                          | Chlorophyll a criteria table. Join by MonLocType                                                                             |
 | `DO_crit`         | DO_code <br/> DO_30D_crit <br/> DO_7Mi_crit <br/> DO_abs_min_crit <br/> DO_Instant_crit                 | Dissolved Oxygen Criteria Table. Join by DO_code                                                                             |
