@@ -1,3 +1,7 @@
+# AWQMSdata 3.0.7
+
+-   Added AWQMS_Projects() and AWQMS_Stations()
+
 # AWQMSdata 3.0.6
 
 # AWQMSdata 3.0.5
