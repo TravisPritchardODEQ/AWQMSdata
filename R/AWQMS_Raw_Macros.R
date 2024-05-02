@@ -219,17 +219,13 @@ AWQMS_Raw_Macros <-
 
     if (length(project) > 0) {
       AWQMS_data <- AWQMS_data |>
-        dplyr::filter(Project1 %in% project)
+        dplyr::filter(Project %in% project)
     }
 
-    if (length(project) > 0) {
-      AWQMS_data <- AWQMS_data |>
-        dplyr::filter(Project1 %in% project)
-    }
 
     if (length(OrganizationID) > 0) {
       AWQMS_data <- AWQMS_data |>
-        dplyr::filter(OrganizationID %in% {{OrganizationID}} )
+        dplyr::filter(org_id %in% {{OrganizationID}} )
     }
 
     if (length(Char_Name) > 0) {
