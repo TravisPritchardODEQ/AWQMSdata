@@ -47,6 +47,8 @@ AWQMS_Data <-
            HUC12 = NULL,
            HUC12_Name = NULL,
            EcoRegion3 = NULL,
+           last_change_start = NULL,
+           last_change_end = NULL,
            crit_codes = FALSE,
            filterQC = TRUE,
            return_query = FALSE) {
@@ -212,13 +214,21 @@ if(!(is.character(HUC8) | is.null(HUC8))){
         dplyr::filter(SampleStartDate >= startdate)
     }
 
-
-
     # add end date
     if (length(enddate) > 0) {
       AWQMS_data <- AWQMS_data |>
         dplyr::filter(SampleStartDate <= enddate)
     }
+
+    if (length(last_change_start) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        dplyr::filter(res_last_change_date >= last_change_start)
+    }
+    if (length(last_change_end) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        dplyr::filter(res_last_change_date <= last_change_end)
+    }
+
 
     if (length(MLocID ) > 0) {
       AWQMS_data <- AWQMS_data |>

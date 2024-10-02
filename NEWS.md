@@ -1,3 +1,7 @@
+# AWQMSdata 3.1.0
+
+-   Added last_change_start and last_change_end arguments to AWQMSdata(). Allows filtering returned results by date of last change in AWQMS.
+
 # AWQMSdata 3.0.9
 
 # AWQMSdata 3.0.8
