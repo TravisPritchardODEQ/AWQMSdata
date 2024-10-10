@@ -1,4 +1,8 @@
-# AWQMSdata 3.1.0
+# AWQMSdata 3.0.11
+
+-   Added monitoring location type to AWQMSdata filter. use AWQMS_Data(MonLocType = 'XXX')
+
+# AWQMSdata 3.0.10
 
 -   Added last_change_start and last_change_end arguments to AWQMSdata(). Allows filtering returned results by date of last change in AWQMS.
 

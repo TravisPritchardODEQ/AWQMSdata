@@ -33,6 +33,7 @@ AWQMS_Data <-
   function(startdate = '1949-09-15',
            enddate = NULL,
            MLocID  = NULL,
+           MonLocType = NULL,
            AU_ID = NULL,
            project = NULL,
            Char_Name  = NULL,
@@ -233,6 +234,11 @@ if(!(is.character(HUC8) | is.null(HUC8))){
     if (length(MLocID ) > 0) {
       AWQMS_data <- AWQMS_data |>
         dplyr::filter(MLocID %in% {{MLocID}})
+    }
+
+    if (length(MonLocType) > 0) {
+      AWQMS_data <- AWQMS_data |>
+        dplyr::filter(MonLocType %in% {{MonLocType}})
     }
 
 
