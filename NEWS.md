@@ -1,3 +1,7 @@
+# AWQMSdata 3.1.0
+
+-   Fixed bug in Unit_Convert() where unit case didn't match in AWQMS. This function is now case insensitive
+
 # AWQMSdata 3.0.11
 
 -   Added monitoring location type to AWQMSdata filter. use AWQMS_Data(MonLocType = 'XXX')
