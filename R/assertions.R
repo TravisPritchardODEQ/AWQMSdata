@@ -1,7 +1,7 @@
 # Check if AWQMS_SERVER is stored
 assert_AWQMS <- function() { # nolint start
   assertthat::assert_that(Sys.getenv("AWQMS_pass") != "",
-                          msg = "You need to register the AWQMS password using the\n'AWQMS_set_password()' function. See installation document."
+                          msg = "You need to register the AWQMS password using the\n'AWQMSdata::AWQMS_credentials()' function. See installation document."
   )
 }
 
