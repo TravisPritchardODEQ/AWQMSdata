@@ -59,14 +59,15 @@ AWQMS_Data <-
     #testing
     # startdate = '1949-09-15'
     # enddate = NULL
-    # station = c('30143-ORDEQ', '30147-ORDEQ')
+    # MLocID = c('41440-ORDEQ', '41439-ORDEQ', '37108-ORDEQ')
     # AU_ID = NULL
     # project = NULL
-    # char = c('Temperature, water')
+    # Char_Name = c('Temperature, water')
     # stat_base = NULL
     # media = NULL
     # submedia = NULL
     # org = NULL
+    # EcoRegion3 = NULL
     # HUC8 = NULL
     # HUC8_Name = NULL
     # HUC10 = NULL
@@ -118,8 +119,8 @@ if(!(is.character(HUC8) | is.null(HUC8))){
       # connect to stations database
       station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
-      stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
-        dplyr::select(MLocID, EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
+      stations_filter <- dplyr::tbl(station_con, "VW_StationsAllDataAllOrgs") |>
+        dplyr::select(orgid, MLocID, EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
                HUC12, HUC12_Name, Reachcode, Measure,AU_ID, WaterTypeCode, WaterBodyCode,
                ben_use_code, FishCode, SpawnCode,DO_code,DO_SpawnCode,  BacteriaCode,
                pH_code)
@@ -200,90 +201,90 @@ if(!(is.character(HUC8) | is.null(HUC8))){
 
     # Get query Language
 
-    AWQMS_data <- dplyr::tbl(con, 'results_deq_vw')
+    AWQMS_data_import <- dplyr::tbl(con, 'results_deq_vw')
 
     #if HUC filter, filter on resultant mlocs
     if(exists('mlocs_filtered')){
 
-      AWQMS_data <- AWQMS_data |>
+      AWQMS_data_import <- AWQMS_data_import |>
         dplyr::filter(MLocID %in% mlocs_filtered)
     }
 
     # add start date
     if (length(startdate) > 0) {
-      AWQMS_data <- AWQMS_data |>
+      AWQMS_data_import <- AWQMS_data_import |>
         dplyr::filter(SampleStartDate >= startdate)
     }
 
     # add end date
     if (length(enddate) > 0) {
-      AWQMS_data <- AWQMS_data |>
+      AWQMS_data_import <- AWQMS_data_import |>
         dplyr::filter(SampleStartDate <= enddate)
     }
 
     if (length(last_change_start) > 0) {
-      AWQMS_data <- AWQMS_data |>
+      AWQMS_data_import <- AWQMS_data_import |>
         dplyr::filter(res_last_change_date >= last_change_start)
     }
     if (length(last_change_end) > 0) {
-      AWQMS_data <- AWQMS_data |>
+      AWQMS_data_import <- AWQMS_data_import |>
         dplyr::filter(res_last_change_date <= last_change_end)
     }
 
 
     if (length(MLocID ) > 0) {
-      AWQMS_data <- AWQMS_data |>
+      AWQMS_data_import <- AWQMS_data_import |>
         dplyr::filter(MLocID %in% {{MLocID}})
     }
 
     if (length(MonLocType) > 0) {
-      AWQMS_data <- AWQMS_data |>
+      AWQMS_data_import <- AWQMS_data_import |>
         dplyr::filter(MonLocType %in% {{MonLocType}})
     }
 
 
     if (length(project) > 0) {
-      AWQMS_data <- AWQMS_data |>
+      AWQMS_data_import <- AWQMS_data_import |>
         dplyr::filter(Project1 %in% project)
     }
 
     if (length(Char_Name) > 0) {
-      AWQMS_data <- AWQMS_data |>
+      AWQMS_data_import <- AWQMS_data_import |>
         dplyr::filter(Char_Name %in% {{Char_Name}})
     }
 
     if (length(CASNumber) > 0) {
-      AWQMS_data <- AWQMS_data |>
+      AWQMS_data_import <- AWQMS_data_import |>
         dplyr::filter(CASNumber  %in% {{CASNumber}})
     }
 
     if (length(Statistical_Base ) > 0) {
-      AWQMS_data <- AWQMS_data |>
+      AWQMS_data_import <- AWQMS_data_import |>
         dplyr::filter(Statistical_Base  %in% {{Statistical_Base}} )
     }
 
     if (length(SampleMedia  ) > 0) {
-      AWQMS_data <- AWQMS_data |>
+      AWQMS_data_import <- AWQMS_data_import |>
         dplyr::filter(SampleMedia   %in% {{SampleMedia}} )
     }
 
     if (length(SampleSubmedia  ) > 0) {
-      AWQMS_data <- AWQMS_data |>
+      AWQMS_data_import <- AWQMS_data_import |>
         dplyr::filter(SampleSubmedia %in% {{SampleSubmedia}} )
     }
 
     if (length(OrganizationID) > 0) {
-      AWQMS_data <- AWQMS_data |>
+      AWQMS_data_import <- AWQMS_data_import |>
         dplyr::filter(OrganizationID %in% {{OrganizationID}} )
     }
 
     if (filterQC == TRUE) {
-      AWQMS_data <- AWQMS_data |>
+      AWQMS_data_import <- AWQMS_data_import |>
         dplyr::filter(!Activity_Type %like% "Quality Control%")
     }
 
     if(return_query){
-      AWQMS_data <- AWQMS_data |>
+      AWQMS_data_import <- AWQMS_data_import |>
         dplyr::show_query()
 
     } else {
@@ -292,7 +293,7 @@ if(!(is.character(HUC8) | is.null(HUC8))){
 
       print("Query AWQMS database...")
       tictoc::tic("AWQMS database query")
-      AWQMS_data <- AWQMS_data |>
+      AWQMS_data_import <- AWQMS_data_import |>
         dplyr::collect()
       print("Query AWQMS database- Complete")
       tictoc::toc()
@@ -303,17 +304,17 @@ if(!(is.character(HUC8) | is.null(HUC8))){
 
 
       if(exists('stations_filter')){
-        AWQMS_data <- AWQMS_data |>
-          dplyr::left_join(stations_filter, by = 'MLocID' )
+        AWQMS_data_import <- AWQMS_data_import |>
+          dplyr::left_join(stations_filter, by = dplyr::join_by('OrganizationID' == 'orgid', 'MLocID' == 'MLocID'))
 
 
 
       } else {
 
-        stations <- AWQMS_data$MLocID
+        stations <- unique(AWQMS_data_import$MLocID)
 
         if(length(stations) == 0){
-          AWQMS_data <- AWQMS_data |>
+          AWQMS_data_import <- AWQMS_data_import |>
             dplyr::mutate(StationDes = NA_character_,
                           MonLocType = NA_character_,
                           EcoRegion3 = NA_character_,
@@ -348,10 +349,10 @@ if(!(is.character(HUC8) | is.null(HUC8))){
         print("Query stations database...")
         station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
-        stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
-          dplyr::select(MLocID, EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
+        stations_filter <- dplyr::tbl(station_con, "VW_StationsAllDataAllOrgs") |>
+          dplyr::select(orgid, MLocID, EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
                  HUC12, HUC12_Name, Reachcode, Measure,AU_ID, WaterTypeCode, WaterBodyCode,
-                 ben_use_code, FishCode, SpawnCode,DO_code,DO_SpawnCode,  BacteriaCode,
+                 ben_use_code, FishCode, SpawnCode,DO_code,DO_SpawnCode, BacteriaCode,
                  pH_code) |>
           dplyr::filter(MLocID %in% stations) |>
           dplyr::collect()
@@ -359,14 +360,13 @@ if(!(is.character(HUC8) | is.null(HUC8))){
         print("Query stations database- Complete")
         tictoc::toc()
 
-        AWQMS_data <- AWQMS_data |>
-          dplyr::left_join(stations_filter, by = 'MLocID' )
+        AWQMS_data_import <- AWQMS_data_import |>
+          dplyr::left_join(stations_filter, by = dplyr::join_by('OrganizationID' == 'orgid', 'MLocID' == 'MLocID') ) #make this include org also\
 
       }
-
       if(crit_codes == FALSE){
 
-        AWQMS_data <- AWQMS_data |>
+        AWQMS_data_import <- AWQMS_data_import |>
           dplyr::select(-WaterTypeCode, -WaterBodyCode, -ben_use_code, -FishCode,
                  -SpawnCode, -DO_code, -DO_SpawnCode,-BacteriaCode, -pH_code )
       }
@@ -377,7 +377,7 @@ if(!(is.character(HUC8) | is.null(HUC8))){
       # Disconnect
       DBI::dbDisconnect(con)
     }
-    return(AWQMS_data)
+    return(AWQMS_data_import)
 
     }
   }
