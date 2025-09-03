@@ -74,8 +74,8 @@ AWQMS_Data_Cont <-
       # connect to stations database
       station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
-      stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
-        dplyr::select(MLocID, StationDes, Lat_DD,Long_DD,MonLocType,  EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
+      stations_filter <- dplyr::tbl(station_con, "VW_StationsAllDataAllOrgs") |>
+        dplyr::select(orgid, MLocID, StationDes, Lat_DD,Long_DD,MonLocType,  EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
                HUC12, HUC12_Name, Reachcode, Measure,AU_ID, WaterTypeCode, WaterBodyCode,
                ben_use_code, FishCode, SpawnCode,DO_code,DO_SpawnCode,  BacteriaCode,
                pH_code)
@@ -224,7 +224,8 @@ AWQMS_Data_Cont <-
 
     if(exists('stations_filter')){
       AWQMS_data <- AWQMS_data |>
-        dplyr::left_join(stations_filter, by = 'MLocID' )
+        dplyr::left_join(stations_filter,
+                         by = dplyr::join_by('OrganizationID' == 'orgid', 'MLocID' == 'MLocID') )
 
 
 
@@ -270,8 +271,8 @@ AWQMS_Data_Cont <-
       print("Query stations database...")
       station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
-      stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
-        dplyr::select(MLocID,  StationDes, Lat_DD,Long_DD, MonLocType, EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
+      stations_filter <- dplyr::tbl(station_con, "VW_StationsAllDataAllOrgs") |>
+        dplyr::select(orgid, MLocID,  StationDes, Lat_DD,Long_DD, MonLocType, EcoRegion3, EcoRegion4,HUC8, HUC8_Name, HUC10,
                HUC12, HUC12_Name, Reachcode, Measure,AU_ID, WaterTypeCode, WaterBodyCode,
                ben_use_code, FishCode, SpawnCode,DO_code,DO_SpawnCode,  BacteriaCode,
                pH_code) |>
@@ -282,7 +283,8 @@ AWQMS_Data_Cont <-
       tictoc::toc()
 
       AWQMS_data <- AWQMS_data |>
-        dplyr::left_join(stations_filter, by = 'MLocID' )
+        dplyr::left_join(stations_filter,
+                         by = dplyr::join_by('OrganizationID' == 'orgid', 'MLocID' == 'MLocID') )
 
     }
 

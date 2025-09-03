@@ -42,7 +42,7 @@ query_stations <- function(stations_odbc="STATIONS", mlocs=NULL,
                            owrd_basin=NULL, state=c("OR", "ID", "CA", "WA", "NV", "PACIFIC OCEAN")){
 
   # Build base query
-  query <- paste0("Select * from [VWStationsFinal] where STATE in ({state*})")
+  query <- paste0("Select * from [VW_StationsAllDataAllOrgs] where STATE in ({state*})")
 
   if(length(mlocs) > 0){
     query = paste0(query,"\n AND MLocID in ({mlocs*}) " )

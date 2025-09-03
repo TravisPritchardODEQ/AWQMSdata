@@ -30,6 +30,7 @@ AWQMS_Raw_Macros <-
   function(startdate = NULL,
            enddate = NULL,
            MLocID = NULL,
+           GNIS_Name = NULL,
            AU_ID = NULL,
            project = NULL,
            OrganizationID = NULL,
@@ -81,7 +82,7 @@ AWQMS_Raw_Macros <-
 
 
     # If information from stations is needed to filter AWQMS, we need to pull from stations first
-    if(!is.null(c(HUC8, HUC8_Name, HUC10, HUC12, HUC12_Name, AU_ID, ReferenceSite, Wade_Boat))){
+    if(!is.null(c(HUC8, HUC8_Name, HUC10, HUC12, HUC12_Name, AU_ID, GNIS_Name, ReferenceSite, Wade_Boat))){
 
       print("Query stations database...")
       tictoc::tic("Station Database Query")
@@ -89,8 +90,8 @@ AWQMS_Raw_Macros <-
       # connect to stations database
       station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
-      stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
-        dplyr::select(MLocID, EcoRegion3, EcoRegion4, EcoRegion2, HUC8_Name, HUC12_Name, Lat_DD, Long_DD,
+      stations_filter <- dplyr::tbl(station_con, "VW_StationsAllDataAllOrgs") |>
+        dplyr::select(orgid, MLocID, EcoRegion3, EcoRegion4, EcoRegion2, HUC8_Name, HUC12_Name, Lat_DD, Long_DD,
                Reachcode, Measure, ELEV_Ft, GNIS_Name, Conf_Score, QC_Comm, COMID, precip_mm, temp_Cx10,
                Predator_WorE, AU_ID, GNIS_Name,ReferenceSite, Wade_Boat)
 
@@ -274,7 +275,8 @@ AWQMS_Raw_Macros <-
 
     if(exists('stations_filter')){
       AWQMS_data <- AWQMS_data |>
-        dplyr::left_join(stations_filter, by = 'MLocID' )
+        dplyr::left_join(stations_filter,
+                         by = dplyr::join_by('org_id' == 'orgid', 'MLocID' == 'MLocID'))
 
 
 
@@ -286,8 +288,8 @@ AWQMS_Raw_Macros <-
       print("Query stations database...")
       station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
-      stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
-        dplyr::select(MLocID, EcoRegion3, EcoRegion4, EcoRegion2,HUC8_Name, HUC12_Name, Lat_DD, Long_DD,
+      stations_filter <- dplyr::tbl(station_con, "VW_StationsAllDataAllOrgs") |>
+        dplyr::select(orgid, MLocID, EcoRegion3, EcoRegion4, EcoRegion2,HUC8_Name, HUC12_Name, Lat_DD, Long_DD,
                Reachcode, Measure, ELEV_Ft, GNIS_Name, Conf_Score, QC_Comm, COMID, precip_mm, temp_Cx10,
                Predator_WorE, AU_ID, GNIS_Name,ReferenceSite, Wade_Boat)|>
         dplyr::filter(MLocID %in% stations) |>
@@ -297,7 +299,9 @@ AWQMS_Raw_Macros <-
       tictoc::toc()
 
       AWQMS_data <- AWQMS_data |>
-        dplyr::left_join(stations_filter, by = 'MLocID' )
+        dplyr::left_join(stations_filter,
+                         by = dplyr::join_by('org_id' == 'orgid', 'MLocID' == 'MLocID'))
+
 
     }
 

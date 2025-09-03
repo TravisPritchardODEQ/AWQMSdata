@@ -27,16 +27,16 @@ con <- DBI::dbConnect(odbc::odbc(), 'AWQMS-cloud',
 #Get stations with more than 1 org
 
 AWQMS_stations_summary <- dplyr::tbl(con, 'monitoring_locations_vw') |>
-  group_by(mloc_id) |>
-  summarise(num_orgs = n_distinct(org_id)) |>
-  filter(num_orgs > 1) |>
-  collect()
+  dplyr::group_by(mloc_id) |>
+  dplyr::summarise(num_orgs = dplyr::n_distinct(org_id)) |>
+  dplyr::filter(num_orgs > 1) |>
+  dplyr::collect()
 
 stations <- unique(AWQMS_stations_summary$mloc_id)
 
 AWQMS_station <- dplyr::tbl(con, 'monitoring_locations_vw') |>
-  filter(mloc_id %in% stations) |>
-  collect()
+  dplyr::filter(mloc_id %in% stations) |>
+  dplyr::collect()
 
 
 DBI::dbDisconnect(con)
@@ -66,14 +66,14 @@ missing_station <- AWQMS_station |>
 
 
 Oregon_multiorg_sites <- missing_station |>
-  filter(str_detect(mloc_id, '-ORDEQ')) |>
-  transmute(MLocID = mloc_id,
+  dplyr::filter(stringr::str_detect(mloc_id, '-ORDEQ')) |>
+  dplyr::transmute(MLocID = mloc_id,
             orgid = org_id)
 
 
 nonoregon_multiorg_sites <- missing_station |>
-  filter(str_detect(mloc_id, '-ORDEQ', negate = TRUE)) |>
-  transmute(MLocID = mloc_id,
+  dplyr::filter(stringr::str_detect(mloc_id, '-ORDEQ', negate = TRUE)) |>
+  dplyr::transmute(MLocID = mloc_id,
             station_name = mloc_name,
             orgid = org_id)
 

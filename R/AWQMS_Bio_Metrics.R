@@ -51,8 +51,9 @@ AWQMS_Bio_Metrics <-
       # connect to stations database
       station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
-      stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
-        dplyr::select(MLocID, EcoRegion2, HUC12_Name,AU_ID, GNIS_Name,ReferenceSite)
+      stations_filter <- dplyr::tbl(station_con, "VW_StationsAllDataAllOrgs") |>
+        dplyr::select(orgid, MLocID, EcoRegion2, HUC12_Name,AU_ID, GNIS_Name,ReferenceSite)
+
 
       # Add appropriate filters
 
@@ -166,7 +167,8 @@ AWQMS_Bio_Metrics <-
 
       if(exists('stations_filter')){
         AWQMS_data <- AWQMS_data |>
-          dplyr::left_join(stations_filter, by = 'MLocID' )
+          dplyr::left_join(stations_filter,
+                           by = dplyr::join_by('org_id' == 'orgid', 'MLocID' == 'MLocID'))
 
 
 
@@ -178,8 +180,8 @@ AWQMS_Bio_Metrics <-
         print("Query stations database...")
         station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
-        stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
-          dplyr::select(MLocID, EcoRegion2,HUC8_Name, HUC12_Name,AU_ID, GNIS_Name,ReferenceSite)|>
+        stations_filter <- dplyr::tbl(station_con, "VW_StationsAllDataAllOrgs") |>
+          dplyr::select(orgid, MLocID, EcoRegion2, HUC12_Name,AU_ID, GNIS_Name,ReferenceSite)|>
           dplyr::filter(MLocID %in% stations) |>
           dplyr::collect()
 
@@ -187,7 +189,8 @@ AWQMS_Bio_Metrics <-
         tictoc::toc()
 
         AWQMS_data <- AWQMS_data |>
-          dplyr::left_join(stations_filter, by = 'MLocID' )
+          dplyr::left_join(stations_filter,
+                           by = dplyr::join_by('org_id' == 'orgid', 'MLocID' == 'MLocID'))
 
       }
 

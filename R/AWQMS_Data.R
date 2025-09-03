@@ -305,7 +305,8 @@ if(!(is.character(HUC8) | is.null(HUC8))){
 
       if(exists('stations_filter')){
         AWQMS_data_import <- AWQMS_data_import |>
-          dplyr::left_join(stations_filter, by = dplyr::join_by('OrganizationID' == 'orgid', 'MLocID' == 'MLocID'))
+          dplyr::left_join(stations_filter,
+                           by = dplyr::join_by('OrganizationID' == 'orgid', 'MLocID' == 'MLocID'))
 
 
 
@@ -361,7 +362,8 @@ if(!(is.character(HUC8) | is.null(HUC8))){
         tictoc::toc()
 
         AWQMS_data_import <- AWQMS_data_import |>
-          dplyr::left_join(stations_filter, by = dplyr::join_by('OrganizationID' == 'orgid', 'MLocID' == 'MLocID') ) #make this include org also\
+          dplyr::left_join(stations_filter,
+                           by = dplyr::join_by('OrganizationID' == 'orgid', 'MLocID' == 'MLocID') ) #make this include org also\
 
       }
       if(crit_codes == FALSE){
