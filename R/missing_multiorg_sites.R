@@ -67,16 +67,15 @@ missing_station <- AWQMS_station |>
 
 Oregon_multiorg_sites <- missing_station |>
   filter(str_detect(mloc_id, '-ORDEQ')) |>
-  transmute(orgid = org_id,
-            MLocID = mloc_id)
+  transmute(MLocID = mloc_id,
+            orgid = org_id)
 
 
 nonoregon_multiorg_sites <- missing_station |>
   filter(str_detect(mloc_id, '-ORDEQ', negate = TRUE)) |>
-  transmute(orgid = org_id,
-            MLocID = mloc_id,
+  transmute(MLocID = mloc_id,
             station_name = mloc_name,
-            station_description = mloc_desc)
+            orgid = org_id)
 
 print_list <- list('oregon_multiorg_sites' = Oregon_multiorg_sites,
                    'nonoregon_multiorg_sites' = nonoregon_multiorg_sites)
