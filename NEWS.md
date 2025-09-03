@@ -1,3 +1,7 @@
+# AWQMSdata 3.2.0
+
+-   Changed source for stations info to use the VW_StationsAllDataAllOrgs view in the STATIONS database as opposed to VWStationsFinal. This corrects a bug that has the potential to assign the wrong station info to monitoring results.
+
 # AWQMSdata 3.1.0
 
 -   Fixed bug in Unit_Convert() where unit case didn't match in AWQMS. This function is now case insensitive

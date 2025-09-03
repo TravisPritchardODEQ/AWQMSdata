@@ -43,7 +43,7 @@ Mlocs_crit <- function(mlocs = NULL,
       ,[pH_code]
       ,[DO_SpawnCode]
 
-    FROM VWStationsFinal
+    FROM VW_StationsAllDataAllOrgs
     WHERE MLocID in ({mlocs*}) "
 
 

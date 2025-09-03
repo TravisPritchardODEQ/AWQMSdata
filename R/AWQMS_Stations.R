@@ -35,8 +35,8 @@ AWQMS_Stations <- function(project = NULL, MonLocType = NULL, Char_Name = NULL, 
     # connect to stations database
     station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
-    stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
-      dplyr::select(MLocID,StationDes,GNIS_Name,AU_ID, Lat_DD,Long_DD, MonLocType,EcoRegion3,
+    stations_filter <- dplyr::tbl(station_con, "VW_StationsAllDataAllOrgs") |>
+      dplyr::select(orgid, MLocID,StationDes,GNIS_Name,AU_ID, Lat_DD,Long_DD, MonLocType,EcoRegion3,
                     EcoRegion4,HUC8,HUC8_Name,HUC10,HUC12,HUC12_Name,
                     Reachcode,Measure,COMID, OWRD_Basin, FishCode, SpawnCode,
                     WaterTypeCode, WaterBodyCode, BacteriaCode, DO_code,DO_SpawnCode, pH_code, ben_use_code  )
@@ -135,7 +135,8 @@ AWQMS_Stations <- function(project = NULL, MonLocType = NULL, Char_Name = NULL, 
 
 
      AWQMS_data <- AWQMS_data |>
-      dplyr::left_join(stations_filter, by = 'MLocID' )
+      dplyr::left_join(stations_filter,
+                       by = dplyr::join_by('org_id' == 'orgid', 'MLocID' == 'MLocID'))
 
   } else {
 
@@ -177,8 +178,8 @@ AWQMS_Stations <- function(project = NULL, MonLocType = NULL, Char_Name = NULL, 
       print("Query stations database...")
       station_con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
 
-      stations_filter <- dplyr::tbl(station_con, "VWStationsFinal") |>
-        dplyr::select(MLocID,StationDes,GNIS_Name,AU_ID, Lat_DD,Long_DD, MonLocType,EcoRegion3,
+      stations_filter <- dplyr::tbl(station_con, "VW_StationsAllDataAllOrgs") |>
+        dplyr::select(orgid, MLocID,StationDes,GNIS_Name,AU_ID, Lat_DD,Long_DD, MonLocType,EcoRegion3,
                       EcoRegion4,HUC8,HUC8_Name,HUC10,HUC12,HUC12_Name,
                       Reachcode,Measure,COMID, OWRD_Basin, FishCode, SpawnCode,
                       WaterTypeCode, WaterBodyCode, BacteriaCode, DO_code,DO_SpawnCode, pH_code, ben_use_code ) |>
@@ -189,7 +190,8 @@ AWQMS_Stations <- function(project = NULL, MonLocType = NULL, Char_Name = NULL, 
       tictoc::toc()
 
       AWQMS_data <- AWQMS_data |>
-        dplyr::left_join(stations_filter, by = 'MLocID' )
+        dplyr::left_join(stations_filter,
+                         by = dplyr::join_by('org_id' == 'orgid', 'MLocID' == 'MLocID'))
 
     }
 
