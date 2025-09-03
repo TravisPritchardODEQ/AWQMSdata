@@ -8,6 +8,7 @@ AWQMS_Data(
   startdate = "1949-09-15",
   enddate = NULL,
   MLocID = NULL,
+  MonLocType = NULL,
   AU_ID = NULL,
   project = NULL,
   Char_Name = NULL,
@@ -22,6 +23,8 @@ AWQMS_Data(
   HUC12 = NULL,
   HUC12_Name = NULL,
   EcoRegion3 = NULL,
+  last_change_start = NULL,
+  last_change_end = NULL,
   crit_codes = FALSE,
   filterQC = TRUE,
   return_query = FALSE
