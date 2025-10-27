@@ -1,5 +1,9 @@
 # AWQMSdata 3.3.0
 
+-   Adding failure point to AWQMSdata() when initial stations database search finds no stations. Function will now error with message, as opposed to cryptic sql nonsense.
+
+-   Adding chr_uid to AWQMSdata() function filters
+
 # AWQMSdata 3.2.0
 
 -   Changed source for stations info to use the VW_StationsAllDataAllOrgs view in the STATIONS database as opposed to VWStationsFinal. This corrects a bug that has the potential to assign the wrong station info to monitoring results.
