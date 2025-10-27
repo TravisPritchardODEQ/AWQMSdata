@@ -177,7 +177,14 @@ if(!(is.character(HUC8) | is.null(HUC8))){
 
       DBI::dbDisconnect(station_con)
 
+
+
       print("Query stations database- Complete")
+
+      if(length(mlocs_filtered) == 0){
+
+        stop("No identified monitoring locations exist with the given arugments")
+      }
       tictoc::toc()
 
     }
