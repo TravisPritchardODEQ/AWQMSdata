@@ -38,6 +38,7 @@ AWQMS_Data <-
            project = NULL,
            Char_Name  = NULL,
            CASNumber = NULL,
+           chr_uid = NULL,
            Statistical_Base = NULL,
            SampleMedia = NULL,
            SampleSubmedia = NULL,
@@ -264,6 +265,12 @@ if(!(is.character(HUC8) | is.null(HUC8))){
       AWQMS_data_import <- AWQMS_data_import |>
         dplyr::filter(CASNumber  %in% {{CASNumber}})
     }
+
+    if (length(chr_uid) > 0) {
+      AWQMS_data_import <- AWQMS_data_import |>
+        dplyr::filter(chr_uid  %in% {{chr_uid}})
+    }
+
 
     if (length(Statistical_Base ) > 0) {
       AWQMS_data_import <- AWQMS_data_import |>
