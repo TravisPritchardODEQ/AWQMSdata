@@ -1,3 +1,7 @@
+# AWQMSdata 3.4.0
+
+-   Added CASNumber to AWQMS_Chars() output
+
 # AWQMSdata 3.3.0
 
 -   Adding failure point to AWQMSdata() when initial stations database search finds no stations. Function will now error with message, as opposed to cryptic sql nonsense.

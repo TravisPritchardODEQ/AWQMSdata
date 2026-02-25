@@ -39,7 +39,7 @@ AWQMS_Chars <- function(project = NULL, MLocID = NULL) {
 
 
   AWQMS_data <- AWQMS_data |>
-    dplyr::select(Char_Name) |>
+    dplyr::select(Char_Name, CASNumber) |>
     dplyr::distinct() |>
     dplyr::collect()
 
